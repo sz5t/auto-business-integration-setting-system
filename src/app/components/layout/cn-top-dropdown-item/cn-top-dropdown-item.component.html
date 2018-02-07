@@ -1,0 +1,27 @@
+<a *ngIf="dropDownType==='notification'" href="javascript:;">
+  <span class="time">现在</span>
+  <span class="details">
+      <span class="label label-sm label-icon label-success">
+        <i class="fa fa-plus"></i>
+      </span> 您右新的消息需要处理. </span>
+</a>
+<a *ngIf="dropDownType==='inbox'" href="#">
+  <span class="photo">
+    <img src="../assets/layouts/layout3/img/avatar2.jpg" class="img-circle" alt=""></span>
+  <span class="subject">
+    <span class="from"> 王经理 </span>
+    <span class="time"> 现在 </span>
+  </span>
+  <span class="message"> 申请已经通过请知晓 </span>
+</a>
+<a *ngIf="dropDownType==='tasks'" href="javascript:;">
+  <span class="task">
+    <span class="desc">总项目进度 </span>
+    <span class="percent">30%</span>
+  </span>
+  <span class="progress">
+    <span style="width: 40%;" class="progress-bar progress-bar-success" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
+      <span class="sr-only">已完成 40%</span>
+    </span>
+  </span>
+</a>

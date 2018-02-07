@@ -1,0 +1,146 @@
+[
+  {
+    "icon": "icon-home",
+    "title": "系统管理",
+    "type": "nav-item",
+    "active": true,
+    "sub": [
+      {
+        "name": "user",
+        "icon": "icon-bar-chart",
+        "title": "用户管理",
+        "description": "用户管理",
+        "display": true,
+        "router": "application-template/user"
+      },
+      {
+        "name": "org",
+        "icon": "icon-bar-chart",
+        "title": "组织机构管理",
+        "description": "组织机构管理",
+        "display": true,
+        "router": "application-template/org"
+      },
+      {
+        "name": "orgUser",
+        "icon": "icon-bar-chart",
+        "title": "组织机构用户管理",
+        "description": "组织机构用户管理",
+        "display": true,
+        "router": "application-template/orgUser"
+      }
+    ]
+  },
+  {
+    "icon": "icon-puzzle",
+    "title": "统计分析",
+    "type": "nav-item",
+    "active": false,
+    "sub": [
+      {
+        "name": "qualityQuestionChart",
+        "icon": "fa fa-plus",
+        "title": "质量问题统计",
+        "description": "质量问题统计",
+        "display": true,
+        "router": "application-template/qualityQuestionChart"
+      },
+      {
+        "name": "workOrderDashbroad",
+        "icon": "fa fa-cogs",
+        "title": "派工单进度看板",
+        "description": "派工单进度看板",
+        "display": true,
+        "router": "application-template/workOrderDashbroad"
+      },
+      {
+        "name": "manufactureProcess",
+        "icon": "icon-settings",
+        "title": "产品进度看板",
+        "description": "产品进度看板",
+        "display": true,
+        "router": "application-template/manufactureProcess"
+      }
+    ]
+  },
+  {
+    "icon": "icon-puzzle",
+    "title": "车间作业管理",
+    "type": "nav-item",
+    "active": false,
+    "sub": [
+      {
+        "name": "workOrder",
+        "icon": "fa fa-plus",
+        "title": "派工单",
+        "display": true,
+        "router": "application-template/workOrder"
+      },
+      {
+        "name": "qualityFeedback",
+        "icon": "fa fa-cogs",
+        "title": "质量问题反馈",
+        "display": true,
+        "router": "application-template/qualityFeedback"
+      },
+      {
+        "name": "qualityCheck",
+        "icon": "fa fa-cogs",
+        "title": "质量检验",
+        "display": true,
+        "router": "application-template/qualityCheck"
+      }
+    ]
+  },
+  {
+    "icon": "icon-puzzle",
+    "title": "生产任务管理",
+    "type": "nav-item",
+    "active": false,
+    "sub": [
+      {
+        "name": "workTask",
+        "icon": "fa fa-plus",
+        "title": "生产任务通知书",
+        "display": true,
+        "router": "application-template"
+      },
+      {
+        "name": "workPlan",
+        "icon": "fa fa-cogs",
+        "title": "车间生产计划",
+        "display": true,
+        "router": "application-template"
+      }
+    ]
+  },
+  {
+    "icon": "icon-puzzle",
+    "title": "基础数据维护",
+    "type": "nav-item",
+    "active": false,
+    "sub": [
+      {
+        "name": "unit",
+        "icon": "fa fa-plus",
+        "title": "计量单位",
+        "display": true,
+        "router": "application-template/unit"
+      },
+      {
+        "name": "dataDictionary",
+        "icon": "fa fa-cogs",
+        "title": "数据字典",
+        "display": true,
+        "router": "application-template"
+      },
+      {
+        "name": "questionType",
+        "icon": "fa fa-cogs",
+        "title": "问题类型",
+        "display": true,
+        "router": "application-template/"
+      }
+    ]
+  }
+]

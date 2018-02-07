@@ -1,0 +1,115 @@
+<div class=" login">
+  <!-- BEGIN LOGO -->
+  <div class="logo">
+    <a href="#">
+      <h3><strong>SINO-FORCE</strong></h3>
+      <!-- <img src="/assets/pages/img/logo-big-white.png" style="height: 17px;" alt="" /> -->
+    </a>
+  </div>
+  <!-- END LOGO -->
+  <!-- BEGIN LOGIN -->
+  <div class="content">
+    <form novalidate [formGroup]="user" (ngSubmit)="getOnlineUser()" class="login-form">
+      <div class="form-title">
+        <span class="form-title">欢迎您，</span>
+        <span class="form-subtitle">请在这里登录...</span>
+      </div>
+
+      <div class="form-group">
+        <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+        <label class="control-label visible-ie8 visible-ie9">用户名</label>
+        <input class="form-control form-control-solid placeholder-no-fix"
+               type="text" autocomplete="off" placeholder="用户名"
+               formControlName="userName"
+        />
+      </div>
+      <div class="form-group">
+        <label class="control-label visible-ie8 visible-ie9">密码</label>
+        <input class="form-control form-control-solid placeholder-no-fix"
+               type="password" autocomplete="off" placeholder="密码"
+               formControlName="userPassword"
+        />
+      </div>
+      <div class="form-group">
+        <label class="control-label visible-ie8 visible-ie9">验证码</label>
+        <input class="form-control input-inline form-control-solid placeholder-no-fix"
+               type="text" placeholder="验证码"
+               formControlName="validCode"
+        />
+        <img (click)="getValidCode()" width="200" height="40" class="form-control input-inline" [src]="validCode">
+      </div>
+      <div class="form-actions">
+        <div class="pull-left">
+          <label class="rememberme mt-checkbox mt-checkbox-outline">
+            <input type="checkbox" name="remember" value="1"/> 记住我
+            <span></span>
+          </label>
+        </div>
+        <div class="pull-right forget-password-block">
+          <a href="javascript:void(0);" id="forget-password" class="forget-password">忘记密码?</a>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button [disabled]="user.invalid" type="submit" class="btn red btn-block uppercase">登录</button>
+      </div>
+      <div class="alert-danger" style="margin-bottom:10px ;">
+        <div
+          *ngIf="user.get('userName').hasError('required') && (user.get('userName').touched || user.get('userName').dirty) && !user.get('userName') .valid"
+          class="error validerror has-error help-block-error">* 请填写用户名</div>
+        <div
+          *ngIf="user.get('userPassword').hasError('required') && (user.get('userPassword').touched || user.get('userPassword').dirty) && !user.get('userPassword') .valid"
+          class="error validerror has-error help-block-error">* 请填写密码</div>
+        <div
+          *ngIf="user.get('validCode').hasError('required') && (user.get('validCode').touched || user.get('validCode').dirty) && !user.get('validCode') .valid"
+          class="error validerror has-error help-block-error">* 请填写验证码</div>
+        <div *ngIf="errorMessage" class="error validerror has-error help-block-error">
+          {{errorMessage}}
+        </div>
+      </div>
+      <!--<div class="login-options">
+        <h4 class="pull-left">或者使用以下方式登录</h4>
+        <ul class="social-icons pull-right">
+          <li>
+            <a class="social-icon-color facebook" data-original-title="facebook" href="javascript:;"></a>
+          </li>
+          <li>
+            <a class="social-icon-color twitter" data-original-title="Twitter" href="javascript:;"></a>
+          </li>
+          <li>
+            <a class="social-icon-color googleplus" data-original-title="Goole Plus" href="javascript:;"></a>
+          </li>
+          <li>
+            <a class="social-icon-color linkedin" data-original-title="Linkedin" href="javascript:;"></a>
+          </li>
+        </ul>
+      </div>-->
+      <!-- <div class="create-account">
+         <p>
+           <a href="javascript:;" class="btn-primary btn" id="register-btn">Create an account</a>
+         </p>
+       </div>-->
+    </form>
+    <form [formGroup]="entryForm" class="register-form">
+      <div class="form-title">
+        <span class="form-title">登录确认</span>
+        <p class="hint"> 请选择您所要登录到的项目: </p>
+      </div>
+      <div class="form-group">
+        <select title="" formControlName="projectName" name="projectName"
+                class="bootstrap-select bs-select form-control" *ngFor="let org of orgList">
+          <optgroup label="{{org.name}}">
+            <option *ngFor="let proj of org.value" value="{{proj.key}}">
+              {{proj.value}}
+            </option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="form-actions">
+        <button type="button" (click)="backLogin()" class="btn btn-default">返回登录</button>
+        <button type="submit" (click)="entryProject()" class="btn green-meadow pull-right">登录所选项目</button>
+      </div>
+    </form>
+
+  </div>
+  <div class="copyright hide"></div>
+</div>

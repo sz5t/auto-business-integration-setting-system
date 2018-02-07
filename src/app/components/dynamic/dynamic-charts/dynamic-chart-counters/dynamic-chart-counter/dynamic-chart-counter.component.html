@@ -1,0 +1,29 @@
+<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+  <div class="dashboard-stat2 ">
+    <div class="display">
+      <div class="number">
+        <h3 class="{{componentConfig.fontColor}}">
+          <span id="{{_GUID}}" data-counter="counterup">{{componentConfig.total}}</span>
+          <small class="{{componentConfig.fontColor}}">{{componentConfig.unit}}</small>
+        </h3>
+        <small>{{componentConfig.title}}</small>
+      </div>
+      <div class="icon">
+        <i class="{{componentConfig.icon}}"></i>
+      </div>
+    </div>
+    <div class="progress-info">
+      <div class="progress">
+                                      <span [ngStyle]="{width:componentConfig.percent}"
+                                            class="progress-bar progress-bar-success {{componentConfig.progressColor}}">
+                                          <span class="sr-only">{{componentConfig.percent}} progress</span>
+                                      </span>
+      </div>
+      <div class="status">
+        <div class="status-title"> {{componentConfig.subTitle}}</div>
+        <div class="status-number"> {{componentConfig.percent}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+

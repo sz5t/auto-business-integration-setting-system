@@ -1,0 +1,28 @@
+<div class="form-group {{config.layout}}"
+     [ngClass]="{'has-error':  ((_control.touched || _control.dirty) && !_control.valid)}"
+     [formGroup]="group"
+>
+  <label class="col-md-3 control-label">{{config.label}}</label>
+  <div class="col-md-9">
+    <div class="input-group date form_datetime" date-date-format="yyyy-mm-dd hh:mm:ss">
+      <input
+        type="text"
+        value=""
+        readonly
+        class="form-control"
+        placeholder="{{config.placeholder}}"
+      />
+      <input type="hidden" id="{{_GUID}}" formControlName="{{config.name}}"/><br/>
+      <!--<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>-->
+      <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+    </div>
+    <span class="{{config.helpClass}}"
+          *ngIf="config.helpText">
+      {{config.helpText}}
+    </span>
+    <span class="help-block help-block-error"
+          *ngIf="_control.errors?.required && (_control.touched || _control.dirty) && !_control.valid">
+      请输入{{config.label}}
+    </span>
+  </div>
+</div>

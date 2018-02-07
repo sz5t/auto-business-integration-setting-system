@@ -1,0 +1,31 @@
+
+  <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+
+    <i *ngIf="cnDropdownImg" class="{{cnDropdownImg}}"></i>
+    <span *ngIf="cnNotificationNum" class="badge badge-default">{{cnNotificationNum}}</span>
+
+    <img *ngIf="cnDropdownPhoto" alt="" class="img-circle" src="{{cnDropdownPhoto}}" />
+    <span *ngIf="cnDropdownUserName" class="username username-hide-on-mobile"> {{cnDropdownUserName}} </span>
+    <i *ngIf="cnDropdownUserName" class="fa fa-angle-down"></i>
+
+  </a>
+  <ul class="dropdown-menu extended">
+    <li class="external">
+      <h3>当前
+        <span class="bold">
+          {{cnNotificationNum}} {{cnNotificationState}}</span>
+        {{cnDropdownName}}
+      </h3>
+      <a href="{{cnNotificationPath}}">查看</a>
+    </li>
+    <li>
+      <ul class="dropdown-menu-list scroller" style="height: auto;" data-handle-color="#637283">
+        <li cn-top-dropdown-item [dropDownType]="_dropdownType"></li>
+        <li cn-top-dropdown-item [dropDownType]="_dropdownType"></li>
+        <li cn-top-dropdown-item [dropDownType]="_dropdownType"></li>
+        <li cn-top-dropdown-item [dropDownType]="_dropdownType"></li>
+        <li cn-top-dropdown-item [dropDownType]="_dropdownType"></li>
+      </ul>
+    </li>
+  </ul>
+

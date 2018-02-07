@@ -1,0 +1,14 @@
+<div *ngIf="portletJson.portlet" class="portlet light bordered ">
+  <div *ngIf="portletJson.portlet.portlettitle" class="portlet-title">
+      <div class="caption">
+          <i *ngIf="portletJson.portlet.portlettitle.iconclass" class="{{portletJson.portlet.portlettitle.iconclass}}"></i>
+          <span *ngIf="portletJson.portlet.portlettitle.captiontitle" class="caption-subject bold uppercase"> {{portletJson.portlet.portlettitle.captiontitle}}</span>
+      </div>
+
+  </div>
+  <div #portlet class="portlet-body {{portletJson.portletkey}}">
+    <div  class="portlet_context {{portletJson.portletkey}}" style="height:300px;">
+    </div>
+  </div>
+</div>
+<div  cn-contextmenu [menuItem]="portletJson.menuList" [parentContext]="portlet"></div>

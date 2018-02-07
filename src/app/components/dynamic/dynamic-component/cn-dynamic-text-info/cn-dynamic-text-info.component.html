@@ -1,0 +1,18 @@
+<cn-dynamic-forms *ngIf="formConfig"
+  [componentConfig]="formConfig"
+  (submit)="reload($event)"
+></cn-dynamic-forms>
+<!--
+<div class="note {{_noteType}}">
+  <div class="note note-info">
+    <h3>{{_title}}</h3>
+  </div>
+  <div class="well">
+    <h4>{{_text}}</h4>
+    <pre [innerHTML]="_detail | safeHtml"></pre>
+  </div>
+
+</div>-->
+<div class="row">
+  <div class="col-md-12" [innerHTML]="_text | safeHtml"></div>
+</div>

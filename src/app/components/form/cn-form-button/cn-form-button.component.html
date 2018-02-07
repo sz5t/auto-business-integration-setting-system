@@ -1,0 +1,14 @@
+<div class="form-actions" [formGroup] = "group">
+  <div class="row">
+    <div class="col-md-offset-3 col-md-9">
+      <div class="mt-checkbox-inline">
+        <label class="mt-checkbox mt-checkbox-outline">
+          <input id="saveAndGo" value="false"
+            type="checkbox"/>保存并继续<span></span>
+        </label>
+        <button name="submit" [disabled]="config.disabled" id="submit" type="submit" class="btn btn-primary">保存</button>
+        <button type="reset" class="btn default">取消</button>
+      </div>
+    </div>
+  </div>
+</div>

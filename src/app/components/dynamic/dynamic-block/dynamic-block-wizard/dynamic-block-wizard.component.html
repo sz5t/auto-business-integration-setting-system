@@ -1,0 +1,47 @@
+<div class="portlet light bordered" cnDynamicBlockWizard [options]="options">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class=" icon-layers font-red"></i>
+      <i class="{{dynamicBlockField.titleIcon}} {{dynamicBlockField.titleColor}}"></i>
+      <span class="caption-subject {{dynamicBlockField.titleColor}} bold uppercase">{{dynamicBlockField.title}}</span>
+    </div>
+  </div>
+  <div class="portlet-body form">
+    <div class="form-wizard">
+      <ul class="nav nav-pills nav-justified steps">
+        <li *ngFor="let step of steps">
+          <a href="#{{step.id}}" data-toggle="tab" class="step">
+            <span class="number"> {{step.order}} </span>
+            <span class="desc"><i class="fa fa-check"></i> {{step.title}} </span>
+          </a>
+        </li>
+      </ul>
+      <div id="bar" class="progress progress-striped" role="progressbar">
+        <div class="progress-bar progress-bar-success"></div>
+      </div>
+      <div class="tab-content">
+        <div class="alert alert-danger display-none">
+          <button class="close" data-dismiss="alert"></button>
+          You have some form errors. Please check below.
+        </div>
+        <div class="alert alert-success display-none">
+          <button class="close" data-dismiss="alert"></button>
+          Your form validation is successful!
+        </div>
+        <div *ngFor="let viewCfg of viewCfgs" class="tab-pane fade {{viewCfg.active}}" id="{{viewCfg.id}}">
+          <ng-container cnDynamicComponent [componentConfig]="viewCfg" [componentCaption]="dynamicBlockField"
+          ></ng-container>
+        </div>
+        <div class="alert alert-success row">
+          <div class="col-md-offset-4 col-md-2">
+            <button class="btn btn-success button-previous pull-right">上一步</button>
+          </div>
+          <div class="col-md-6">
+            <button class="btn btn-warning button-next">下一步</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

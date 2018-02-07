@@ -1,0 +1,66 @@
+<ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
+    <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+    <li class="sidebar-toggler-wrapper hide">
+      <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+      <div class="sidebar-toggler">
+        <span></span>
+      </div>
+      <!-- END SIDEBAR TOGGLER BUTTON -->
+    </li>
+    <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
+    <li *ngIf="isShowSearch" class="sidebar-search-wrapper">
+      <!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
+      <!-- DOC: Apply "sidebar-search-bordered" class the below search form to have bordered search box -->
+      <!-- DOC: Apply "sidebar-search-bordered sidebar-search-solid" class the below search form to have bordered & solid search box -->
+      <form class="sidebar-search  sidebar-search-bordered" action="page_general_search_3.html" method="POST">
+        <a href="javascript:;" class="remove">
+          <i class="icon-close"></i>
+        </a>
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search...">
+          <span class="input-group-btn">
+                                        <a href="javascript:;" class="btn submit">
+                                            <i class="icon-magnifier"></i>
+                                        </a>
+                                    </span>
+        </div>
+      </form>
+      <!-- END RESPONSIVE QUICK SEARCH FORM -->
+    </li>
+
+    <li *ngFor="let m of menu" class="{{m.type}}" routerLinkActive="active">
+    <a *ngIf="m.type==='nav-item'" href="javascript:;" class="nav-link nav-toggle">
+      <i class="{{m.icon}}"></i>
+      <span class="title">{{m.title}}</span>
+      <span class="selected"></span>
+      <span class="arrow"></span>
+    </a>
+    <span *ngIf="m.type==='heading'">{{m.title}}</span>
+    <ul *ngIf="m.sub && m.sub.length > 0" class="sub-menu">
+      <li *ngFor="let s of m.sub" class="nav-item" routerLinkActive="active">
+        <a *ngIf="s.display == true && s.sub.length == 0  " [routerLink]="[{outlets:{primary:s.router,breadcrumb:'breadcrumb/'+s.name}}]"
+           class="nav-link ">
+          <i class="{{s.icon}}"></i>
+          <span class="title">{{s.title}}</span>
+        </a>
+        <a *ngIf="s.display == true && s.sub.length > 0 "
+           class="nav-link nav-toggle ">
+          <i class="{{s.icon}}"></i>
+          <span class="title">{{s.title}}</span>
+
+        </a>
+        <ul *ngIf="s.sub && s.sub.length > 0" class="sub-menu" >
+          <li *ngFor="let t of s.sub" class="nav-item" routerLinkActive="active">
+            <a *ngIf="t.display == true" [routerLink]="[{outlets:{primary:t.router,breadcrumb:'breadcrumb/'+t.name}}]"
+               class="nav-link ">
+              <i class="{{t.icon}}"></i>
+              <span class="title">{{t.title}}</span>
+            </a>
+
+          </li>
+        </ul>
+
+      </li>
+    </ul>
+  </li>
+  </ul>

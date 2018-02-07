@@ -1,0 +1,98 @@
+[
+  {
+    "icon": "icon-home",
+    "title": "组件示例",
+    "type": "nav-item",
+    "active": true,
+    "sub": [
+      {
+        "name": "dashbroad",
+        "icon": "icon-bar-chart",
+        "title": "看板",
+        "description": "综合统计",
+        "router": "dash-broad"
+      },
+      {
+        "name": "gridDemo",
+        "icon": "icon-bar-chart",
+        "title": "数据表格",
+        "description": "数据表格组件",
+        "router": "grid-demo"
+      },
+      {
+        "name": "asynTreeDemo",
+        "icon": "icon-bar-chart",
+        "title": "动态树",
+        "description": "动态树组件",
+        "router": "tree-demo"
+      },
+      {
+        "name": "tabsDemo",
+        "icon": "icon-bar-chart",
+        "title": "标签",
+        "description": "标签页组件",
+        "router": "tabs-demo"
+      },
+      {
+        "name": "timeLineDemo",
+        "icon": "icon-bar-chart",
+        "title": "时间线",
+        "description": "时间线组件",
+        "router": "timeline-demo"
+      },
+      {
+        "name": "formGridDemo",
+        "icon": "icon-bulb",
+        "title": "表单 + 表格",
+        "router": "form-demo",
+        "description": "展示【单表 + 表格】"
+      }
+    ]
+  },
+  {
+    "icon": "icon-puzzle",
+    "title": "系统管理",
+    "type": "nav-item",
+    "active": false,
+    "sub": [
+      {
+        "icon": "fa fa-plus",
+        "title": "编码管理",
+        "router": "system/code"
+      },
+      {
+        "icon": "fa fa-cogs",
+        "title": "计量单位",
+        "router": "system/unit"
+      },
+      {
+        "icon": "icon-settings",
+        "title": "字段类型",
+        "router": "system/fieldType"
+      },
+      {
+        "icon": "fa fa-plus",
+        "title": "用户管理",
+        "router": "system/user"
+      }
+    ]
+  },
+  {
+    "icon": "icon-puzzle",
+    "title": "生产制造",
+    "type": "nav-item",
+    "active": false,
+    "sub": [
+      {
+        "icon": "fa fa-plus",
+        "title": "制造流程管理",
+        "router": "manufacture/workFlow"
+      },
+      {
+        "icon": "fa fa-cogs",
+        "title": "生产日报",
+        "router": "manufacture/daily"
+      }
+    ]
+  }
+]

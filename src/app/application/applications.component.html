@@ -1,0 +1,62 @@
+<div cn-layout></div>
+<div cn-header>
+  <cn-top-menu></cn-top-menu>
+</div>
+<div cn-clear></div>
+<div cn-container>
+  <cn-sidebar-tabs #sidebar [menu]="menu" (eventCallback)="addTab($event)"></cn-sidebar-tabs>
+  <cn-page-tab #tabs>
+   <!-- <router-outlet name="breadcrumb"></router-outlet>
+    <router-outlet></router-outlet>-->
+  </cn-page-tab>
+</div>
+<div cn-footer [copyright]="copyright" [siteName]="name" [fullSite]="site"></div>
+
+<div class="modal fade bs-modal-lg" id="large" tabindex="-1" role="dialog" data-backdrop="static">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" id="form_wizard_1">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title">系统数据加载中...<span class="step-title"></span></h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-wizard">
+          <div class="form-body">
+            <ul class="nav nav-pills nav-justified steps">
+              <li id="li_proc1">
+                <a data-toggle="tab" class="step">
+                  <span class="number"> 1 </span>
+                  <span class="desc">
+                  <i class="fa fa-check"></i> 读取配置... </span>
+                </a>
+              </li>
+              <li id="li_proc2">
+                <a data-toggle="tab" class="step">
+                  <span class="number"> 2 </span>
+                  <span class="desc">
+                  <i class="fa fa-check"></i> 正在初始化系统... </span>
+                </a>
+              </li>
+              <li id="li_proc3">
+                <a data-toggle="tab" class="step">
+                  <span class="number"> 3 </span>
+                  <span class="desc">
+                  <i class="fa fa-check"></i> 完成 </span>
+                </a>
+              </li>
+            </ul>
+            <div id="bar" class="progress progress-striped" role="progressbar">
+              <div class="progress-bar progress-bar-success"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--<div class="modal-footer">
+        <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+        <button type="button" class="btn green">Save changes</button>
+      </div>-->
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>

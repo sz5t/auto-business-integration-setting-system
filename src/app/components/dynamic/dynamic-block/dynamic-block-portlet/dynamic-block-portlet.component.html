@@ -1,0 +1,20 @@
+<div class="portlet light bordered" id="block_{{_GUID}}">
+  <div *ngIf="!templateConfig.viewCfg || !templateConfig.viewCfg.searchForm" class="portlet-title">
+    <div class="caption">
+      <i class="{{dynamicBlockField.titleIcon}} {{dynamicBlockField.titleColor}}"></i>
+      <span class="caption-subject {{dynamicBlockField.titleColor}} bold uppercase">{{dynamicBlockField.title}}</span>
+    </div>
+  </div>
+  <div #portlet class="portlet-body portlet_context">
+    <div *ngIf="dynamicBlockField.note" class="note {{dynamicBlockField.note.type}}">
+      <h4 class="block">{{dynamicBlockField.note.title}}</h4>
+      <p>{{dynamicBlockField.note.text}}</p>
+    </div>
+    <ng-container *ngIf="templateConfig.viewCfg" cnDynamicComponent [componentCaption]="dynamicBlockField" [componentConfig]="templateConfig"
+    ></ng-container>
+    <div *ngIf="!templateConfig.viewCfg" style="height: 300px;">
+
+    </div>
+  </div>
+</div>
+<cn-contextmenu [menuItem]="_menulist" [parentContext]="portlet"></cn-contextmenu>

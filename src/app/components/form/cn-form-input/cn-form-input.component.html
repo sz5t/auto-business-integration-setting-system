@@ -1,0 +1,46 @@
+<div class="form-group {{config.layout}}"
+     [ngClass]="{'has-error':  ((_control.touched || _control.dirty) && !_control.valid)}"
+     [formGroup]="group"
+>
+  <label class="col-md-3 control-label">{{config.label}}</label>
+  <div class="col-md-9">
+    <div class="{{config.inputClass}}">
+      <span *ngIf="config.iconPstn==='left'" class="input-group-addon">
+        <i class="{{config.icon}}"></i>
+      </span>
+      <input
+        type="{{config.inputType}}"
+        class="form-control"
+        placeholder="{{config.placeholder}}"
+        formControlName="{{config.name}}"
+      />
+      <span *ngIf="config.iconPstn==='right'" class="input-group-addon">
+        <i class="{{config.icon}}"></i>
+      </span>
+    </div>
+    <span class="{{config.helpClass}}"
+          *ngIf="config.helpText">
+      {{config.helpText}}
+    </span>
+    <span class="help-block help-block-error"
+          *ngIf="_control.errors?.required && (_control.touched || _control.dirty) && !_control.valid">
+      请输入{{config.label}}
+    </span>
+    <span class="help-block help-block-error"
+          *ngIf="_control.errors?.maxlength && (_control.touched || _control.dirty) && !_control.valid">
+      允许输入最大长度为{{_maxlength}}个字符
+    </span>
+    <span class="help-block help-block-error"
+          *ngIf="_control.errors?.minlength && (_control.touched || _control.dirty) && !_control.valid">
+      允许输入最小长度为{{_minlength}}个字符
+    </span>
+    <span class="help-block help-block-error"
+          *ngIf="_control.errors?.email && (_control.touched || _control.dirty) && !_control.valid">
+      请输入正确的格式的Email地址{{config.label}}
+    </span>
+    <span class="help-block help-block-error"
+          *ngIf="_control.errors?.pattern && (_control.touched || _control.dirty) && !_control.valid">
+      请正确符合格式的文字内容{{config.label}}
+    </span>
+  </div>
+</div>

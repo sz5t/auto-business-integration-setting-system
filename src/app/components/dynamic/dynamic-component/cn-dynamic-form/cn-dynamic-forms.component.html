@@ -1,0 +1,14 @@
+<form class="form-horizontal" role="form" novalidate
+      [formGroup]="form"
+      (submit)="handleSubmit($event)">
+  <div class="form-body">
+    <ng-container
+      *ngFor="let field of componentConfig"
+      cnDynamicFields
+      [(submitValid)]="submitValid"
+      [config]="field"
+      [group]="form"
+    ></ng-container>
+  </div>
+</form>
+<div class="row"></div>

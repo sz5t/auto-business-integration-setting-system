@@ -1,0 +1,96 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "project": {
+    "name": "sinoforce-rs"
+  },
+  "apps": [
+    {
+      "root": "src",
+      "outDir": "dist",
+      "assets": [
+        "assets",
+        "favicon.ico"
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "test": "test.ts",
+      "tsconfig": "tsconfig.app.json",
+      "testTsconfig": "tsconfig.spec.json",
+      "prefix": "cn",
+      "styles": [
+        "styles.css"
+      ],
+      "scripts": [
+        "assets/global/plugins/respond.min.js",
+        "assets/global/plugins/excanvas.min.js",
+        "assets/global/plugins/jquery.min.js",
+        "assets/global/plugins/bootstrap/js/bootstrap.min.js",
+        "assets/global/plugins/js.cookie.min.js",
+        "assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.js",
+        "assets/global/plugins/jquery-slimscroll/jquery.slimscroll.js",
+        "assets/global/plugins/jquery.blockui.min.js",
+        "assets/global/plugins/jquery-validation/js/jquery.validate.js",
+        "assets/global/plugins/bootstrap-wizard/jquery.bootstrap.wizard.js",
+        "assets/global/plugins/select2/js/select2.full.min.js",
+        "assets/global/plugins/jstree/dist/jstree.min.js",
+        "assets/global/plugins/cubeportfolio/js/jquery.cubeportfolio.min.js",
+        "assets/global/plugins/datatables/datatables.min.js",
+        "assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js",
+        "assets/bower_components/datatables.net-select/js/dataTables.select.js",
+        "assets/bower_components/datatables.net-buttons/js/dataTables.buttons.js",
+        "assets/bower_components/datatables.net-responsive/js/dataTables.responsive.js",
+        "assets/bower_components/mockjs/dist/mock-min.js",
+        "assets/bower_components/pdfmake/build/pdfmake.js",
+        "assets/global/plugins/bootstrap-toastr/toastr.min.js",
+        "assets/global/plugins/jquery-validation/js/jquery.validate.min.js",
+        "assets/global/plugins/jquery-validation/js/additional-methods.min.js",
+        "assets/global/plugins/md5.js",
+        "assets/global/plugins/block.ui.js",
+        "assets/global/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js",
+        "assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js",
+        "assets/global/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js",
+        "assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js",
+        "assets/global/plugins/counterup/jquery.waypoints.min.js",
+        "assets/global/plugins/counterup/jquery.counterup.min.js",
+        "assets/global/plugins/echarts/echarts.min.js",
+        "assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.js",
+        "assets/global/plugins/bootstrap-table/bootstrap-table.js",
+        "assets/global/plugins/bootstrap-table/bootstrap-table-locale-all.min.js"
+      ],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
+    }
+  ],
+  "e2e": {
+    "protractor": {
+      "config": "./protractor.conf.js"
+    }
+  },
+  "lint": [
+    {
+      "project": "src/tsconfig.app.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "src/tsconfig.spec.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "e2e/tsconfig.e2e.json",
+      "exclude": "**/node_modules/**"
+    }
+  ],
+  "test": {
+    "karma": {
+      "config": "./karma.conf.js"
+    }
+  },
+  "defaults": {
+    "styleExt": "css",
+    "component": {}
+  }
+}

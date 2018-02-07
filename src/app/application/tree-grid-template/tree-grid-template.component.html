@@ -1,0 +1,47 @@
+<div class="col-md-3">
+  <div class="portlet light bordered">
+    <div class="portlet-title">
+      <div class="caption">
+        <i class="fa fa-list-alt font-green-sharp"></i>
+        <span class="caption-subject font-green-sharp bold">树</span>
+      </div>
+    </div>
+    <div class="portlet-body">
+      <cn-tree [componentConfig]="_treeConfig"></cn-tree>
+    </div>
+  </div>
+</div>
+
+
+<div class="col-md-9">
+  <div class="portlet light bordered">
+    <div class="portlet-title">
+      <div class="caption font-dark">
+        <i class="icon-list font-dark"></i>
+        <span class="caption-subject bold uppercase"></span>
+      </div>
+      <div class="tools"></div>
+    </div>
+    <div class="portlet-body">
+      <div class="table-container">
+        <cn-gridview [dtOptions]="_gridConfig"></cn-gridview>
+      </div>
+    </div>
+  </div>
+</div>
+<cn-form-dialog
+  [GUID]="_GUID"
+  [config]="_formConfig"
+  [title]="_formDialogTitle"
+  [formEventSetting]="_formEventSetting"
+  [(handleData)]="_selectedItem"
+  (eventCallback)="reload()"
+></cn-form-dialog>
+<cn-confirm-dialog
+  [GUID]="_GUID"
+  [(title)]="_confirmTitle"
+  [(message)]="_confirmMessage"
+  [(confirmEventSetting)]="_confirmEventSetting"
+  [(handleData)]="_selectedItem"
+  (eventCallback)="reload()"
+></cn-confirm-dialog>

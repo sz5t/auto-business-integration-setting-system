@@ -1,0 +1,69 @@
+<ul class="nav navbar-nav pull-right">
+    <li cn-top-dropdown [cnDropdownName]="'通知'"
+                   [cnDropdownImg]="'icon-bell'"
+                   [cnNotificationNum]="4"
+                   [cnDropdownType]="'notification'"
+                   [cnNotificationState]="'等待处理'"
+    >
+  </li>
+  <li cn-top-dropdown [cnDropdownName]="'消息'"
+      [cnDropdownImg]="'icon-envelope-open'"
+      [cnNotificationNum]="5"
+      [cnDropdownType]="'inbox'"
+      [cnNotificationState]="'等待处理'"
+  >
+  </li>
+  <li cn-top-dropdown [cnDropdownName]="'任务'"
+      [cnDropdownImg]="'icon-calendar'"
+      [cnNotificationNum]="6"
+      [cnDropdownType]="'tasks'"
+      [cnNotificationState]="'等待处理'">
+  </li>
+    <li class="dropdown dropdown-user">
+      <a href="javascript:" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+         data-close-others="true">
+        <img alt="" class="img-circle" src="../assets/layouts/layout/img/avatar3_small.jpg" />
+        <span class="username username-hide-on-mobile"> Nike </span>
+        <i class="fa fa-angle-down"></i>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-default">
+        <li>
+          <a href="page_user_profile_1.html">
+            <i class="icon-user"></i> 个人中心 </a>
+        </li>
+        <li>
+          <a href="app_calendar.html">
+            <i class="icon-calendar"></i> 工作安排 </a>
+        </li>
+        <li>
+          <a href="app_inbox.html">
+            <i class="icon-envelope-open"></i> 消息
+            <span class="badge badge-danger"> 3 </span>
+          </a>
+        </li>
+        <li>
+          <a href="app_todo.html">
+            <i class="icon-rocket"></i> 我的任务
+            <span class="badge badge-success"> 7 </span>
+          </a>
+        </li>
+        <li class="divider"> </li>
+        <li>
+          <a href="page_user_lock_1.html">
+            <i class="icon-lock"></i> 锁屏 </a>
+        </li>
+        <li>
+          <a href="javascript:void(0);" data-toggle="modal" href="#dialog_logout">
+            <i class="icon-key"></i> 退出登录 </a>
+        </li>
+      </ul>
+    </li>
+    <!-- END USER LOGIN DROPDOWN -->
+    <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+    <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+    <li class="dropdown dropdown-quick-sidebar-toggler">
+      <a href="javascript:" class="dropdown-toggle">
+        <i class="icon-logout"></i>
+      </a>
+    </li>
+  </ul>

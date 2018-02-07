@@ -1,0 +1,17 @@
+<div class="form-group {{config.layout}}" [formGroup]="group">
+  <label class="col-md-3 control-label">{{config.label}}</label>
+  <div class="col-md-9">
+    <div class="{{config.inputClass}}">
+      <label class="mt-checkbox mt-checkbox-outline"
+             *ngFor="let option of config.options">
+        <input type="checkbox"
+               value="{{option.value}}"
+               [formControlName]="config.name"
+        />
+        {{option.label}}
+        <span></span>
+      </label>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,103 @@
+
+<div class="row">
+  <div #editor class="portlet light bordered  col-md-4">
+    <div class="portlet-title">
+      <div class="caption"><i class="fa fa-cogs"></i> 页面布局设置</div>
+    </div>
+    <div class="portlet-body">
+      <div class="form-horizontal">
+        <div class="form-body form">
+          <form class="form-horizontal" role="form" novalidate
+                [formGroup]="_form">
+            <div class="form-group">
+              <label class="col-md-3 control-label">业务功能：</label>
+              <div class="col-md-9">
+                <select #selectFunc class="form-control bs-select">
+                  <option value="0">--请选择功能模块--</option>
+                  <optgroup label="模块 1">
+                    <option value="func1">功能 1</option>
+                    <option value="func2">功能 2</option>
+                  </optgroup>
+                  <optgroup label="模块 2">
+                    <option value="func3">功能 1</option>
+                  </optgroup>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-3 control-label">选择布局：</label>
+              <div class="col-md-9">
+                <select #selectArea class="form-control bs-select">
+                  <option>--请选择--</option>
+                  <optgroup label="通用布局">
+                    <option value="single" data="single">单一区域</option>
+                    <option value="left_right" data="left_right">左右区域</option>
+                    <option value="up_down" data="up_down">上下区域</option>
+                  </optgroup>
+                  <optgroup label="复杂布局">
+                    <option value="t_block1">T 1型区域 </option>
+                    <option value="t_block2">T 2型区域 </option>
+                    <option value="t_block3">矩阵布局 </option>
+                  </optgroup>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-3 control-label"> </label>
+              <div class="col-md-9">
+                <label><a (click)="clickMore()">更多设置</a></label>
+              </div>
+            </div>
+            <div *ngIf="_showMore"  class="panel-group accordion" id="accordion3">
+              <div *ngFor="let config of _formConfigs" class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" href="#{{config.title}}">{{config.title}} </a>
+                  </h4>
+                </div>
+                <div id="{{config.title}}" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    <ng-container
+                      *ngFor="let field of config.data"
+                      cnDynamicFields
+                      [config]="field"
+                      [group]="_form"
+                    ></ng-container>
+                  </div>
+                </div>
+
+               <!-- <h4></h4>
+                <ng-container
+                  *ngFor="let field of config.data"
+                  cnDynamicFields
+                  [config]="field"
+                  [group]="_form"
+                ></ng-container>-->
+              </div>
+            </div>
+            <div class="form-actions">
+              <label class="col-md-3 control-label"> </label>
+              <div class="col-md-9">
+                <button class="btn btn-success" (click)="save($event)">
+                  <i class="fa fa-save"> 保存</i>
+                </button>
+                <button class="btn btn-success" type="submit">
+                  <i class="fa fa-undo"> 重置</i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div #preview class="portlet light bordered bg-inverse col-md-8">
+    <div class="portlet-title">
+      <div class="caption"><i class="fa fa-cog"></i> 布局预览</div>
+    </div>
+    <div  class="portlet-body">
+      <div cn-dynamic-layout [config]="_config"></div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,59 @@
+<div *ngFor="let r of ComponentConfig.rows" class="row">
+    <div *ngFor="let c of r.row" class="{{c.cliclass}}">
+        <!-- BEGIN Portlet PORTLET-->
+        <div *ngIf="c.portlet" class="portlet light bordered ">
+            <div *ngIf="c.portlet.portlettitle" class="portlet-title">
+                <div class="caption">
+                    <i *ngIf="c.portlet.portlettitle.iconclass" class="{{c.portlet.portlettitle.iconclass}}"></i>
+                    <span *ngIf="c.portlet.portlettitle.captiontitle" class="caption-subject bold uppercase"> {{c.portlet.portlettitle.captiontitle}}</span>
+                    <span *ngIf="c.portlet.portlettitle.captionhelper" class="caption-helper">{{c.portlet.portlettitle.captionhelper}}</span>
+                </div>
+
+            </div>
+            <div *ngIf="c.portlet.portletbody" class="portlet-body">
+                <div class="portlet_context {{c.portletkey}}" style="height:300px;">
+                    <div *ngIf="c.portlet.portletbody.appendtabs">
+                        <ul class="nav nav-tabs">
+                            <li *ngFor="let tabs of c.portlet.portletbody.appendtabs.tabs" class="{{tabs.active}}">
+                                <a href="#{{tabs.id}}" data-toggle="tab"> {{tabs.titel}} </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div *ngFor="let tabcontent of c.portlet.portletbody.appendtabs.tabs" class="tab-pane fade {{tabcontent.contentactive}}"
+                                id="{{tabcontent.id}}">
+                                <p> {{tabcontent.appendcomponent}} </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- END Portlet PORTLET-->
+    </div>
+</div>
+
+<div id="context-menu">
+    <ul class="dropdown-menu" role="menu">
+        <li>
+            <a href="javascript:;" item-name='AddTree'>
+                <i class="icon-user"></i> 新建树 </a>
+        </li>
+        <li>
+            <a href="javascript:;" item-name='AddTable'>
+                <i class="icon-user"></i> 新建表格 </a>
+        </li>
+        <li>
+            <a href="javascript:;" item-name='AddTabs'>
+                <i class="icon-user"></i> 新建Tab </a>
+        </li>
+      
+        <li class="divider"> </li>
+        <li>
+            <a href="javascript:;" item-name='Clear'>
+                <i class="icon-flag"></i> 清空所有
+            </a>
+        </li>
+    </ul>
+</div>

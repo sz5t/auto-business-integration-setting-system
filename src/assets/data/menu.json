@@ -1,0 +1,55 @@
+[
+  {
+    "icon": "icon-puzzle",
+    "title": "配置效果",
+    "type": "nav-item",
+    "active": false,
+    "sub": [
+      {
+        "name": "layoutSetting",
+        "icon": "fa fa-plus",
+        "title": "模板选择",
+        "description": "模板选择",
+        "display": true,
+        "router": "layout-setting",
+        "sub": []
+      },
+      {
+        "name": "componentSetting",
+        "icon": "fa fa-cogs",
+        "title": "区域设置",
+        "description": "区域设置",
+        "display": true,
+        "router": "component-setting",
+        "sub": []
+      },
+      {
+        "name": "componentEditing",
+        "icon": "fa fa-plus",
+        "title": "组件编辑",
+        "description": "编辑组件",
+        "display": true,
+        "router": "componentEditing",
+        "sub": []
+      },
+      {
+        "name": "contextMenu",
+        "icon": "fa fa-cogs",
+        "title": "字段设置",
+        "description": "字段设置",
+        "display": true,
+        "router": "contextMenu",
+        "sub": []
+      },
+      {
+        "name": "dashbroad",
+        "icon": "fa fa-cogs",
+        "title": "操作设置",
+        "description": "操作设置",
+        "display": true,
+        "router": "desh-broad",
+        "sub": []
+      }
+    ]
+  }
+]

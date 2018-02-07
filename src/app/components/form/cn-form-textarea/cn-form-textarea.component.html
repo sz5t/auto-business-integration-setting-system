@@ -1,0 +1,21 @@
+<div class="form-group {{config.layout}}" [formGroup]="group">
+  <label class="col-md-3 control-label">{{config.label}}</label>
+  <div class="col-md-9">
+    <div class="{{config.inputClass}}">
+      <span *ngIf="config.iconPstn==='left'" class="input-group-addon">
+        <i class="{{config.icon}}"></i>
+      </span>
+      <textarea
+        class="form-control"
+        placeholder="{{config.placeholder}}"
+        [formControlName]="config.name"
+        cols="10"
+        rows="5"
+      ></textarea>
+      <span *ngIf="config.iconPstn==='right'" class="input-group-addon">
+        <i class="{{config.icon}}"></i>
+      </span>
+    </div>
+    <span class="{{config.helpClass}}">{{config.helpText}}</span>
+  </div>
+</div>

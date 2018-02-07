@@ -1,0 +1,18 @@
+<div class="modal fade" id="basic_dialog_{{dialogConfigField.GUID}}" tabindex="-1" role="basic" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title">{{dialogConfigField.title}}</h4>
+      </div>
+      <div class="modal-body">
+        <h6><strong>{{dialogConfigField.text}}</strong></h6>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn dark btn-outline" data-dismiss="modal">取消</button>
+        <button type="button" id="confirm-submit" class="btn green" (click)="onClick()">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
+<cn-toast></cn-toast>
