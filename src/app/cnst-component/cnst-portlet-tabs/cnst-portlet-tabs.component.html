@@ -1,0 +1,40 @@
+<ul class="nav nav-tabs">
+    <li *ngFor="let tab of tabs" class="tabs.active {{tab.active}}">
+        <a href="#{{tab.id}}" data-toggle="tab">
+            <span (click)="checkTab($event,tab)">{{tab.title}}</span>
+            <span>
+                <i (click)="closeTab($event,tab)" class="fa fa-remove"></i>
+            </span>
+        </a>
+    </li>
+    <li class="tabs.active">
+        <a (click)="addTab($event)">
+            <span class="fa fa-plus "></span>
+        </a>
+    </li>
+</ul>
+<div class="tab-content">
+    <div *ngFor="let tab of tabs" 
+    cnst-portlet-tabconcent 
+    class="tab-pane fade {{tab.active}}" id="{{tab.id}}">
+
+    </div>
+
+</div>
+<div class="modal fade" #dialog tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">标签页标题</h4>
+            </div>
+            <div class="modal-body">
+                <input #tabtitle type="text" class="bootbox-input bootbox-input-text form-control" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn dark btn-outline" data-dismiss="modal">取消</button>
+                <button type="button" id="confirm-submit" class="btn green" (click)="onClick()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>

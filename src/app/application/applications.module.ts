@@ -23,6 +23,7 @@ import {LayoutSettingComponent} from "./layout-setting/layout-setting.component"
 import {ComponentSettingComponent} from "./components-setting/component-setting.component";
 import {ComponentEditingComponent} from "./component-editing/component-editing.component";
 import {ContextMenuComponent} from "./context-menu/context-menu.component";
+import {CnstComponentModule} from "../cnst-component/cnst-component.module";
 
 export const CHILDREN_ROUTES: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -52,6 +53,7 @@ export const CHILDREN_ROUTES: Routes = [
     DataTablesModule,
     FormsModule,
     ReactiveFormsModule,
+    CnstComponentModule,
     RouterModule.forChild(CHILDREN_ROUTES)
   ],
   declarations: [
