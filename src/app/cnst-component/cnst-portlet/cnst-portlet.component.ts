@@ -7,6 +7,7 @@ import { CnstPortletGridviewComponent } from '../cnst-portlet-gridview/cnst-port
 import { CnstPortletTreeComponent } from '../cnst-portlet-tree/cnst-portlet-tree.component';
 import { CnstPortletContextmenuComponent } from '../cnst-portlet-contextmenu/cnst-portlet-contextmenu.component';
 import { CnstPortletTabsComponent } from '../cnst-portlet-tabs/cnst-portlet-tabs.component';
+import {App} from '../../components/layout/cn-layout/cn-layout.component';
 
 import { ICnstPortlet } from '../cnst-portlet';
 const components: { [type: string]: Type<ICnstPortlet> } = {
@@ -100,6 +101,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
   }
   ngAfterViewInit() {
     this.menu.createMenu(this.portlet.nativeElement);
-
+    App.initSlimScroll('.scroller');
+    
   }
 }
