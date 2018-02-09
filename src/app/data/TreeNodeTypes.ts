@@ -35,6 +35,8 @@ export class NodeTypes {
     SORT_DELETE: 'delete'
   };
   public static nodeTypes = {
+    'tree':{'icon': 'fa fa-cog font-yellow-jungle'},
+    'gridview': {'icon': 'fa fa-table font-green-jungle'},
     'layout': {'icon': 'fa fa-file font-green-jungle'},
     'default': {'icon': 'fa fa-folder icon-state-success'},
     'property': {'icon': 'fa fa-file icon-state-success'},
@@ -54,23 +56,22 @@ export class NodeTypes {
     'isEnablePaging': {'icon': 'fa fa-dot-circle-o font-green'},
     'checkRight': {'icon': 'fa fa-check-square font-green-jungle'},
     'checkFalse': {'icon': 'fa fa-remove font-red'},
-    'checkWarning': {'icon': 'fa fa-warning icon-state-warning'},
-
+    'checkWarning': {'icon': 'fa fa-warning icon-state-warning'}
   };
 
   public static layout = {
     'addComponent': {
-      'label': '<span class="fa fa-refresh font-blue"></span> 添加组件',
+      'label': '<span class="fa fa-plus font-blue"></span> 添加组件',
       'icon': '',
       'separator_after': false,
       'submenu': {
         'tree': {
-          'label': '<span class="fa fa-plus font-green"></span> 树',
+          'label': '<span class="fa fa-cog font-green"></span> 树组件',
           'icon': ' ',
           'separator_after': false
         },
         'gridview': {
-          'label': '<span class="fa fa-plus font-green"></span> 数据网格',
+          'label': '<span class="fa fa-table font-green"></span> 数据网格',
           'icon': ' ',
           'separator_after': false
         }
@@ -191,6 +192,41 @@ export class NodeTypes {
       'separator_after': false
     }
   };
+
+  public static component_gridview_node = {
+    text: '数据网格组件',
+    icon: 'fa fa-table',
+    li_attr: '',
+    a_attr: '',
+    parent: '',
+    readonly: true,
+    value: null,
+    state: {
+      opened: true,
+      disabled: false,
+      selected: false,
+    },
+    type: 'gridview'
+  };
+  public static component_tree_node = {
+    text: '树组件',
+    icon: 'fa fa-tree',
+    li_attr: '',
+    a_attr: '',
+    parent: '',
+    readonly: true,
+    value: null,
+    state: {
+      opened: true,
+      disabled: false,
+      selected: false,
+    },
+    type: 'tree'
+  };
+  public static component_tabs_node = {};
+  public static component_tab_node = {};
+  public static component_form_node = {};
+  public static component_accordion_node = {};
   public static buttonNode = {
     text: '按钮', icon: '', li_attr: '', a_attr: '', parent: 'viewCfg_1_toolbarsConfig', readonly: true, value: null,
     state: {

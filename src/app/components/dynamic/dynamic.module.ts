@@ -33,6 +33,7 @@ import {CnDynamicDetailComponent} from './dynamic-component/cn-dynamic-detail/cn
 import { CnDynamicTextInfoComponent } from './dynamic-component/cn-dynamic-text-info/cn-dynamic-text-info.component';
 import {SafeHtmlPipe} from '../../pipe/safe-html.pipe';
 import {CnContextmenuComponent} from './dynamic-block/cn-contextmenu/cn-contextmenu.component';
+import {CnstComponentModule} from '../../cnst-component/cnst-component.module';
 
 @NgModule({
   imports: [
@@ -41,7 +42,8 @@ import {CnContextmenuComponent} from './dynamic-block/cn-contextmenu/cn-contextm
     CnToastModule,
     DataTablesModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CnstComponentModule
   ],
   declarations: [
     CnDynamicRowDirective,

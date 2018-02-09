@@ -14,9 +14,19 @@ import { CnstPortletTabconcentComponent } from './cnst-portlet-tabconcent/cnst-p
   exports:[
     CnstPortletComponent,
     CnstPortletGridviewComponent
-  ]
-  ,
-  entryComponents:[CnstPortletComponent,CnstPortletGridviewComponent,CnstPortletTabsComponent,CnstPortletTreeComponent,CnstPortletTabconcentComponent],
-  declarations: [CnstPortletComponent, CnstPortletContextmenuComponent, CnstPortletGridviewComponent, CnstPortletTabsComponent, CnstPortletTreeComponent, CnstPortletTabconcentComponent]
+  ],
+  entryComponents:[
+    CnstPortletComponent,
+    CnstPortletGridviewComponent,
+    CnstPortletTabsComponent,
+    CnstPortletTreeComponent,
+    CnstPortletTabconcentComponent],
+  declarations: [
+    CnstPortletComponent,
+    CnstPortletContextmenuComponent,
+    CnstPortletGridviewComponent,
+    CnstPortletTabsComponent,
+    CnstPortletTreeComponent,
+    CnstPortletTabconcentComponent]
 })
 export class CnstComponentModule { }

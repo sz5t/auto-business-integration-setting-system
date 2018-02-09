@@ -31,6 +31,7 @@ export class ComponentSettingComponent implements OnInit, AfterViewInit {
   ngAfterViewInit () {
     this.preview.nativeElement.style.height = window.screen.availHeight + 'px';
     this.editor.nativeElement.style.height = window.screen.availHeight + 'px';
+    const $tree = $(this.settingTree.nativeElement);
     $(this.selectFunc.nativeElement).selectpicker();
     $(this.selectFunc.nativeElement).on('changed.bs.select', (e, index, newValue, oldValue) => {
       if (newValue){
@@ -57,44 +58,7 @@ export class ComponentSettingComponent implements OnInit, AfterViewInit {
             treeData.push(node);
           });
         });
-        $(this.settingTree.nativeElement).jstree('destroy');
-        const $tree = $(this.settingTree.nativeElement);
-        const instance = $tree.jstree(true);
-        const createAction = (t, n) => {
-          switch (n) {
-            // toolbar config
-            case NodeTypes.NODE_TYPE.LAYOUT:
-              const component_submenu = t[NodeTypes.NODE_TYPE.LAYOUT_COMPONENT_ADD].submenu;
-              const layout_submenu = t[NodeTypes.NODE_TYPE.LAYOUT_LAYOUT_ADD].submenu;
-              component_submenu[NodeTypes.NODE_TYPE.LAYOUT_TREE].action = (data) => {
-                const node = instance.get_node(data.reference[0]);
-                //const node = _menu.jstree('get_node', data.reference[0]);
-                const newID = instance.create_node(node.id, NodeTypes.buttonNode, 'last', () => {
-                  instance.deselect_node(node.id);
-                }, true);
-                instance.select_node(newID);
-                const nd = instance.get_node(newID);
-                instance.edit(nd);
-              };
-              component_submenu[NodeTypes.NODE_TYPE.LAYOUT_GRIDVIEW].action = (data) => {
-                alert('refresh button');
-              };
-              layout_submenu[NodeTypes.NODE_TYPE.LAYOUT_TABS].action = (data) => {
-                alert('delete all button');
-              };
-              layout_submenu[NodeTypes.NODE_TYPE.LAYOUT_ACCORDION].action = (data) => {
-                alert('delete all button');
-              };
-              t[NodeTypes.NODE_TYPE.LAYOUT_COMPONENT_REMOVE].action = (data) =>{
-
-              };
-              t[NodeTypes.NODE_TYPE.LAYOUT_LAYOUT_REMOVE].action = (data) =>{
-
-              };
-              break;
-          }
-        };
-        $tree.jstree({
+        const layoutTree = $tree.jstree({
           'core': {
             'themes': {
               'responsive': true
@@ -109,11 +73,62 @@ export class ComponentSettingComponent implements OnInit, AfterViewInit {
             'items': function (node) {
               const type = this.get_type(node);
               const _smenu = NodeTypes[type];
-              createAction(_smenu, type);
+              createAction(_smenu, type, node.id);
               return _smenu;
             }
           }
         });
+        const instance = $tree.jstree();
+
+        const createAction = (t, n, parentId) => {
+          // t is menu node
+          // n is component name
+          switch (n) {
+            case NodeTypes.NODE_TYPE.LAYOUT:
+              const component_submenu = t[NodeTypes.NODE_TYPE.LAYOUT_COMPONENT_ADD].submenu;
+              const layout_submenu = t[NodeTypes.NODE_TYPE.LAYOUT_LAYOUT_ADD].submenu;
+              component_submenu[NodeTypes.NODE_TYPE.LAYOUT_TREE].action = (data) => {
+                const node = layoutTree.jstree('get_node', data.reference[0]);
+                console.log(t, n, parentId);
+                // add tree
+                console.log(data);
+                console.log(instance);
+                // const node = instance.get_node(data);
+                const newID = instance.create_node(
+                  parentId,
+                  NodeTypes.component_tree_node,
+                  'last',
+                  () => {
+                    instance.deselect_node(parentId);
+                }, true);
+                instance.select_node(newID);
+              };
+              component_submenu[NodeTypes.NODE_TYPE.LAYOUT_GRIDVIEW].action = (data) => {
+                const newID = instance.create_node(
+                  parentId,
+                  NodeTypes.component_gridview_node,
+                  'last',
+                  () => {
+                    instance.deselect_node(parentId);
+                  }, true
+                );
+              };
+              layout_submenu[NodeTypes.NODE_TYPE.LAYOUT_TABS].action = (data) => {
+                // add tabs
+              };
+              layout_submenu[NodeTypes.NODE_TYPE.LAYOUT_ACCORDION].action = (data) => {
+                // add accordion
+              };
+              t[NodeTypes.NODE_TYPE.LAYOUT_COMPONENT_REMOVE].action = (data) => {
+                // remove component
+              };
+              t[NodeTypes.NODE_TYPE.LAYOUT_LAYOUT_REMOVE].action = (data) => {
+                // remove layout
+              };
+              break;
+          }
+        };
+
 
       }
     });

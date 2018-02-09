@@ -2820,8 +2820,7 @@ export class TabsDemoComponent implements OnInit {
     ]
   ];
 
-  constructor() {
-  }
+  constructor() {}
 
   ngOnInit() {
   }

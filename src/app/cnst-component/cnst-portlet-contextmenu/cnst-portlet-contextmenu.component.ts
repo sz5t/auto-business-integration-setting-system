@@ -9,16 +9,16 @@ export class CnstPortletContextmenuComponent implements OnInit {
   @Input() menuItem:any[];//菜单的数据
   @Input() parentContext;//位置
   @ViewChild('contextmenu') contextmenu: ElementRef;
-  menuItemValue: any;
+  //menuItemValue: any;
   // 输出参数
-  @Output() changeComponent = new EventEmitter();  
+  @Output() changeComponent = new EventEmitter();
 
   constructor() { }
 
   ngOnInit() {
   }
   ngOnChanges(){
-    
+
   }
   createMenu(parentContext) {
     if(parentContext){
@@ -30,23 +30,30 @@ export class CnstPortletContextmenuComponent implements OnInit {
         onItem: (context, e) => {
          // this.menuClick(context, $(e.target).attr('class'));
          //调用父级的方法
-         this.menuItemValue={name:$(e.target).attr('class'),value:''};
-         this.changeComponent.emit(this.menuItemValue);
-
+         const target = $(e.target);
+         let targetObj;
+         if(target.attr('id')){
+           targetObj = {name: target.attr('id'), value: ''};
+         }else {
+           const val = target.parent().attr('id');
+           targetObj = {name: val, value: ''};
+         }
+          // this.menuItemValue = targetObj;
+          this.changeComponent.emit(targetObj);
         }
       });
       $(parentContext).bind('contextmenu', function () {
         return false;
       });
       $(parentContext).mousedown(function (e) {
-        if (3 == e.which) {
+        if (3 === e.which) {
           e.stopPropagation();
           e.preventDefault();
           menu.show(e);
         }
-  
+
       });
-  
+
     }
   }
 }

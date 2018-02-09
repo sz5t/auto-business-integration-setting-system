@@ -1,8 +1,7 @@
 <div *ngIf="menuItem" id="context-menu" #contextmenu>
   <ul class="dropdown-menu" role="menu">
       <li *ngFor="let item of menuItem">
-          <a href="javascript:;" class="{{item.id}}">
-              <i class="{{item.icon}}"></i> {{item.title}} </a>
+          <a href="javascript:;" data-id="{{item.id}}"><i class="{{item.icon}}"></i>{{item.title}} </a>
       </li>
 
   </ul>

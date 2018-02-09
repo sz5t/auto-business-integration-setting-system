@@ -1,6 +1,6 @@
 import {
   Component, OnInit, ViewChild, ElementRef, ViewEncapsulation, ViewContainerRef, ComponentFactory,
-  ComponentRef, ComponentFactoryResolver, OnDestroy, Type
+  ComponentRef, ComponentFactoryResolver, OnDestroy, Type, Input
 } from '@angular/core';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { CnstPortletGridviewComponent } from '../cnst-portlet-gridview/cnst-portlet-gridview.component';
@@ -20,7 +20,7 @@ const components: { [type: string]: Type<ICnstPortlet> } = {
   styleUrls: ['./cnst-portlet.component.css']
 })
 export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet {
-  config;
+  @Input() config;
   componentRef: ComponentRef<ICnstPortlet>;
   @ViewChild("dynamicComponent", { read: ViewContainerRef }) container: ViewContainerRef;
   @ViewChild(CnstPortletContextmenuComponent) menu: CnstPortletContextmenuComponent;
@@ -61,26 +61,25 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
   };
   //布局json信息
 
-  constructor(private resolver: ComponentFactoryResolver) { 
+  constructor(private resolver: ComponentFactoryResolver) {
 
    // if (this.config==undefined ||this.config=='undefined' ||this.config==null )
-   if (this.config)
-    this.portletJson=this.config;
-   
-
+   if (!this.config) {
+     this.config = this.portletJson;
+   }
   }
 
   createComponent(data?) {
+    console.log(data);
     if (data.name) {
       if (data.name === 'Clear') {
         if (this.componentRef) {
           this.componentRef.destroy()
         }
-      }
-      else {
+      } else {
         this.container.clear();
-        const factory: ComponentFactory<ICnstPortlet> =
-          this.resolver.resolveComponentFactory(components[data.name]);
+        console.log(components[data.name]);
+        const factory = this.resolver.resolveComponentFactory<ICnstPortlet>(components[data.name]);
         this.componentRef = this.container.createComponent(factory);
         this.componentRef.instance.config = data.value;
       }

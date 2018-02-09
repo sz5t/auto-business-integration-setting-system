@@ -15,8 +15,7 @@ export class CnstPortletTabsComponent implements OnInit, ICnstPortlet, AfterView
   @ViewChild('dialog') dialog: ElementRef;
   @ViewChild('tabtitle') tabtitle: ElementRef;
 
-  tabs = [ 
-  ]
+  tabs = [];
 
   constructor() { }
 
@@ -67,10 +66,10 @@ export class CnstPortletTabsComponent implements OnInit, ICnstPortlet, AfterView
   }
 
   addTab(event?) {
+
     $(this.dialog.nativeElement).modal('show');
-    $(this.tabtitle.nativeElement).val("");
-
-
+    $(this.tabtitle.nativeElement).val('');
+    this.tabtitle.nativeElement.focus().select();
   }
 
   //保存新增的tab标签页

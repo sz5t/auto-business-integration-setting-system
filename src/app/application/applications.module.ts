@@ -19,11 +19,11 @@ import {GridDemoComponent} from './grid-demo/grid-demo.component';
 import {TimelineDemoComponent} from './timeline-demo/timeline-demo.component';
 import {ApplicationTemplateComponent} from './application-template/application-template.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {LayoutSettingComponent} from "./layout-setting/layout-setting.component";
-import {ComponentSettingComponent} from "./components-setting/component-setting.component";
-import {ComponentEditingComponent} from "./component-editing/component-editing.component";
-import {ContextMenuComponent} from "./context-menu/context-menu.component";
-import {CnstComponentModule} from "../cnst-component/cnst-component.module";
+import {LayoutSettingComponent} from './layout-setting/layout-setting.component';
+import {ComponentSettingComponent} from './components-setting/component-setting.component';
+import {ComponentEditingComponent} from './component-editing/component-editing.component';
+import {ContextMenuComponent} from './context-menu/context-menu.component';
+
 
 export const CHILDREN_ROUTES: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -53,7 +53,6 @@ export const CHILDREN_ROUTES: Routes = [
     DataTablesModule,
     FormsModule,
     ReactiveFormsModule,
-    CnstComponentModule,
     RouterModule.forChild(CHILDREN_ROUTES)
   ],
   declarations: [

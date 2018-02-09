@@ -1,4 +1,3 @@
-
 <div class="row">
   <div #editor class="portlet light bordered  col-md-4">
     <div class="portlet-title">
@@ -35,20 +34,44 @@
                     <option value="up_down" data="up_down">上下区域</option>
                   </optgroup>
                   <optgroup label="复杂布局">
-                    <option value="t_block1">T 1型区域 </option>
-                    <option value="t_block2">T 2型区域 </option>
-                    <option value="t_block3">矩阵布局 </option>
+                    <option value="t_block1">T 1型区域</option>
+                    <option value="t_block2">T 2型区域</option>
+                    <option value="t_block3">矩阵布局</option>
                   </optgroup>
                 </select>
               </div>
             </div>
-            <div class="form-group">
+            <!--<div class="form-group">
               <label class="col-md-3 control-label"> </label>
               <div class="col-md-9">
                 <label><a (click)="clickMore()">更多设置</a></label>
               </div>
+            </div>-->
+            <div class="form-group">
+              <div class="col-md-3 col-sm-3 col-xs-3">
+                <ul class="nav nav-tabs tabs-left">
+                  <li *ngFor="let config of _formConfigs" class="{{config.active ? 'active' : ''}}">
+                    <a href="#{{config.id}}" data-toggle="tab">{{config.title}}</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-md-9 col-sm-9 col-xs-9">
+                <div class="tab-content">
+                  <div *ngFor="let configData of _formConfigs"
+                       class="tab-pane fade {{configData.active ? 'active in' : ''}}"
+                       id="{{configData.id}}">
+                    <ng-container
+                      *ngFor="let field of configData.data"
+                      cnDynamicFields
+                      [config]="field"
+                      [group]="_form"
+                    ></ng-container>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div *ngIf="_showMore"  class="panel-group accordion" id="accordion3">
+
+            <!--<div *ngIf="_showMore"  class="panel-group accordion" id="accordion3">
               <div *ngFor="let config of _formConfigs" class="panel panel-default">
                 <div class="panel-heading">
                   <h4 class="panel-title">
@@ -66,22 +89,22 @@
                   </div>
                 </div>
 
-               <!-- <h4></h4>
+               &lt;!&ndash; <h4></h4>
                 <ng-container
                   *ngFor="let field of config.data"
                   cnDynamicFields
                   [config]="field"
                   [group]="_form"
-                ></ng-container>-->
+                ></ng-container>&ndash;&gt;
               </div>
-            </div>
+            </div>-->
             <div class="form-actions">
               <label class="col-md-3 control-label"> </label>
               <div class="col-md-9">
-                <button class="btn btn-success" (click)="save($event)">
+                <button class="btn btn-primary" (click)="save($event)">
                   <i class="fa fa-save"> 保存</i>
                 </button>
-                <button class="btn btn-success" type="submit">
+                <button class="btn btn-default" type="submit">
                   <i class="fa fa-undo"> 重置</i>
                 </button>
               </div>
@@ -95,8 +118,10 @@
     <div class="portlet-title">
       <div class="caption"><i class="fa fa-cog"></i> 布局预览</div>
     </div>
-    <div  class="portlet-body">
+    <div class="portlet-body">
+
       <div cn-dynamic-layout [config]="_config"></div>
+
     </div>
   </div>
 </div>

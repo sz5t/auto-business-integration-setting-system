@@ -1,14 +1,14 @@
-<div *ngIf="portletJson" class="portlet light bordered ">
-  <div *ngIf="portletJson.title" class="portlet-title">
+<div *ngIf="config" class="portlet light bordered ">
+  <div *ngIf="config.title" class="portlet-title">
       <div class="caption">
-          <i  class="{{portletJson.titleIcon}}"></i>
-          <span  class="caption-subject {{portletJson.titleColor}} bold uppercase"> {{portletJson.title}}</span>
+          <i  class="{{config.titleIcon}}"></i>
+          <span  class="caption-subject {{config.titleColor}} bold uppercase"> {{config.title}}</span>
 
       </div>
 
   </div>
-  <div #portlet  class="portlet-body {{portletJson.id}}">
-      <div  class="portlet_context {{portletJson.id}}" style="height:300px;">
+  <div #portlet  class="portlet-body {{config.id}}">
+      <div  class="portlet_context {{config.id}}" style="height:300px;">
         <ng-template #dynamicComponent></ng-template>
       </div>
 
