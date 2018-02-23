@@ -7,26 +7,33 @@ import { CnstPortletTabsComponent } from './cnst-portlet-tabs/cnst-portlet-tabs.
 import { CnstPortletTreeComponent } from './cnst-portlet-tree/cnst-portlet-tree.component';
 import { CnstPortletTabconcentComponent } from './cnst-portlet-tabconcent/cnst-portlet-tabconcent.component';
 
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {CnForceRsModule} from '../components/cn-force-rs.module';
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports:[
     CnstPortletComponent,
     CnstPortletGridviewComponent
+    
   ],
   entryComponents:[
     CnstPortletComponent,
     CnstPortletGridviewComponent,
     CnstPortletTabsComponent,
     CnstPortletTreeComponent,
-    CnstPortletTabconcentComponent],
+    CnstPortletTabconcentComponent,
+    ],
   declarations: [
     CnstPortletComponent,
     CnstPortletContextmenuComponent,
     CnstPortletGridviewComponent,
     CnstPortletTabsComponent,
     CnstPortletTreeComponent,
-    CnstPortletTabconcentComponent]
+    CnstPortletTabconcentComponent,
+    ]
 })
 export class CnstComponentModule { }

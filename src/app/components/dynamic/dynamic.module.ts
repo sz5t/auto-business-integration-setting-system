@@ -34,6 +34,8 @@ import { CnDynamicTextInfoComponent } from './dynamic-component/cn-dynamic-text-
 import {SafeHtmlPipe} from '../../pipe/safe-html.pipe';
 import {CnContextmenuComponent} from './dynamic-block/cn-contextmenu/cn-contextmenu.component';
 import {CnstComponentModule} from '../../cnst-component/cnst-component.module';
+import {CnstDatasourceComponent} from './cnst-datasource/cnst-datasource.component';
+import {CnstCodemirrorComponent} from './cnst-codemirror/cnst-codemirror.component';
 
 @NgModule({
   imports: [
@@ -74,7 +76,9 @@ import {CnstComponentModule} from '../../cnst-component/cnst-component.module';
     CnDynamicDetailComponent,
     CnDynamicTextInfoComponent,
     SafeHtmlPipe,
-    CnContextmenuComponent
+    CnContextmenuComponent,
+    CnstDatasourceComponent,
+    CnstCodemirrorComponent
   ],
   exports: [
     CnDynamicLayoutComponent,
@@ -96,7 +100,9 @@ import {CnstComponentModule} from '../../cnst-component/cnst-component.module';
     CnDynamicDetailComponent,
     CnDynamicTextInfoComponent,
     CnDynamicFieldsDirective,
-    CnContextmenuComponent
+    CnContextmenuComponent,
+    CnstDatasourceComponent,
+    CnstCodemirrorComponent
   ],
   entryComponents: [
     CnDynamicColumnComponent,

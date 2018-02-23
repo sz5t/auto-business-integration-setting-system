@@ -1,0 +1,75 @@
+<p>
+  cnst-datasource works!
+</p>
+<div class="row">
+  <div class="table-scrollable col-md-12">
+    <table class="table table-hover table-bordered">
+      <thead>
+        <tr>
+          <th width="75"> 属性 </th>
+          <th> 值 </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> 数据源sql </td>
+          <td>
+            <div cnst-codemirror></div>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <ul class="nav nav-tabs">
+      <li class="tabs.active active">
+        <a href="#tab01" data-toggle="tab">
+          <span>字段</span>
+        </a>
+      </li>
+      <li class="tabs.active">
+        <a href="#tab02" data-toggle="tab">
+          <span>sql参数</span>
+        </a>
+      </li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane fade active in" id="tab01">
+        <p>字段构建</p>
+
+        <form class="form-horizontal" role="form"  [formGroup]="_form">
+          <table class="table table-hover table-bordered">
+            <thead>
+              <tr>
+                <td>字段名称</td>
+                <td>标题</td>
+                <td>数据类型</td>
+                <td>展示样式</td>
+                <td>是否显示</td>
+                <td>顺序</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let configData of _formConfigs">
+                <td *ngFor="let field of configData">
+                  <ng-container cnDynamicFields [config]="field" [group]="_form"></ng-container>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </form>
+
+      </div>
+      <div class="tab-pane fade" id="tab02">
+        <p>参数构建</p>
+      </div>
+
+    </div>
+
+  </div>
+</div>
