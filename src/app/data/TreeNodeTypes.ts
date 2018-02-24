@@ -35,8 +35,8 @@ export class NodeTypes {
     SORT_DELETE: 'delete'
   };
   public static nodeTypes = {
-    'tree':{'icon': 'fa fa-cog font-yellow-jungle'},
-    'gridview': {'icon': 'fa fa-table font-green-jungle'},
+    'tree_view':{'icon': 'fa fa-cog font-yellow-jungle'},
+    'grid_view': {'icon': 'fa fa-table font-green-jungle'},
     'layout': {'icon': 'fa fa-file font-green-jungle'},
     'default': {'icon': 'fa fa-folder icon-state-success'},
     'property': {'icon': 'fa fa-file icon-state-success'},
@@ -206,7 +206,7 @@ export class NodeTypes {
       disabled: false,
       selected: false,
     },
-    type: 'gridview'
+    type: 'grid_view'
   };
   public static component_tree_node = {
     text: '树组件',
@@ -221,7 +221,7 @@ export class NodeTypes {
       disabled: false,
       selected: false,
     },
-    type: 'tree'
+    type: 'tree_view'
   };
   public static component_tabs_node = {};
   public static component_tab_node = {};

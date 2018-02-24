@@ -8,6 +8,7 @@ import {CnDynamicRowDirective} from '../../components/dynamic/dynamic-row/cn-dyn
 import {CnDynamicLayoutComponent} from '../../components/dynamic/dynamic-layout/dynamic-layout.component';
 import {NodeTypes, SettingTreeNodeResource, TreeNode} from '../../data/TreeNodeTypes';
 import {CommonUtility} from '../../framework/utility/common-utility';
+import {CnstPortletComponent} from "../../cnst-component/cnst-portlet/cnst-portlet.component";
 declare let $: any;
 @Component({
   selector: 'cn-component-setting',
@@ -20,7 +21,7 @@ export class ComponentSettingComponent implements OnInit, AfterViewInit {
   @ViewChild('preview') preview: ElementRef;
   @ViewChild('editor') editor: ElementRef;
   @ViewChild('settingTree') settingTree: ElementRef;
-  //@ViewChildren('blocks') blocks: QueryList<ElementRef>;
+
   @ViewChildren('blocks') blocks: QueryList<CnDynamicBlockPortletComponent>;
   _config;
 
@@ -29,14 +30,16 @@ export class ComponentSettingComponent implements OnInit, AfterViewInit {
   ngOnInit() {}
 
   ngAfterViewInit () {
-    this.preview.nativeElement.style.height = window.screen.availHeight + 'px';
-    this.editor.nativeElement.style.height = window.screen.availHeight + 'px';
+   /* const validHeight = document.body.scrollHeight - 300;
+    this.preview.nativeElement.style.height = validHeight + 'px';
+    this.editor.nativeElement.style.height = validHeight + 'px';*/
     const $tree = $(this.settingTree.nativeElement);
     $(this.selectFunc.nativeElement).selectpicker();
     $(this.selectFunc.nativeElement).on('changed.bs.select', (e, index, newValue, oldValue) => {
       if (newValue){
         const funcName = $(this.selectFunc.nativeElement).selectpicker('val');
         const settingData = this.clientService.getLocalStorage(funcName);
+        console.log(settingData);
         this._config = settingData;
         const treeData = [{
           id: funcName, text: '布局结构树', icon: 'fa fa-folder icon-state-warning', li_attr: '', a_attr: '', parent: '#', readonly: false, value: null,
@@ -49,7 +52,7 @@ export class ComponentSettingComponent implements OnInit, AfterViewInit {
         settingData.forEach(settings => {
           settings.forEach(setting => {
             const node = {...SettingTreeNodeResource.settingTreeNode};
-            node.id = 'node_' + CommonUtility.uuID(5);
+            node.id = setting.id; // 树区域节点ID和布局区域ID保持一至
             node.text = setting.title;
             node.icon = setting.titleIcon;
             node.parent = funcName;
@@ -73,13 +76,30 @@ export class ComponentSettingComponent implements OnInit, AfterViewInit {
             'items': function (node) {
               const type = this.get_type(node);
               const _smenu = NodeTypes[type];
-              createAction(_smenu, type, node.id);
-              return _smenu;
+              return  createAction(_smenu, type, node.id);
             }
           }
         });
         const instance = $tree.jstree();
+        const createComponentNode = (treeInstance, component, parentId) =>{
 
+          const newID = treeInstance.create_node(
+            parentId, component, 'last', () => {
+              treeInstance.deselect_node(parentId);
+            }, true);
+          treeInstance.select_node(newID);
+
+          this._config.forEach(config => {
+            config.forEach(c => {
+              if(c.id === parentId) {
+                //两种实现，1、改变config 输入参数没动态改变，2、调用创建方法
+                c.viewCfg = {component: component.type};
+              }
+            });
+          });
+          this._config = $.extend(true, [], this._config);
+          console.log(this._config);
+        };
         const createAction = (t, n, parentId) => {
           // t is menu node
           // n is component name
@@ -88,30 +108,12 @@ export class ComponentSettingComponent implements OnInit, AfterViewInit {
               const component_submenu = t[NodeTypes.NODE_TYPE.LAYOUT_COMPONENT_ADD].submenu;
               const layout_submenu = t[NodeTypes.NODE_TYPE.LAYOUT_LAYOUT_ADD].submenu;
               component_submenu[NodeTypes.NODE_TYPE.LAYOUT_TREE].action = (data) => {
-                const node = layoutTree.jstree('get_node', data.reference[0]);
-                console.log(t, n, parentId);
-                // add tree
-                console.log(data);
-                console.log(instance);
+                // const node = layoutTree.jstree('get_node', data.reference[0]);
                 // const node = instance.get_node(data);
-                const newID = instance.create_node(
-                  parentId,
-                  NodeTypes.component_tree_node,
-                  'last',
-                  () => {
-                    instance.deselect_node(parentId);
-                }, true);
-                instance.select_node(newID);
+                createComponentNode(instance, NodeTypes.component_tree_node, parentId);
               };
               component_submenu[NodeTypes.NODE_TYPE.LAYOUT_GRIDVIEW].action = (data) => {
-                const newID = instance.create_node(
-                  parentId,
-                  NodeTypes.component_gridview_node,
-                  'last',
-                  () => {
-                    instance.deselect_node(parentId);
-                  }, true
-                );
+                createComponentNode(instance, NodeTypes.component_gridview_node, parentId)
               };
               layout_submenu[NodeTypes.NODE_TYPE.LAYOUT_TABS].action = (data) => {
                 // add tabs
@@ -127,15 +129,11 @@ export class ComponentSettingComponent implements OnInit, AfterViewInit {
               };
               break;
           }
+          return t;
         };
-
-
       }
     });
   }
-
-
-
   save($event?) {
 
   }

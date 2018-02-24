@@ -1,0 +1,33 @@
+
+<form class="form-horizontal" role="form" novalidate
+      [formGroup]="form"
+      (submit)="handleSubmit($event)">
+  <table class="table table-hover table-bordered">
+    <thead>
+    <tr>
+      <td>字段名称</td>
+      <td>标题</td>
+      <td>数据类型</td>
+      <td>展示样式</td>
+      <td>是否显示</td>
+      <td>顺序</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let configData of configs">
+      <td *ngFor="let field of configData">
+        <ng-container cnstDynamicField
+                      [(submitValid)]="submitValid"
+                      [config]="field"
+                      [group]="form">
+        </ng-container>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</form>
+
+
+
+

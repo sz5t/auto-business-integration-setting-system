@@ -1,6 +1,6 @@
 import {
   Component, OnInit, ViewChild, ElementRef, ViewEncapsulation, ViewContainerRef, ComponentFactory,
-  ComponentRef, ComponentFactoryResolver, OnDestroy, Type, Input
+  ComponentRef, ComponentFactoryResolver, OnDestroy, Type, Input, OnChanges
 } from '@angular/core';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { CnstPortletGridviewComponent } from '../cnst-portlet-gridview/cnst-portlet-gridview.component';
@@ -11,58 +11,61 @@ import {App} from '../../components/layout/cn-layout/cn-layout.component';
 
 import { ICnstPortlet } from '../cnst-portlet';
 const components: { [type: string]: Type<ICnstPortlet> } = {
-  gridview: CnstPortletGridviewComponent,
-  treeview: CnstPortletTreeComponent,
+  grid_view: CnstPortletGridviewComponent,
+  tree_view: CnstPortletTreeComponent,
   tabsview: CnstPortletTabsComponent
 };
 @Component({
   selector: 'cnst-portlet,[cnst-portlet]',
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './cnst-portlet.component.html',
   styleUrls: ['./cnst-portlet.component.css']
 })
-export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet {
+export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet, OnDestroy, OnChanges{
+
   @Input() config;
+  _containerInfo;
   componentRef: ComponentRef<ICnstPortlet>;
-  @ViewChild("dynamicComponent", { read: ViewContainerRef }) container: ViewContainerRef;
+  //@ViewChild('dynamicComponent', { read: ViewContainerRef }) container: ViewContainerRef;
   @ViewChild(CnstPortletContextmenuComponent) menu: CnstPortletContextmenuComponent;
   @ViewChild('portlet') portlet: ElementRef;
   //右键弹出菜单
   menuList = [
-    { id: 'treeview', icon: 'icon-user', title: '新增树' },
-    { id: 'gridview', icon: 'icon-user', title: '新表格' },
+    { id: 'tree_view', icon: 'icon-user', title: '新增树' },
+    { id: 'grid_view', icon: 'icon-user', title: '新表格' },
     { id: 'tabsview', icon: 'icon-user', title: '新Tab' },
     { id: 'Clear', icon: 'icon-user', title: '清空' }
   ];
   portletJson = {
-    "id": "001",
+    'id': '001',
     //"title": "用户列表",
-    "titleColor": "font-green",
-    "titleIcon": "fa fa-cogs",
-    "isFullScreen": true,
-    "isCollapse": true,
-    "blockType": "portlet",
-    "size": {
-      "xs": {
-        "value": "12",
-        "offset": ""
+    'titleColor': 'font-green',
+    'titleIcon': 'fa fa-cogs',
+    'isFullScreen': true,
+    'isCollapse': true,
+    'blockType': 'portlet',
+    'size': {
+      'xs': {
+        'value': '12',
+        'offset': ''
       },
-      "sm": {
-        "value": "12",
-        "offset": ""
+      'sm': {
+        'value': '12',
+        'offset': ''
       },
-      "md": {
-        "value": "12",
-        "offset": ""
+      'md': {
+        'value': '12',
+        'offset': ''
       },
-      "lg": {
-        "value": "12",
-        "offset": ""
+      'lg': {
+        'value': '12',
+        'offset': ''
       }
     }
   };
   //布局json信息
 
-  constructor(private resolver: ComponentFactoryResolver) {
+  constructor(private resolver: ComponentFactoryResolver, private container: ViewContainerRef) {
 
    // if (this.config==undefined ||this.config=='undefined' ||this.config==null )
    if (!this.config) {
@@ -70,16 +73,20 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
    }
   }
 
+  ngOnChanges(): void {
+    if (this.config.viewCfg){
+      this.createComponent({name: this.config.viewCfg.component, value: ''});
+    }
+  }
+
   createComponent(data?) {
-    console.log(data);
     if (data.name) {
       if (data.name === 'Clear') {
         if (this.componentRef) {
-          this.componentRef.destroy()
+          this.componentRef.destroy();
         }
       } else {
         this.container.clear();
-        console.log(components[data.name]);
         const factory = this.resolver.resolveComponentFactory<ICnstPortlet>(components[data.name]);
         this.componentRef = this.container.createComponent(factory);
         this.componentRef.instance.config = data.value;
@@ -92,7 +99,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
 
   ngOnDestroy() {
     if (this.componentRef) {
-      this.componentRef.destroy()
+      this.componentRef.destroy();
     }
 
   }
@@ -102,6 +109,6 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
   ngAfterViewInit() {
     this.menu.createMenu(this.portlet.nativeElement);
     App.initSlimScroll('.scroller');
-    
+
   }
 }

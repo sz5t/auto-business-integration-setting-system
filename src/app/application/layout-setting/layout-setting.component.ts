@@ -6,6 +6,7 @@ import {CnDynamicFieldsDirective} from '../../components/dynamic/dynamic-compone
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {IFieldConfig} from '../../components/form/form-models/IFieldConfig';
 import {ClientStorageService} from "../../services/client-storage.service";
+import {CnDynamicLayoutComponent} from "../../components/dynamic/dynamic-layout/dynamic-layout.component";
 
 declare let $: any;
 @Component({
@@ -19,7 +20,6 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
   @ViewChild('selectArea') selectArea: ElementRef;
   @ViewChild('preview') preview: ElementRef;
   @ViewChild('editor') editor: ElementRef;
-
   index = 0;
   _showMore = false;
   _form: FormGroup;
@@ -999,8 +999,9 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
   }
 
   ngAfterViewInit() {
-    this.preview.nativeElement.style.height = window.screen.availHeight + 'px';
-    this.editor.nativeElement.style.height = window.screen.availHeight + 'px';
+    const validHeight = document.body.scrollHeight - 300;
+    this.preview.nativeElement.style.height = validHeight + 'px';
+    this.editor.nativeElement.style.height = validHeight + 'px';
     $(this.selectFunc.nativeElement).selectpicker();
     $(this.selectArea.nativeElement).selectpicker();
     $(this.selectArea.nativeElement).on('changed.bs.select', (e, index, newValue, oldValue) => {
@@ -1013,6 +1014,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
         this._config.forEach(subConfig => {
           subConfig.forEach(subEditor => {
             blockCount++;
+            subEditor.height = this.getBlockHeight(layoutName, validHeight);
             subEditor.editForm.title = `区域（${blockCount}）`;
             subEditor.editForm.active = blockCount === 1;
             subEditor.editForm.id = subEditor.id;
@@ -1059,6 +1061,25 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
   createControl(config: IFieldConfig) {
     const {disabled, validation, value} = config;
     return this.formBuilder.control({disabled, value}, validation);
+  }
+
+  private getBlockHeight(layoutName, validHeight): string {
+    const h = validHeight - 300;
+    switch (layoutName) {
+      case 'single':
+        return h + 'px';
+      case 'left_right':
+        return h + 'px';
+      case 'up_down':
+        return h / 2 + 'px';
+      case 't_block1':
+        return h / 2 + 'px';
+      case 't_block2':
+        return h / 2 + 'px';
+      case 't_block3':
+        return h / 2 + 'px';
+    }
+    return '';
   }
 
 }

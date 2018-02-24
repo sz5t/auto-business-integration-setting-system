@@ -171,7 +171,6 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
             }
           }
         });
-
       }
     });
   }

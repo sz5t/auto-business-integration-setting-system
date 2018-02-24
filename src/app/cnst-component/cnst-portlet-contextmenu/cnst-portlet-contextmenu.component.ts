@@ -1,13 +1,14 @@
-import { Component, OnInit , Input, Output,ViewEncapsulation,EventEmitter,ElementRef,ViewChild} from '@angular/core';
+import { Component, OnInit , Input, Output, ViewEncapsulation, EventEmitter, ElementRef, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'cnst-portlet-contextmenu,[cnst-portlet-contextmenu]',
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './cnst-portlet-contextmenu.component.html',
   styleUrls: ['./cnst-portlet-contextmenu.component.css']
 })
 export class CnstPortletContextmenuComponent implements OnInit {
-  @Input() menuItem:any[];//菜单的数据
-  @Input() parentContext;//位置
+  @Input() menuItem: any[]; //菜单的数据
+  @Input() parentContext; //位置
   @ViewChild('contextmenu') contextmenu: ElementRef;
   //menuItemValue: any;
   // 输出参数
@@ -21,8 +22,8 @@ export class CnstPortletContextmenuComponent implements OnInit {
 
   }
   createMenu(parentContext) {
-    if(parentContext){
-      let menu = new ContextMenu(parentContext, {
+    if (parentContext){
+      const menu = new ContextMenu(parentContext, {
         target: this.contextmenu.nativeElement, before: function (e) {
           e.preventDefault();
           return true;
@@ -32,7 +33,7 @@ export class CnstPortletContextmenuComponent implements OnInit {
          //调用父级的方法
          const target = $(e.target);
          let targetObj;
-         if(target.attr('id')){
+         if (target.attr('id')){
            targetObj = {name: target.attr('id'), value: ''};
          }else {
            const val = target.parent().attr('id');
@@ -75,7 +76,7 @@ export class ContextMenu {
       this.$element.data('target', options.target);
     }
     this.listen();
-  };
+  }
 
   show(e) {
     let $menu;
@@ -100,7 +101,7 @@ export class ContextMenu {
     $('html')
       .on('click.context.data-api', $menu.selector, $.proxy(this.closemenu, this));
     return false;
-  };
+  }
 
   closemenu(e?) {
     let $menu
@@ -120,11 +121,11 @@ export class ContextMenu {
     // Don't propagate click event so other currently
     // opened menus won't close.
     return false;
-  };
+  }
   keydown(e) {
     if (e.which == 27)
       this.closemenu(e);
-  };
+  }
   // before =(e) {
   //   return true;
   // };
@@ -135,15 +136,15 @@ export class ContextMenu {
     this.$element.on('contextmenu.context.data-api', this.scopes, $.proxy(this.show, this));
     $('html').on('click.context.data-api', $.proxy(this.closemenu, this));
     $('html').on('keydown.context.data-api', $.proxy(this.keydown, this));
-  };
+  }
   destroy() {
     this.$element.off('.context.data-api').removeData('context');
     $('html').off('.context.data-api');
-  };
+  }
   isDisabled() {
     return this.$element.hasClass('disabled') ||
       this.$element.attr('disabled');
-  };
+  }
   getMenu() {
     let selector = this.$element.data('target');
     let $menu;
@@ -156,27 +157,27 @@ export class ContextMenu {
     $menu = $(selector);
 
     return $menu && $menu.length ? $menu : this.$element.find(selector);
-  };
+  }
   getPosition(e, $menu) {
-    let mouseX = e.clientX;
-    let mouseY = e.clientY;
-    let boundsX = $(window).width();
-    let boundsY = $(window).height();
-    let menuWidth = $menu.find('.dropdown-menu').outerWidth();
-    let menuHeight = $menu.find('.dropdown-menu').outerHeight();
-    let tp = { "position": "absolute", "z-index": 9999 };
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+    const boundsX = $(window).width();
+    const boundsY = $(window).height();
+    const menuWidth = $menu.find('.dropdown-menu').outerWidth();
+    const menuHeight = $menu.find('.dropdown-menu').outerHeight();
+    const tp = { 'position': 'absolute', 'z-index': 9999 };
     let Y, X, parentOffset;
 
     if (mouseY + menuHeight > boundsY) {
-      Y = { "top": mouseY - menuHeight + $(window).scrollTop() };
+      Y = { 'top': mouseY - menuHeight + $(window).scrollTop() };
     } else {
-      Y = { "top": mouseY + $(window).scrollTop() };
+      Y = { 'top': mouseY + $(window).scrollTop() };
     }
 
     if ((mouseX + menuWidth > boundsX) && ((mouseX - menuWidth) > 0)) {
-      X = { "left": mouseX - menuWidth + $(window).scrollLeft() };
+      X = { 'left': mouseX - menuWidth + $(window).scrollLeft() };
     } else {
-      X = { "left": mouseX + $(window).scrollLeft() };
+      X = { 'left': mouseX + $(window).scrollLeft() };
     }
 
     // If context-menu's parent is positioned using absolute or relative positioning,
@@ -187,5 +188,5 @@ export class ContextMenu {
     Y.top = Y.top - parentOffset.top;
 
     return $.extend(tp, Y, X);
-  };
+  }
 }

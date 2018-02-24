@@ -36,6 +36,7 @@ import {CnContextmenuComponent} from './dynamic-block/cn-contextmenu/cn-contextm
 import {CnstComponentModule} from '../../cnst-component/cnst-component.module';
 import {CnstDatasourceComponent} from './cnst-datasource/cnst-datasource.component';
 import {CnstCodemirrorComponent} from './cnst-codemirror/cnst-codemirror.component';
+import {CnstFormModule} from '../cnst-form/cnst-form.module';
 
 @NgModule({
   imports: [
@@ -45,7 +46,8 @@ import {CnstCodemirrorComponent} from './cnst-codemirror/cnst-codemirror.compone
     DataTablesModule,
     FormsModule,
     ReactiveFormsModule,
-    CnstComponentModule
+    CnstComponentModule,
+    CnstFormModule
   ],
   declarations: [
     CnDynamicRowDirective,

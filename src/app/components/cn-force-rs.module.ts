@@ -7,6 +7,7 @@ import {CnTreeModule} from './tree/tree.module';
 import {CnGridModule} from './grid/cn-grid.module';
 import {CnDynamicModule} from './dynamic/dynamic.module';
 import {CommonModule} from '@angular/common';
+import {CnstFormModule} from "./cnst-form/cnst-form.module";
 /*import {CnContextmenuComponent} from './cn-contextmenu/cn-contextmenu.component';
 import {CnPortletComponent} from './cn-portlet/cn-portlet.component';*/
 @NgModule({
