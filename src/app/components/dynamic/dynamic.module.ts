@@ -124,7 +124,8 @@ import {CnstFormModule} from '../cnst-form/cnst-form.module';
     CnDynamicSearchFormComponent,
     CnDynamicDetailDialogComponent,
     CnDynamicDetailComponent,
-    CnDynamicTextInfoComponent
+    CnDynamicTextInfoComponent,
+    CnstCodemirrorComponent
   ]
 })
 export class CnDynamicModule {

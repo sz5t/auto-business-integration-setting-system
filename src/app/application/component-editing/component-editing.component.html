@@ -1,7 +1,8 @@
 <div class="row">
   <div #editor class="portlet light bordered  col-md-4">
     <div class="portlet-title">
-      <div class="caption"><i class="fa fa-cogs"></i> 区域设置</div>
+      <div class="caption">
+        <i class="fa fa-cogs"></i> 区域设置</div>
     </div>
     <div class="portlet-body">
       <div class="form-horizontal">
@@ -43,56 +44,49 @@
   </div>
   <div class="col-md-8">
     <div class="row">
-      <div class="table-scrollable col-md-6">
-        <table class="table table-hover table-bordered">
-          <thead>
-          <tr>
-            <th width="75"> 属性 </th>
-            <th> 值 </th>
-            <th> 配置说明 </th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td> 属性 1 </td>
-            <td>  </td>
-            <td>  </td>
-          </tr>
-          <tr>
-            <td> 属性 2 </td>
-            <td>  </td>
-            <td>  </td>
-          </tr>
-          <tr>
-            <td> 属性 3 </td>
-            <td>  </td>
-            <td>  </td>
-          </tr>
-          <tr>
-            <td> 属性 4 </td>
-            <td>  </td>
-            <td>  </td>
-          </tr>
-          </tbody>
-        </table>
 
-      </div>
-      <div #preview class="portlet light bordered bg-inverse">
-        <div class="portlet-title">
-          <div class="caption"><i class="fa fa-cog"></i> 设置预览</div>
-        </div>
-        <div  class="portlet-body">
-          <div #blocks cn-dynamic-layout [config]="_config"></div>
-        </div>
-      </div>
+        <ul class="nav nav-tabs">
+            <li class="tabs.active active">
+              <a href="#tabDataSource01" data-toggle="tab">
+                <span>数据源设置</span>
+              </a>
+            </li>
+            <li class="tabs.active">
+              <a href="#tabDataSource02" data-toggle="tab">
+                <span>设置预览</span>
+              </a>
+            </li>
+          </ul>
+
+          <div class="tab-content">
+              <div class="tab-pane fade active in" id="tabDataSource01">
+          
+                  <div cnst-datasource></div>
+              </div>
+              <div class="tab-pane fade" id="tabDataSource02">
+        
+                  <div #preview class="portlet light bordered bg-inverse">
+                      <div class="portlet-title">
+                        <div class="caption">
+                          <i class="fa fa-cog"></i> 设置预览</div>
+                      </div>
+                      <div class="portlet-body">
+                        <div #blocks cn-dynamic-layout [config]="_config"></div>
+                      </div>
+                    </div>
+              </div>
+        
+            </div>
+
+     
     </div>
-   
+
   </div>
 
 </div>
 <div class="row">
   <div class="col-md-12">
     <p>数据源录入界面</p>
-      <div cnst-datasource></div>
+   
   </div>
 </div>

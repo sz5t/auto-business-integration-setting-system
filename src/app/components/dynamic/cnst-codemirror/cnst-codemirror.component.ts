@@ -1,4 +1,6 @@
-import { Component, OnInit,ViewEncapsulation,ViewChild,ElementRef,Input } from '@angular/core';
+import { Component, OnInit,ViewEncapsulation,ViewChild,ElementRef,Input,Output,EventEmitter } from '@angular/core';
+import { retry } from 'rxjs/operator/retry';
+import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 declare let CodeMirror:any;
 @Component({
   selector: 'cnst-codemirror,[cnst-codemirror]',
@@ -6,12 +8,16 @@ declare let CodeMirror:any;
   templateUrl: './cnst-codemirror.component.html',
   styleUrls: ['./cnst-codemirror.component.css']
 })
-export class CnstCodemirrorComponent implements OnInit {
+export class CnstCodemirrorComponent implements OnInit, AfterViewInit {
   @ViewChild('CodeMirror') codeeditor: ElementRef;
   editor;
   constructor() { }
   ngOnInit() {
-      this.editor = CodeMirror.fromTextArea(this.codeeditor.nativeElement, {
+      
+  }
+
+  ngAfterViewInit (){
+    this.editor = CodeMirror.fromTextArea(this.codeeditor.nativeElement, {
       mode: "text/x-sql",
       indentWithTabs: true,
       smartIndent: true,
@@ -25,11 +31,11 @@ export class CnstCodemirrorComponent implements OnInit {
       }}
     });
   }
-
   getValue(){
-    alert( this.editor.getValue());
+    return this.editor.getValue();
+    
   };
  
-
+  
  
 }

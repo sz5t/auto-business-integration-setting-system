@@ -40,9 +40,12 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.form = this.createGroup();
+    console.log(this.form);
   }
   ngOnChanges() {
+    console.log("change controls", this.configs);
     if (this.form) {
+     
       const controls = Object.keys(this.form.controls);
       const configControls = this.controls.map(item => item.name);
 
@@ -58,6 +61,7 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
     }
   }
   createGroup() {
+    console.log('createGroup');
     const group = this.formBuilder.group({});
     this.controls.forEach(control => group.addControl(control.name, this.createControl(control)));
     return group;
@@ -72,6 +76,9 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
     event.preventDefault();
     event.stopPropagation();
     this.submit.emit(this.value);
+    
+    console.log(this.value);
+    
   }
 
   setDisabled(name: string, disable: boolean) {
@@ -135,13 +142,12 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
     });
     // bootbox.confirm("确定要删除?", function (o) {
     //   alert(o);
-
     // });
-
-    
-
   };
 
+  getValue(){
+    return this.value;
+  }
 
 
 }

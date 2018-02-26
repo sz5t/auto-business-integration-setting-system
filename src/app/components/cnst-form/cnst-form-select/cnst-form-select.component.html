@@ -1,5 +1,5 @@
 
-      <select #select [formControlName]="config.name" class="bs-select form-control">
+      <select [formGroup]="group" #select [formControlName]="config.name" class="bs-select form-control">
         <option value="">{{config.placeholder}}</option>
         <option *ngFor="let option of config.options" value="{{option.value}}">{{option.text}}</option>
       </select>
