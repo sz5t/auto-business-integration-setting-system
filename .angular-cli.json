@@ -59,7 +59,8 @@
         "assets/global/plugins/bootstrap-table/bootstrap-table-locale-all.min.js",
         "assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js",
         "assets/global/plugins/codemirror/lib/codemirror.js",
-        "assets/global/plugins/codemirror/mode/sql/sql.js"
+        "assets/global/plugins/codemirror/mode/sql/sql.js",
+        "assets/global/plugins/bootbox/bootbox.min.js"
 
       ],
       "environmentSource": "environments/environment.ts",

@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewEncapsulation} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {IFieldConfig} from '../form/form-models/IFieldConfig';
-
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { IFieldConfig } from '../form/form-models/IFieldConfig';
+declare let bootbox: any;
 @Component({
   exportAs: 'cnstDynamicForm',
   selector: 'cnst-dynamic-form',
@@ -11,13 +11,14 @@ import {IFieldConfig} from '../form/form-models/IFieldConfig';
 })
 export class CnstDynamicFormComponent implements OnInit, OnChanges {
   @Input() configs;
+  @Input() configstitel;
   @Input() config: IFieldConfig[] = [];
   @Input() submitValid;
   @Output() submit: EventEmitter<any> = new EventEmitter<any>();
   form: FormGroup;
 
   get controls() {
-    return this.config.filter(({type}) => {
+    return this.config.filter(({ type }) => {
       return type !== 'button';
     });
   }
@@ -40,7 +41,7 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.form = this.createGroup();
   }
-  ngOnChanges(){
+  ngOnChanges() {
     if (this.form) {
       const controls = Object.keys(this.form.controls);
       const configControls = this.controls.map(item => item.name);
@@ -56,7 +57,7 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
         });
     }
   }
-  createGroup(){
+  createGroup() {
     const group = this.formBuilder.group({});
     this.controls.forEach(control => group.addControl(control.name, this.createControl(control)));
     return group;
@@ -64,7 +65,7 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
 
   createControl(config: IFieldConfig) {
     const { disabled, validation, value } = config;
-    return this.formBuilder.control({disabled, value}, validation);
+    return this.formBuilder.control({ disabled, value }, validation);
   }
 
   handleSubmit(event: Event) {
@@ -91,18 +92,56 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
     if (this.form.controls[name]) {
     }
   }
-  resetFormValue(){
+  resetFormValue() {
     this.form.reset();
   }
 
   setValue(name: string, value: any) {
     const control = this.form.controls[name];
     if (control) {
-      control.setValue(value, {emitEvent: true});
+      control.setValue(value, { emitEvent: true });
     }
   }
 
   getControlValue(name: string) {
     return this.form.controls[name].value;
   }
+
+  delrow(row?: any) {
+    bootbox.confirm({
+     // title: "确认",
+      message: "确定要删除?",
+      buttons: {
+        confirm: {
+          label: "确定"
+        },
+        cancel: {
+          label: "取消"
+
+        }
+      },
+      callback: (result) => {
+        if (result) {
+          const tableIndex = this.configs.findIndex(item => {
+            return item === row;
+          });
+          this.configs.splice(tableIndex, 1);
+
+        } else {
+          return;
+        }
+
+      }
+    });
+    // bootbox.confirm("确定要删除?", function (o) {
+    //   alert(o);
+
+    // });
+
+    
+
+  };
+
+
+
 }

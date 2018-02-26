@@ -2,14 +2,16 @@ import {ComponentFactoryResolver, ComponentRef, Directive, Input, OnChanges, OnI
 import {IFieldConfig} from '../form/form-models/IFieldConfig';
 import {FormGroup} from '@angular/forms';
 import {CnstFormInputComponent} from './cnst-form-input/cnst-form-input.component';
+import {CnstFormSelectComponent} from './cnst-form-select/cnst-form-select.component';
+import {CnstFormRadioComponent} from './cnst-form-radio/cnst-form-radio.component';
 import {IField} from '../form/form-models/IField';
 
 const component: { [type: string]: Type<IField> } = {
   //button: CnFormButtonComponent,
   input: CnstFormInputComponent,
-/*  select: CnFormSelectComponent,
-  select2: CnFormSelect2Component,
-  radio: CnFormRadioComponent,
+  select: CnstFormSelectComponent,
+  radio: CnstFormRadioComponent,
+  /*select2: CnFormSelect2Component,
   checkbox: CnFormCheckboxComponent,
   textarea: CnFormTextareaComponent,
   datepicker: CnDatePickerComponent,

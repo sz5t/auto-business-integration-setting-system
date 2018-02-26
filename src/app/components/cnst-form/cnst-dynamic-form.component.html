@@ -4,13 +4,9 @@
       (submit)="handleSubmit($event)">
   <table class="table table-hover table-bordered">
     <thead>
-    <tr>
-      <td>字段名称</td>
-      <td>标题</td>
-      <td>数据类型</td>
-      <td>展示样式</td>
-      <td>是否显示</td>
-      <td>顺序</td>
+    <tr style="background:#eef1f5">
+      <td  *ngFor="let titels of configstitel">{{titels.titel}}</td>
+      <td></td>
     </tr>
     </thead>
     <tbody>
@@ -22,6 +18,7 @@
                       [group]="form">
         </ng-container>
       </td>
+      <td><a class="btn btn-warning" (click)="delrow(configData)">删除</a></td>
     </tr>
     </tbody>
   </table>
