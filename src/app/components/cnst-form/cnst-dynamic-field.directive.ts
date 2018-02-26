@@ -45,12 +45,14 @@ export class CnstDynamicFieldDirective implements IField, OnChanges, OnInit {
   }
 
   ngOnInit() {
+
     if (!component[this.config.type]) {
       const supportedTypes = Object.keys(component).join(', ');
       throw new Error(
         `Trying to use an unsupported types (${this.config.type}).Supported types: ${supportedTypes}`
       );
     }
+
     const comp = this.resolver.resolveComponentFactory<IField>(component[this.config.type]);
     this.component = this.container.createComponent(comp);
     this.component.instance.config = this.config;

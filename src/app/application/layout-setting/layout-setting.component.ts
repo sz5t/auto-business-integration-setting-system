@@ -310,7 +310,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'title',
+                'name': 'area2_title',
                 'label': '标题：',
                 'inputClass': 'input-group ',
                 'helpClass': 'help-inline',
@@ -320,7 +320,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'MobileNumber',
+                'name': 'area2_icon',
                 'label': ' 图标：',
                 'inputClass': 'input-group ',
                 'icon': 'fa fa-image',
@@ -329,7 +329,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'RealName',
+                'name': 'area2_color',
                 'label': ' 颜色：',
                 'inputClass': 'input-group ',
                 'icon': 'fa fa-cube',
@@ -375,7 +375,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'area2_title',
+                'name': 'area1_title',
                 'label': '标题：',
                 'inputClass': 'input-group ',
                 'helpClass': 'help-inline',
@@ -385,7 +385,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'area2_icon',
+                'name': 'area1_icon',
                 'label': ' 图标：',
                 'inputClass': 'input-group ',
                 'icon': 'fa fa-image',
@@ -394,7 +394,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'area2_color',
+                'name': 'area1_color',
                 'label': ' 颜色：',
                 'inputClass': 'input-group ',
                 'icon': 'fa fa-cube',
@@ -437,7 +437,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'title',
+                'name': 'area2_title',
                 'label': '标题：',
                 'inputClass': 'input-group ',
                 'helpClass': 'help-inline',
@@ -447,7 +447,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'MobileNumber',
+                'name': 'area2_icon',
                 'label': ' 图标：',
                 'inputClass': 'input-group ',
                 'icon': 'fa fa-image',
@@ -456,7 +456,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'RealName',
+                'name': 'area2_color',
                 'label': ' 颜色：',
                 'inputClass': 'input-group ',
                 'icon': 'fa fa-cube',
@@ -497,7 +497,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'title',
+                'name': 'area3_title',
                 'label': '标题：',
                 'inputClass': 'input-group ',
                 'helpClass': 'help-inline',
@@ -507,7 +507,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'MobileNumber',
+                'name': 'area3_icon',
                 'label': ' 图标：',
                 'inputClass': 'input-group ',
                 'icon': 'fa fa-image',
@@ -516,7 +516,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'RealName',
+                'name': 'area3_color',
                 'label': ' 颜色：',
                 'inputClass': 'input-group ',
                 'icon': 'fa fa-cube',
@@ -562,7 +562,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'title',
+                'name': 'area1_title',
                 'label': '标题：',
                 'inputClass': 'input-group ',
                 'helpClass': 'help-inline',
@@ -572,7 +572,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'MobileNumber',
+                'name': 'area1_icon',
                 'label': ' 图标：',
                 'inputClass': 'input-group ',
                 'icon': 'fa fa-image',
@@ -581,7 +581,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'RealName',
+                'name': 'area1_color',
                 'label': ' 颜色：',
                 'inputClass': 'input-group ',
                 'icon': 'fa fa-cube',
@@ -622,7 +622,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'title',
+                'name': 'area2_title',
                 'label': '标题：',
                 'inputClass': 'input-group ',
                 'helpClass': 'help-inline',
@@ -632,7 +632,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'MobileNumber',
+                'name': 'area2_icon',
                 'label': ' 图标：',
                 'inputClass': 'input-group ',
                 'icon': 'fa fa-image',
@@ -641,7 +641,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'RealName',
+                'name': 'area2_color',
                 'label': ' 颜色：',
                 'inputClass': 'input-group ',
                 'icon': 'fa fa-cube',
@@ -684,7 +684,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'title',
+                'name': 'area3_title',
                 'label': '标题：',
                 'inputClass': 'input-group ',
                 'helpClass': 'help-inline',
@@ -694,7 +694,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'MobileNumber',
+                'name': 'area3_icon',
                 'label': ' 图标：',
                 'inputClass': 'input-group ',
                 'icon': 'fa fa-image',
@@ -703,7 +703,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'RealName',
+                'name': 'area3_color',
                 'label': ' 颜色：',
                 'inputClass': 'input-group ',
                 'icon': 'fa fa-cube',
@@ -749,7 +749,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'title',
+                'name': 'area1_title',
                 'label': '标题：',
                 'inputClass': 'input-group ',
                 'helpClass': 'help-inline',
@@ -759,7 +759,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'MobileNumber',
+                'name': 'area1_icon',
                 'label': ' 图标：',
                 'inputClass': 'input-group ',
                 'icon': 'fa fa-image',
@@ -768,7 +768,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'RealName',
+                'name': 'area1_color',
                 'label': ' 颜色：',
                 'inputClass': 'input-group ',
                 'icon': 'fa fa-cube',
@@ -809,7 +809,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'title',
+                'name': 'area2_title',
                 'label': '标题：',
                 'inputClass': 'input-group ',
                 'helpClass': 'help-inline',
@@ -819,7 +819,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'MobileNumber',
+                'name': 'area2_icon',
                 'label': ' 图标：',
                 'inputClass': 'input-group ',
                 'icon': 'fa fa-image',
@@ -828,7 +828,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'RealName',
+                'name': 'area2_color',
                 'label': ' 颜色：',
                 'inputClass': 'input-group ',
                 'icon': 'fa fa-cube',
@@ -871,7 +871,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'title',
+                'name': 'area3_title',
                 'label': '标题：',
                 'inputClass': 'input-group ',
                 'helpClass': 'help-inline',
@@ -881,7 +881,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'MobileNumber',
+                'name': 'area3_icon',
                 'label': ' 图标：',
                 'inputClass': 'input-group ',
                 'icon': 'fa fa-image',
@@ -890,7 +890,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'RealName',
+                'name': 'area3_color',
                 'label': ' 颜色：',
                 'inputClass': 'input-group ',
                 'icon': 'fa fa-cube',
@@ -931,7 +931,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'title',
+                'name': 'area4_title',
                 'label': '标题：',
                 'inputClass': 'input-group ',
                 'helpClass': 'help-inline',
@@ -941,7 +941,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'MobileNumber',
+                'name': 'area4_icon',
                 'label': ' 图标：',
                 'inputClass': 'input-group ',
                 'icon': 'fa fa-image',
@@ -950,7 +950,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
               {
                 'type': 'input',
                 'inputType': 'text',
-                'name': 'RealName',
+                'name': 'area4_color',
                 'label': ' 颜色：',
                 'inputClass': 'input-group ',
                 'icon': 'fa fa-cube',

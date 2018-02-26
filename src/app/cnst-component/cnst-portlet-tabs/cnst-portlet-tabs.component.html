@@ -13,7 +13,7 @@
 </ul>
 <div class="tab-content">
     <div *ngFor="let tab of tabs"
-    cnst-portlet-tabconcent
+    cnst-portlet-tabconcent [tabContent]="tab"
     class="tab-pane fade {{tab.active}}" id="{{tab.id}}">
 
     </div>

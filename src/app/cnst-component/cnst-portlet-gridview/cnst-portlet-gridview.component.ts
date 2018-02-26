@@ -1,4 +1,7 @@
-import { Component, OnInit, Input ,AfterViewInit,ElementRef,ViewChild,ViewEncapsulation} from '@angular/core';
+import {
+  Component, OnInit, Input, AfterViewInit, ElementRef, ViewChild, ViewEncapsulation,
+  EventEmitter, Output
+} from '@angular/core';
 import { ICnstPortlet } from '../cnst-portlet';
 declare let $:any;
 @Component({
@@ -9,6 +12,7 @@ declare let $:any;
 })
 export class CnstPortletGridviewComponent implements OnInit, ICnstPortlet,AfterViewInit{
   @Input() config: any;
+  @Output() callback: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('gridview') gridview: ElementRef;
   constructor() { }
 

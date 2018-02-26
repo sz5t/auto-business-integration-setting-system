@@ -12,11 +12,11 @@ import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 })
 export class CnstDatasourceComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
-  
+
   }
 /*   @ViewChild(CnstDynamicFormComponent)
   form: CnstDynamicFormComponent; */
- 
+
   @ViewChild('form1')
   form1:CnstDynamicFormComponent;
 
@@ -155,35 +155,19 @@ export class CnstDatasourceComponent implements OnInit, AfterViewInit {
   ];
   _formConfig;
   _form: FormGroup;
-  constructor(private formBuilder: FormBuilder) {
-    
+  constructor() {
+
   }
 
   ngOnInit() {
-    //this._form = this.formBuilder.group({});
   }
 
-  createGroup() {
-    const group = this.formBuilder.group({});
-    this._formConfig.forEach(controlData => {
-      controlData.forEach(control => {
-        group.addControl(control.name, this.createControl(control));
-      });
-    });
-    return group;
-  }
-
-  createControl(config: IFieldConfig) {
-    const { disabled, validation, value } = config;
-    return this.formBuilder.control({ disabled, value }, validation);
-  }
-
-  addfield() {
+  addField() {
     this._formConfigs.push([
       {
         'type': 'input',
         'inputType': 'text',
-        'name': 'AssemblyName1',
+        'name': 'AssemblyName1_1',
         'helpClass': 'help-inline',
         'validations': [
           {
@@ -200,7 +184,7 @@ export class CnstDatasourceComponent implements OnInit, AfterViewInit {
       {
         'type': 'input',
         'inputType': 'text',
-        'name': 'AssemblyName2',
+        'name': 'AssemblyName2_1',
         'validations': [
           {
             'validator': 'required',
@@ -230,7 +214,7 @@ export class CnstDatasourceComponent implements OnInit, AfterViewInit {
             'value': '时间'
           }
         ],
-        'name': 'AssemblyName3',
+        'name': 'AssemblyName3_1',
         'value': '',
         'inputClass': 'input-medium'
       },
@@ -251,7 +235,7 @@ export class CnstDatasourceComponent implements OnInit, AfterViewInit {
             'value': '右对齐'
           }
         ],
-        'name': 'AssemblyName4',
+        'name': 'AssemblyName4_1',
         'value': '',
         'inputClass': 'input-medium'
       },
@@ -268,14 +252,14 @@ export class CnstDatasourceComponent implements OnInit, AfterViewInit {
             'value': '隐藏'
           }
         ],
-        'name': 'AssemblyName5',
+        'name': 'AssemblyName5_1',
         'value': '',
         'inputClass': 'input-medium'
       },
       {
         'type': 'input',
         'inputType': 'text',
-        'name': 'AssemblyName6',
+        'name': 'AssemblyName6_1',
         'validations': [
           {
             'validator': 'required',
@@ -289,6 +273,10 @@ export class CnstDatasourceComponent implements OnInit, AfterViewInit {
         ]
       },
     ]);
+
+    this._formConfigs = $.extend(true,[], this._formConfigs);
+    console.log(this._formConfigs);
+    //this.form1.createNewControls(this._formConfigs);
   };
 
   addparameter() {
@@ -431,7 +419,7 @@ export class CnstDatasourceComponent implements OnInit, AfterViewInit {
 
 
   getCodemirrorValue() {
-  
+
      alert(this.codemirror.getValue());
   };
 

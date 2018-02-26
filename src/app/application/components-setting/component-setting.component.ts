@@ -33,15 +33,14 @@ export class ComponentSettingComponent implements OnInit, AfterViewInit {
    /* const validHeight = document.body.scrollHeight - 300;
     this.preview.nativeElement.style.height = validHeight + 'px';
     this.editor.nativeElement.style.height = validHeight + 'px';*/
-    const $tree = $(this.settingTree.nativeElement);
+    //const $tree = $(this.settingTree.nativeElement);
     $(this.selectFunc.nativeElement).selectpicker();
     $(this.selectFunc.nativeElement).on('changed.bs.select', (e, index, newValue, oldValue) => {
       if (newValue){
         const funcName = $(this.selectFunc.nativeElement).selectpicker('val');
         const settingData = this.clientService.getLocalStorage(funcName);
-        console.log(settingData);
         this._config = settingData;
-        const treeData = [{
+        /* const treeData = [{
           id: funcName, text: '布局结构树', icon: 'fa fa-folder icon-state-warning', li_attr: '', a_attr: '', parent: '#', readonly: false, value: null,
           state: {
             opened: true,
@@ -130,7 +129,7 @@ export class ComponentSettingComponent implements OnInit, AfterViewInit {
               break;
           }
           return t;
-        };
+        };*/
       }
     });
   }

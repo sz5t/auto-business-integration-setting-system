@@ -18,7 +18,13 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
   form: FormGroup;
 
   get controls() {
-    return this.config.filter(({ type }) => {
+    const allControls = [];
+    this.configs.forEach(config => {
+      config.forEach(control => {
+        allControls.push(control);
+      });
+    });
+    return allControls.filter(({type}) => {
       return type !== 'button';
     });
   }
@@ -40,28 +46,27 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.form = this.createGroup();
-    console.log(this.form);
   }
   ngOnChanges() {
-    console.log("change controls", this.configs);
     if (this.form) {
-     
       const controls = Object.keys(this.form.controls);
+
       const configControls = this.controls.map(item => item.name);
 
       controls
         .filter(control => !configControls.includes(control))
         .forEach(control => this.form.removeControl(control));
+
       configControls
         .filter(control => !controls.includes(control))
         .forEach(name => {
-          const config = this.config.find(control => control.name === name);
-          this.form.addControl(name, this.createControl(config));
+          const item = this.controls.find(control => control.name === name);
+          this.form.addControl(name, this.createControl(item));
         });
     }
   }
+
   createGroup() {
-    console.log('createGroup');
     const group = this.formBuilder.group({});
     this.controls.forEach(control => group.addControl(control.name, this.createControl(control)));
     return group;
@@ -76,9 +81,6 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
     event.preventDefault();
     event.stopPropagation();
     this.submit.emit(this.value);
-    
-    console.log(this.value);
-    
   }
 
   setDisabled(name: string, disable: boolean) {

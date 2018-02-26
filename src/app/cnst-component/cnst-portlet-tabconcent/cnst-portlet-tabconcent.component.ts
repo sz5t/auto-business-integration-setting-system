@@ -8,7 +8,7 @@ import { Component, OnInit,ViewEncapsulation ,Input,AfterViewInit} from '@angula
 })
 export class CnstPortletTabconcentComponent implements OnInit,AfterViewInit {
 
- @Input() tabconcent:any;//tab标签页内容
+  @Input() tabContent;
   constructor() { }
 
   ngOnInit() {

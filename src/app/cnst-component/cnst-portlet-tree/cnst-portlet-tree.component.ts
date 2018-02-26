@@ -1,4 +1,4 @@
-import { Component, OnInit,Input ,AfterViewInit,ElementRef,ViewChild} from '@angular/core';
+import {Component, OnInit, Input, AfterViewInit, ElementRef, ViewChild, EventEmitter, Output} from '@angular/core';
 import { ICnstPortlet } from '../cnst-portlet';
 declare let $:any;
 @Component({
@@ -8,6 +8,7 @@ declare let $:any;
 })
 export class CnstPortletTreeComponent implements OnInit,ICnstPortlet,AfterViewInit {
   @Input() config: any;
+  @Output() callback: EventEmitter<any> = new EventEmitter<any>();
   constructor() { }
   @ViewChild('tree') tree: ElementRef;
   ngOnInit() {
@@ -52,6 +53,6 @@ export class CnstPortletTreeComponent implements OnInit,ICnstPortlet,AfterViewIn
       "plugins": ["dnd", "state", "types"]
     });
   }
- 
+
 
 }

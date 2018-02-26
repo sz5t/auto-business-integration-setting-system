@@ -29,16 +29,20 @@ export class CnstPortletContextmenuComponent implements OnInit {
           return true;
         },
         onItem: (context, e) => {
-         // this.menuClick(context, $(e.target).attr('class'));
-         //调用父级的方法
+         // 调用父级的方法
          const target = $(e.target);
          let targetObj;
          if (target.attr('id')){
-           targetObj = {name: target.attr('id'), value: ''};
+           targetObj = {name: target.attr('id'), value: {}};
          }else {
            const val = target.parent().attr('id');
-           targetObj = {name: val, value: ''};
+           targetObj = {name: val, value: {}};
          }
+         this.menuItem.forEach(item => {
+           if(targetObj.name === item.id){
+             targetObj.value = item.data;
+           }
+         });
           // this.menuItemValue = targetObj;
           this.changeComponent.emit(targetObj);
         }

@@ -49,6 +49,15 @@
         "display": true,
         "router": "desh-broad",
         "sub": []
+      },
+      {
+        "name": "formdemo",
+        "icon": "fa fa-cogs",
+        "title": "表单",
+        "description": "表单",
+        "display": true,
+        "router": "formdemo",
+        "sub": []
       }
     ]
   }
