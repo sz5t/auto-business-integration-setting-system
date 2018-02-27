@@ -1,23 +1,14 @@
 <div class="row">
-  <div class="table-scrollable col-md-12">
-    <table class="table table-hover table-bordered">
-      <thead>
-        <tr>
-
-          <th> 数据源 SQL</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-
-          <td>
-            <cnst-codemirror></cnst-codemirror>
-            <a class="btn btn-success" (click)="getCodemirrorValue()" >保存</a>
-          </td>
-        </tr>
-
-      </tbody>
-    </table>
+  <div class="col-md-12">
+    <div class="portlet light bordered">
+      <div class="portlet-title">
+        <div class="caption"><i class="fa fa-database"></i> 数据源 SQL</div>
+      </div>
+      <div class="portlet-body">
+        <cnst-codemirror></cnst-codemirror>
+        <a class="btn btn-success" (click)="getCodemirrorValue()" >保存</a>
+      </div>
+    </div>
   </div>
 </div>
 <div class="row">

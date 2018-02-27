@@ -157,6 +157,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
         this.componentRef = this.container.createComponent(factory);
         this.componentRef.instance.config = data.value;
         if(data.name === 'grid_view') {
+          this.config.viewCfg = data.value.viewCfg;
         }
         if(data.name === 'tabs_view') {
           this.config.tabs = data.value.tabs;
