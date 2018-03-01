@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { IFieldConfig } from '../../form/form-models/IFieldConfig';
 import { CnstDynamicFormComponent } from "../../cnst-form/cnst-dynamic-form.component";
 import { CnstCodemirrorComponent } from "../cnst-codemirror/cnst-codemirror.component";
-import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
+import { AfterViewInit, OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 import { CommonUtility } from '../../../framework/utility/common-utility';
 @Component({
   selector: 'cnst-datasource,[cnst-datasource]',
@@ -11,10 +11,12 @@ import { CommonUtility } from '../../../framework/utility/common-utility';
   templateUrl: './cnst-datasource.component.html',
   styleUrls: ['./cnst-datasource.component.css']
 })
-export class CnstDatasourceComponent implements OnInit, AfterViewInit {
+export class CnstDatasourceComponent implements OnInit, AfterViewInit, OnChanges {
   ngAfterViewInit(): void {
 
   }
+  @Input() _treeData;
+  @Input() cfgJson;
   /*   @ViewChild(CnstDynamicFormComponent)
     form: CnstDynamicFormComponent; */
 
@@ -40,7 +42,7 @@ export class CnstDatasourceComponent implements OnInit, AfterViewInit {
       show: true
     }
   };
-  _formConfigsContent=[];
+  _formConfigsContent = [];
   _formConfigsparameter = [];
   __formConfigsparameterTitle = {
     header: [
@@ -56,43 +58,61 @@ export class CnstDatasourceComponent implements OnInit, AfterViewInit {
       show: true
     }
   };
-  __formConfigsparameterContent=[];
+  __formConfigsparameterContent = [];
   _formConfig;
   _form: FormGroup;
+
+
+
   constructor() {
 
   }
 
   ngOnInit() {
+
   }
+
 
   addField() {
 
     const fieldIdentity = CommonUtility.uuID(5);
-    const conent=this._formConfigsContent;
-    
+    const conent = $.extend(true, [], this._formConfigsContent);
+
     conent.forEach(Field => {
-      Field.name=fieldIdentity+'_'+Field.name;
+      Field.name = fieldIdentity + '_' + Field.name;
     });
 
-    this._formConfigs.push(this._formConfigsContent);
+    this._formConfigs.push(conent);
 
     this._formConfigs = $.extend(true, [], this._formConfigs);
- 
+
   };
 
   addparameter() {
     const fieldIdentity = CommonUtility.uuID(5);
-    const conent=this.__formConfigsparameterContent;
-    
+    const conent = $.extend(true, [], this.__formConfigsparameterContent);
     conent.forEach(Field => {
-      Field.name=fieldIdentity+'_'+Field.name;
+      Field.name = fieldIdentity + '_' + Field.name;
     });
 
     this._formConfigsparameter.push(conent);
     this._formConfigsparameter = $.extend(true, [], this._formConfigsparameter);
   };
 
+  ngOnChanges() {
+    alert('hh');
+    if (this.cfgJson) {
+
+
+      this._formConfigs = [];
+      this._formConfigsTitle = this.cfgJson.field.titleHeader;
+      this._formConfigsContent = this.cfgJson.field.content;
+
+      this._formConfigsparameter = [];
+      this.__formConfigsparameterTitle = this.cfgJson.parameter.titleHeader;
+      this.__formConfigsparameterContent = this.cfgJson.parameter.content;
+    }
+  }
 
   getCodemirrorValue() {
 
@@ -101,14 +121,7 @@ export class CnstDatasourceComponent implements OnInit, AfterViewInit {
 
 
   //大概的字段结构(只是gridview的)，这个结构也需要从树上传递进来，用来区别tree treegrid
-  fieldJson = {
-    "title": "用户名",
-    "data": "Name",
-    "renderName": {
-      "type": "notNull",
-      "data": {}
-    }
-  };
+
 
   form1Save() {
     //将表单信息分组取出每个字段信息json格式如下    [ { rowId: '1', cols: { id: '1', name: 'mc', code: '001' } } ];
@@ -139,28 +152,96 @@ export class CnstDatasourceComponent implements OnInit, AfterViewInit {
 
     }
 
+    const fieldJson = [];
+
+    formJson.forEach(row => {
+
+      const fieldItemJson = {
+        "title": "",
+        "data": "",
+        "renderName": {}
+      };
+      fieldItemJson.title = row.cols.AssemblyName2;
+      fieldItemJson.data = row.cols.AssemblyName1;
+      fieldJson.push(fieldItemJson);
+    });
     console.log('保存');
     console.log(formJson);
+    console.log(fieldJson);
+    this._treeData.columnConfigs = fieldJson;
   };
 
   form2Save() {
 
-    console.log(this.form2.getValue());
+    //将表单信息分组取出每个字段信息json格式如下    [ { rowId: '1', cols: { id: '1', name: 'mc', code: '001' } } ];
+    const formJson = [];
+    const formValue = this.form2.getValue();
+    for (var key in formValue) { //遍历表单提交的数据
+      const formRow = {//可以将此结构定义在其他地方，动态加载，就和加载树节点一样
+        rowId: '',
+        cols: {}
+      };
+      let isRow = false;
+      // 随机标识id_字段名
+      const index = key.indexOf('_');
+      const fromRowId = key.substring(0, index);//行标识
+      const fromItem = key.substring(index + 1, key.length);//字段标识
+      formJson.forEach(row => {
+        if (row.rowId == fromRowId) {//判断是否存在行
+          isRow = true;
+          //存在行，添加属性
+          row.cols[fromItem] = formValue[key];
+        }
+      });
+      if (!isRow) {//不存在行，添加属性
+        formRow.rowId = fromRowId;
+        formRow.cols[fromItem] = formValue[key];
+        formJson.push(formRow);
+      }
 
+    }
 
+    const parameterJson = [];
+
+    formJson.forEach(row => {
+
+      const parameterItemJson = {
+        "parameterName": "",
+        "replace": "",
+        "valueAs": "",
+        "valueType": '',
+        "parameterType": '',
+        "systemParameter": '',
+        "fieldName": ''
+
+      };
+      parameterItemJson.parameterName = row.cols.AssemblyName1;
+      parameterItemJson.replace = row.cols.AssemblyName2;
+      parameterItemJson.valueAs = row.cols.AssemblyName3;
+      parameterItemJson.valueType = row.cols.AssemblyName4;
+      parameterItemJson.parameterType = row.cols.AssemblyName5;
+      parameterItemJson.systemParameter = row.cols.AssemblyName6;
+      parameterItemJson.fieldName = row.cols.AssemblyName7;
+      parameterJson.push(parameterItemJson);
+    });
+    console.log('保存');
+    console.log(formJson);
+    console.log(parameterJson);
+    this._treeData.parametercfg = parameterJson;
+    console.log(this._treeData);
   };
 
 
   //切换数据源
-  setComponentDic(Data?) {
+  setComponentDic(Data?, saveJson?) {
 
     this._formConfigs = [];
     this._formConfigsTitle = Data.field.titleHeader;
-    this._formConfigsContent=Data.field.content;
-    
+    this._formConfigsContent = Data.field.content;
+
     this._formConfigsparameter = [];
     this.__formConfigsparameterTitle = Data.parameter.titleHeader;
-    this.__formConfigsparameterContent=Data.parameter.content;
+    this.__formConfigsparameterContent = Data.parameter.content;
   }
 
 }

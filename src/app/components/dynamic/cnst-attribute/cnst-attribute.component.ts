@@ -35,7 +35,7 @@ export class CnstAttributeComponent implements OnInit {
   }
 
   //点击树将切换属性
-  setComponentDic(data?) {
+  setComponentDic(data?,saveJson?) {
 
     this._formConfigs = [];
     for (var key in data.attribute) {
@@ -43,13 +43,13 @@ export class CnstAttributeComponent implements OnInit {
       if(data.attribute[key].IsShow){
         for (var keys in data.attribute[key]) {
           if (keys == 'text') {
-            item.push({ 'type': 'lable', 'value': data.attribute[key][keys] });
+            item.push({ 'type': 'label', 'label': data.attribute[key][keys] });
           }
           if (keys == 'form') {
             item.push(data.attribute[key][keys]);
           }
           if (keys == 'remark') {
-            item.push({ 'type': 'lable', 'value': data.attribute[key][keys] });
+            item.push({ 'type': 'label', 'label': data.attribute[key][keys] });
           }
         }
       }
