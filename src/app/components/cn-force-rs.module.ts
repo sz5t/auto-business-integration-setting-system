@@ -19,7 +19,8 @@ import {CnPortletComponent} from './cn-portlet/cn-portlet.component';*/
     CnToastModule,
     CnTreeModule,
     CnGridModule,
-    CnDynamicModule
+    CnDynamicModule,
+    CnstFormModule
   ],
   exports: [
     CnLayoutModule,
@@ -28,7 +29,8 @@ import {CnPortletComponent} from './cn-portlet/cn-portlet.component';*/
     CnToastModule,
     CnTreeModule,
     CnGridModule,
-    CnDynamicModule
+    CnDynamicModule,
+    CnstFormModule
   ],
   declarations: [
 

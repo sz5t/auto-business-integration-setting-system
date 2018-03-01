@@ -11,6 +11,7 @@ export class NodeTypes {
     LAYOUT_TREE: 'tree',
     LAYOUT_GRIDVIEW: 'gridview',
     LAYOUT_TABS: 'tabs',
+    LAYOUT_TAB: 'tab',
     LAYOUT_ACCORDION: 'accordion',
     TOOLBAR_CONFIG: 'toolbarConfig',
     TOOLBAR_CONFIG_REFRESH: 'refresh',
@@ -35,12 +36,14 @@ export class NodeTypes {
     SORT_DELETE: 'delete'
   };
   public static nodeTypes = {
-    'tree_view':{'icon': 'fa fa-cog font-yellow-jungle'},
+    'tree_view':{'icon': 'fa fa-cog font-green-jungle'},
     'grid_view': {'icon': 'fa fa-table font-green-jungle'},
     'layout': {'icon': 'fa fa-file font-green-jungle'},
     'default': {'icon': 'fa fa-folder icon-state-success'},
     'property': {'icon': 'fa fa-file icon-state-success'},
     'toolbarConfig': {'icon': 'fa fa-laptop font-green'},
+    'tabs': {'icon': 'fa fa-laptop font-green'},
+    'tab': {'icon': 'fa fa-tag font-green-jungle'},
     'button': {'icon': 'fa fa-square-o font-green-jungle'},
     'columnConfig': {'icon': 'fa fa-table font-green'},
     'field': {'icon': 'fa fa-columns font-yellow-soft'},

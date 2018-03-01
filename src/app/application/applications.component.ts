@@ -9,12 +9,13 @@ import {ComponentSettingComponent} from './components-setting/component-setting.
 import {ComponentEditingComponent} from './component-editing/component-editing.component';
 import {ContextMenuComponent} from './context-menu/context-menu.component';
 import {DashBroadTemplateComponent} from './dash-broad-template/dash-broad-template.component';
+import {OperationSettingComponent} from "./operation-setting/operation-setting.component";
 const components: { [type: string]: any } = {
   'layoutSetting': LayoutSettingComponent,
   'componentSetting': ComponentSettingComponent,
   'componentEditing': ComponentEditingComponent,
   'contextMenu': ComponentEditingComponent,
-  'dashbroad': ComponentEditingComponent
+  'operationSetting': OperationSettingComponent
 };
 declare let $: any;
 @Component({

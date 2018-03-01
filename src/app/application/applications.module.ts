@@ -23,6 +23,7 @@ import {LayoutSettingComponent} from './layout-setting/layout-setting.component'
 import {ComponentSettingComponent} from './components-setting/component-setting.component';
 import {ComponentEditingComponent} from './component-editing/component-editing.component';
 import {ContextMenuComponent} from './context-menu/context-menu.component';
+import { OperationSettingComponent } from './operation-setting/operation-setting.component';
 
 
 export const CHILDREN_ROUTES: Routes = [
@@ -73,12 +74,14 @@ export const CHILDREN_ROUTES: Routes = [
     LayoutSettingComponent,
     ComponentSettingComponent,
     ComponentEditingComponent,
-    ContextMenuComponent
+    ContextMenuComponent,
+    OperationSettingComponent
   ],
   entryComponents: [
     LayoutSettingComponent,
     ComponentSettingComponent,
     ComponentEditingComponent,
+    OperationSettingComponent,
     ContextMenuComponent
   ]
 })

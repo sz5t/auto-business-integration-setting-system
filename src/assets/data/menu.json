@@ -42,12 +42,12 @@
         "sub": []
       },
       {
-        "name": "dashbroad",
+        "name": "operationSetting",
         "icon": "fa fa-cogs",
         "title": "操作设置",
         "description": "操作设置",
         "display": true,
-        "router": "desh-broad",
+        "router": "operationSetting",
         "sub": []
       },
       {

@@ -11,11 +11,11 @@
     </thead>
     <tbody>
     <tr *ngFor="let configData of configs">
-      <td *ngFor="let field of configData">
-          <div *ngIf="field.type =='lable'" class="control-lable">
-            {{field.value}}
-          </div>
-        <ng-container *ngIf="field.type != 'lable'" cnstDynamicField
+      <td *ngFor="let field of configData" class="text-center">
+          <label *ngIf="field.type =='label'" class="control-label">
+            {{field.label}}
+          </label>
+        <ng-container *ngIf="field.type != 'label'" cnstDynamicField
                       [(submitValid)]="submitValid"
                       [config]="field"
                       [group]="form">

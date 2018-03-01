@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewEncapsulation} from '@angular/core';
+import {Component, EventEmitter, HostBinding, Input, OnChanges, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import {IFieldConfig} from './form-models/IFieldConfig';
 import {FormBuilder, FormGroup} from '@angular/forms';
 
@@ -13,8 +13,9 @@ export class CnDynamicFormComponent implements OnInit, OnChanges {
   @Input() config: IFieldConfig[] = [];
   @Input() submitValid;
   @Output() submit: EventEmitter<any> = new EventEmitter<any>();
+  @Input() formClass = 'form-horizontal';
+  //@HostBinding('class.form') formBlockClass = true;
   form: FormGroup;
-
   get controls() {
     return this.config.filter(({type}) => {
       return type !== 'button';
