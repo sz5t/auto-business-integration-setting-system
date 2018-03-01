@@ -27,6 +27,8 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
   // @ViewChildren('blocks') blocks: QueryList<CnDynamicBlockPortletComponent>;
   _config;
   _json;
+  nodeJson;
+  cfgJson;
   @Input() _treeData;
   constructor(private clientService: ClientStorageService) {
     this._json = [
@@ -87,18 +89,18 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
       attribute: {
         viewId: {
           name: "viewId", text: "组件id", value: "", IsShow: true, form: {
-            'type': 'lable',
+            'type': 'label',
             'name': 'viewId',
-            'value': 'viewId',
+            'label': 'viewId',
 
           },
           remark: "备注说明是id"
         },
         component: {
           name: "component", text: "组件名称", value: "", IsShow: true, form: {
-            'type': 'lable',
+            'type': 'label',
             'name': 'component',
-            'value': '数据列表',
+            'label': '数据列表',
 
           },
           remark: "组件名称"
@@ -106,18 +108,18 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
         classType: {
           name: "classType", text: "", value: "", IsShow: false,
           form: {
-            'type': 'lable',
+            'type': 'label',
             'name': 'classType',
-            'value': 'classType',
+            'label': 'classType',
           },
           remark: "备注说明是id"
         },
         searchForm: {
           name: "searchForm", text: "查询", value: "", IsShow: false,
           form: {
-            'type': 'lable',
+            'type': 'label',
             'name': 'searchForm',
-            'value': 'viewId',
+            'label': 'viewId',
 
           },
           remark: "查询表单"
@@ -125,9 +127,9 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
         toolbarsConfig: {
           name: "toolbarsConfig", text: "工具栏", value: "", IsShow: false,
           form: {
-            'type': 'lable',
+            'type': 'label',
             'name': 'toolbarsConfig',
-            'value': 'toolbarsConfig',
+            'label': 'toolbarsConfig',
 
           },
           remark: "工具栏"
@@ -135,9 +137,9 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
         ordering: {
           name: "ordering", text: "排序", value: "", IsShow: true,
           form: {
-            'type': 'lable',
+            'type': 'label',
             'name': 'ordering',
-            'value': 'ordering',
+            'label': 'ordering',
 
           },
           remark: "排序"
@@ -145,9 +147,9 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
         paging: {
           name: "", text: "", value: "", IsShow: false,
           form: {
-            'type': 'lable',
+            'type': 'label',
             'name': 'viewId',
-            'value': 'viewId',
+            'label': 'viewId',
 
           },
           remark: "备注说明是id"
@@ -155,9 +157,9 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
         processing: {
           name: "", text: "", value: "", IsShow: false,
           form: {
-            'type': 'lable',
+            'type': 'label',
             'name': 'viewId',
-            'value': 'viewId',
+            'label': 'viewId',
 
           },
           remark: "备注说明是id"
@@ -165,9 +167,9 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
         searching: {
           name: "", text: "", value: "", IsShow: false,
           form: {
-            'type': 'lable',
+            'type': 'label',
             'name': 'viewId',
-            'value': 'viewId',
+            'label': 'viewId',
 
           },
           remark: "备注说明是id"
@@ -175,9 +177,9 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
         deferRender: {
           name: "", text: "", value: "", IsShow: false,
           form: {
-            'type': 'lable',
+            'type': 'label',
             'name': 'viewId',
-            'value': 'viewId',
+            'label': 'viewId',
 
           },
           remark: "备注说明是id"
@@ -185,9 +187,9 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
         columnConfigClass: {
           name: "", text: "", value: "", IsShow: false,
           form: {
-            'type': 'lable',
+            'type': 'label',
             'name': 'viewId',
-            'value': 'viewId',
+            'label': 'viewId',
 
           },
           remark: "备注说明是id"
@@ -195,9 +197,9 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
         columnFilter: {
           name: "", text: "", value: "", IsShow: false,
           form: {
-            'type': 'lable',
+            'type': 'label',
             'name': 'viewId',
-            'value': 'viewId',
+            'label': 'viewId',
 
           },
           remark: "备注说明是id"
@@ -205,9 +207,9 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
         autoWidth: {
           name: "", text: "", value: "", IsShow: false,
           form: {
-            'type': 'lable',
+            'type': 'label',
             'name': 'viewId',
-            'value': 'viewId',
+            'label': 'viewId',
 
           },
           remark: "备注说明是id"
@@ -215,9 +217,9 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
         destroy: {
           name: "", text: "", value: "", IsShow: false,
           form: {
-            'type': 'lable',
+            'type': 'label',
             'name': 'viewId',
-            'value': 'viewId',
+            'label': 'viewId',
 
           },
           remark: "备注说明是id"
@@ -225,9 +227,9 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
         lengthMenu: {
           name: "", text: "", value: "", IsShow: false,
           form: {
-            'type': 'lable',
+            'type': 'label',
             'name': 'viewId',
-            'value': 'viewId',
+            'label': 'viewId',
 
           },
           remark: "备注说明是id"
@@ -235,9 +237,9 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
         rowId: {
           name: "", text: "", value: "", IsShow: false,
           form: {
-            'type': 'lable',
+            'type': 'label',
             'name': 'viewId',
-            'value': 'viewId',
+            'label': 'viewId',
 
           },
           remark: "备注说明是id"
@@ -245,9 +247,9 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
         pagingType: {
           name: "", text: "", value: "", IsShow: false,
           form: {
-            'type': 'lable',
+            'type': 'label',
             'name': 'viewId',
-            'value': 'viewId',
+            'label': 'viewId',
 
           },
           remark: "备注说明是id"
@@ -255,9 +257,9 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
         pageLength: {
           name: "", text: "", value: "", IsShow: false,
           form: {
-            'type': 'lable',
+            'type': 'label',
             'name': 'viewId',
-            'value': 'viewId',
+            'label': 'viewId',
 
           },
           remark: "备注说明是id"
@@ -265,9 +267,9 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
         orderMulti: {
           name: "", text: "", value: "", IsShow: false,
           form: {
-            'type': 'lable',
+            'type': 'label',
             'name': 'viewId',
-            'value': 'viewId',
+            'label': 'viewId',
 
           },
           remark: "备注说明是id"
@@ -275,9 +277,9 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
         select: {
           name: "", text: "", value: "", IsShow: false,
           form: {
-            'type': 'lable',
+            'type': 'label',
             'name': 'viewId',
-            'value': 'viewId',
+            'label': 'viewId',
 
           },
           remark: "备注说明是id"
@@ -285,9 +287,9 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
         responsive: {
           name: "", text: "", value: "", IsShow: false,
           form: {
-            'type': 'lable',
+            'type': 'label',
             'name': 'viewId',
-            'value': 'viewId',
+            'label': 'viewId',
 
           },
           remark: "备注说明是id"
@@ -295,9 +297,9 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
         columnDefs: {
           name: "", text: "", value: "", IsShow: false,
           form: {
-            'type': 'lable',
+            'type': 'label',
             'name': 'viewId',
-            'value': 'viewId',
+            'label': 'viewId',
 
           },
           remark: "备注说明是id"
@@ -305,9 +307,9 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
         order: {
           name: "order", text: "", value: "", IsShow: false,
           form: {
-            'type': 'lable',
+            'type': 'label',
             'name': 'viewId',
-            'value': 'viewId',
+            'label': 'viewId',
 
           },
           remark: "备注说明是id"
@@ -315,9 +317,9 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
         dom: {
           name: "dom", text: "", value: "", IsShow: false,
           form: {
-            'type': 'lable',
+            'type': 'label',
             'name': 'viewId',
-            'value': 'viewId',
+            'label': 'viewId',
 
           },
           remark: "备注说明是id"
@@ -325,9 +327,9 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
         columnConfigs: {
           name: "columnConfigs", text: "字段配置", value: "", IsShow: false,
           form: {
-            'type': 'lable',
+            'type': 'label',
             'name': 'columnConfigs',
-            'value': 'columnConfigs',
+            'label': 'columnConfigs',
 
           },
           remark: "字段配置"
@@ -620,9 +622,9 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
         viewId: {
           name: "viewId", text: "组件id", value: "", IsShow: true,
           form: {
-            'type': 'lable',
+            'type': 'label',
             'name': 'viewId',
-            'value': 'viewId',
+            'label': 'viewId',
   
           },
           remark: "备注说明是id"
@@ -630,9 +632,9 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
         component: {
           name: "component", text: "组件名称", value: "", IsShow: true,
           form: {
-            'type': 'lable',
+            'type': 'label',
             'name': 'component',
-            'value': '树',
+            'label': '树',
           },
           remark: ""
         },
@@ -743,25 +745,30 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
               ]
             },
             {
-              'type': 'input',
-              'inputType': 'text',
-              'name': 'AssemblyName2',
-              'validations': [
+              'type': 'select',
+              'placeholder': '--请选择--',
+              'options': [
                 {
-                  'validator': 'required',
-                  'errorMessage': ''
+                  'text': '字符',
+                  'value': '字符'
                 },
                 {
-                  'validator': 'minLength',
-                  'length': 6,
-                  'errorMessage': ''
+                  'text': '数值',
+                  'value': '数值'
+                },
+                {
+                  'text': '时间',
+                  'value': '时间'
                 }
-              ]
+              ],
+              'name': 'AssemblyName2',
+              'value': '',
+              'inputClass': 'input-medium'
             },
             {
               'type': 'input',
               'inputType': 'text',
-              'name': 'AssemblyName6',
+              'name': 'AssemblyName3',
               'validations': [
                 {
                   'validator': 'required',
@@ -934,7 +941,7 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
     }
   };
 
-
+ 
   ngAfterViewInit() {
     this.preview.nativeElement.style.height = window.screen.availHeight + 'px';
     this.editor.nativeElement.style.height = window.screen.availHeight + 'px';
@@ -943,10 +950,10 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
       if (newValue) {
         const funcName = $(this.selectFunc.nativeElement).selectpicker('val');
         const settingData = this.clientService.getLocalStorage(funcName);
-        console.log(settingData);
-        this._config = settingData;
+        console.log( settingData);
+        this._config =  settingData;
         let treeData = [{
-          id: funcName, text: '配置结构树', icon: 'fa fa-folder icon-state-warning', li_attr: '', a_attr: '', parent: '#', readonly: false, value: null,
+          id: funcName, text: '配置结构树', icon: 'fa fa-folder icon-state-warning', li_attr: '', a_attr: '', parent: '#', readonly: false, data: null,
           state: {
             opened: true,
             disabled: true,
@@ -998,6 +1005,7 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
                   nodetabitem.type = tab.viewCfg.component;
                   nodetabitem.state.disabled = false;
                   nodetabitem.state.opened = false;
+                  nodeitem.data=setting.viewCfg;
                   treeData.push(nodetabitem);
                   for (var key in tab.viewCfg) {
                     n++;
@@ -1008,6 +1016,7 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
                     nodetabitems.parent = nodetabitem.id;
                     nodetabitems.type = key;
                     nodetabitems.state.disabled = false;
+                   
                     treeData.push(nodetabitems);
                     console.log(key);
                   }
@@ -1029,6 +1038,7 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
                 nodeitem.type = setting.viewCfg.component;
                 nodeitem.state.disabled = false;
                 nodeitem.state.opened = false;
+                nodeitem.data=setting.viewCfg;
                 treeData.push(nodeitem);
                 for (var key in setting.viewCfg) {
                   n++;
@@ -1115,11 +1125,12 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
         //点击选中树节点
         $tree.on("changed.jstree", (e, data) => {
           //选中节点的时候，其实是同时去切换数据源和属性。
+          this.nodeJson=data.node.data;
+          this.cfgJson=this.ComponentDic[data.node.type];
+         //this.CnstDatasource.setComponentDic(this.ComponentDic[data.node.type],data.node.data);
 
-          this.CnstDatasource.setComponentDic(this.ComponentDic[data.node.type]);
-
-          this.CnstAttribute.setComponentDic(this.ComponentDic[data.node.type]);
-          console.log(data);
+         // this.CnstAttribute.setComponentDic(this.ComponentDic[data.node.type],data.node.data);
+          console.log( settingData);
         });
       }
     });

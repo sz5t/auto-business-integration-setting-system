@@ -560,7 +560,7 @@ export class SettingTreeNodeResource {
   }
 
   public static settingTreeNode = {
-    id: '', text: '', icon: '', li_attr: '', a_attr: '', parent: '', readonly: false, value: null,
+    id: '', text: '', icon: '', li_attr: '', a_attr: '', parent: '', readonly: false, data: null,
     state: {
       opened: true,
       disabled: true,
