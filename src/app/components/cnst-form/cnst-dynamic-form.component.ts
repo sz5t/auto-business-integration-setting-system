@@ -11,7 +11,7 @@ declare let bootbox: any;
 })
 export class CnstDynamicFormComponent implements OnInit, OnChanges {
   @Input() configs;
-  @Input() configstitel;
+  @Input() configsTitle;
   @Input() config: IFieldConfig[] = [];
   @Input() submitValid;
   @Output() submit: EventEmitter<any> = new EventEmitter<any>();

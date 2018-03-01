@@ -4,6 +4,7 @@ import { IFieldConfig } from '../../form/form-models/IFieldConfig';
 import { CnstDynamicFormComponent } from "../../cnst-form/cnst-dynamic-form.component";
 import { CnstCodemirrorComponent } from "../cnst-codemirror/cnst-codemirror.component";
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
+import { CommonUtility } from '../../../framework/utility/common-utility';
 @Component({
   selector: 'cnst-datasource,[cnst-datasource]',
   encapsulation: ViewEncapsulation.None,
@@ -14,145 +15,48 @@ export class CnstDatasourceComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
 
   }
-/*   @ViewChild(CnstDynamicFormComponent)
-  form: CnstDynamicFormComponent; */
+  /*   @ViewChild(CnstDynamicFormComponent)
+    form: CnstDynamicFormComponent; */
 
   @ViewChild('form1')
-  form1:CnstDynamicFormComponent;
+  form1: CnstDynamicFormComponent;
 
   @ViewChild('form2')
-  form2:CnstDynamicFormComponent;
+  form2: CnstDynamicFormComponent;
 
   @ViewChild(CnstCodemirrorComponent)
-   codemirror: CnstCodemirrorComponent;
-  _formConfigs = [[
-    {
-      'type': 'input',
-      'inputType': 'text',
-      'name': 'AssemblyName1',
-      'helpClass': 'help-inline',
-      'validations': [
-        {
-          'validator': 'required',
-          'errorMessage': ''
-        },
-        {
-          'validator': 'minLength',
-          'length': 6,
-          'errorMessage': ''
-        }
-      ]
-    },
-    {
-      'type': 'input',
-      'inputType': 'text',
-      'name': 'AssemblyName2',
-      'validations': [
-        {
-          'validator': 'required',
-          'errorMessage': ''
-        },
-        {
-          'validator': 'minLength',
-          'length': 6,
-          'errorMessage': ''
-        }
-      ]
-    },
-    {
-      'type': 'select',
-      'placeholder': '--请选择--',
-      'options': [
-        {
-          'text': '字符',
-          'value': '字符'
-        },
-        {
-          'text': '数值',
-          'value': '数值'
-        },
-        {
-          'text': '时间',
-          'value': '时间'
-        }
-      ],
-      'name': 'AssemblyName3',
-      'value': '',
-      'inputClass': 'input-medium'
-    },
-    {
-      'type': 'select',
-      'placeholder': '--请选择--',
-      'options': [
-        {
-          'text': '居中',
-          'value': '居中'
-        },
-        {
-          'text': '左对齐',
-          'value': '左对齐'
-        },
-        {
-          'text': '右对齐',
-          'value': '右对齐'
-        }
-      ],
-      'name': 'AssemblyName4',
-      'value': '',
-      'inputClass': 'input-medium'
-    },
-    {
-      'type': 'select',
-      'placeholder': '--请选择--',
-      'options': [
-        {
-          'text': '显示',
-          'value': '显示'
-        },
-        {
-          'text': '隐藏',
-          'value': '隐藏'
-        }
-      ],
-      'name': 'AssemblyName5',
-      'value': '',
-      'inputClass': 'input-medium'
-    },
-    {
-      'type': 'input',
-      'inputType': 'text',
-      'name': 'AssemblyName6',
-      'validations': [
-        {
-          'validator': 'required',
-          'errorMessage': ''
-        },
-        {
-          'validator': 'minLength',
-          'length': 6,
-          'errorMessage': ''
-        }
-      ]
-    },
-  ]];
-  _formConfigstilel = [
-    { titel: '字段名称' },
-    { titel: '标题' },
-    { titel: '数据类型' },
-    { titel: '展示样式' },
-    { titel: '是否显示' },
-    { titel: '顺序' },
-  ];
+  codemirror: CnstCodemirrorComponent;
+  _formConfigs = [];
+  _formConfigsTitle = {
+    header: [
+      { title: '字段名称', width: 'auto' },
+      { title: '标题', width: 'auto' },
+      { title: '数据类型', width: 'auto' },
+      { title: '展示样式', width: 'auto' },
+      { title: '是否显示', width: 'auto' },
+      { title: '顺序', width: 'auto' },
+    ],
+    deletebutton: {
+      show: true
+    }
+  };
+  _formConfigsContent=[];
   _formConfigsparameter = [];
-  __formConfigsparametertilel = [
-    { titel: '参数名' },
-    { titel: '参数替换字符串' },
-    { titel: '取值方式' },
-    { titel: '为空取值' },
-    { titel: '参数类型' },
-    { titel: '系统参数' },
-    { titel: '取值或赋值字段名' }
-  ];
+  __formConfigsparameterTitle = {
+    header: [
+      { title: '参数名', width: 'auto' },
+      { title: '参数替换字符串', width: 'auto' },
+      { title: '取值方式', width: 'auto' },
+      { title: '为空取值', width: 'auto' },
+      { title: '参数类型', width: 'auto' },
+      { title: '系统参数', width: 'auto' },
+      { title: '取值或赋值字段名', width: 'auto' }
+    ],
+    deletebutton: {
+      show: true
+    }
+  };
+  __formConfigsparameterContent=[];
   _formConfig;
   _form: FormGroup;
   constructor() {
@@ -163,269 +67,100 @@ export class CnstDatasourceComponent implements OnInit, AfterViewInit {
   }
 
   addField() {
-    this._formConfigs.push([
-      {
-        'type': 'input',
-        'inputType': 'text',
-        'name': 'AssemblyName1_1',
-        'helpClass': 'help-inline',
-        'validations': [
-          {
-            'validator': 'required',
-            'errorMessage': ''
-          },
-          {
-            'validator': 'minLength',
-            'length': 6,
-            'errorMessage': ''
-          }
-        ]
-      },
-      {
-        'type': 'input',
-        'inputType': 'text',
-        'name': 'AssemblyName2_1',
-        'validations': [
-          {
-            'validator': 'required',
-            'errorMessage': ''
-          },
-          {
-            'validator': 'minLength',
-            'length': 6,
-            'errorMessage': ''
-          }
-        ]
-      },
-      {
-        'type': 'select',
-        'placeholder': '--请选择--',
-        'options': [
-          {
-            'text': '字符',
-            'value': '字符'
-          },
-          {
-            'text': '数值',
-            'value': '数值'
-          },
-          {
-            'text': '时间',
-            'value': '时间'
-          }
-        ],
-        'name': 'AssemblyName3_1',
-        'value': '',
-        'inputClass': 'input-medium'
-      },
-      {
-        'type': 'select',
-        'placeholder': '--请选择--',
-        'options': [
-          {
-            'text': '居中',
-            'value': '居中'
-          },
-          {
-            'text': '左对齐',
-            'value': '左对齐'
-          },
-          {
-            'text': '右对齐',
-            'value': '右对齐'
-          }
-        ],
-        'name': 'AssemblyName4_1',
-        'value': '',
-        'inputClass': 'input-medium'
-      },
-      {
-        'type': 'select',
-        'placeholder': '--请选择--',
-        'options': [
-          {
-            'text': '显示',
-            'value': '显示'
-          },
-          {
-            'text': '隐藏',
-            'value': '隐藏'
-          }
-        ],
-        'name': 'AssemblyName5_1',
-        'value': '',
-        'inputClass': 'input-medium'
-      },
-      {
-        'type': 'input',
-        'inputType': 'text',
-        'name': 'AssemblyName6_1',
-        'validations': [
-          {
-            'validator': 'required',
-            'errorMessage': ''
-          },
-          {
-            'validator': 'minLength',
-            'length': 6,
-            'errorMessage': ''
-          }
-        ]
-      },
-    ]);
 
-    this._formConfigs = $.extend(true,[], this._formConfigs);
-    console.log(this._formConfigs);
-    //this.form1.createNewControls(this._formConfigs);
+    const fieldIdentity = CommonUtility.uuID(5);
+    const conent=this._formConfigsContent;
+    
+    conent.forEach(Field => {
+      Field.name=fieldIdentity+'_'+Field.name;
+    });
+
+    this._formConfigs.push(this._formConfigsContent);
+
+    this._formConfigs = $.extend(true, [], this._formConfigs);
+ 
   };
 
   addparameter() {
-    this._formConfigsparameter.push([
-      {
-        'type': 'input',
-        'inputType': 'text',
-        'name': 'AssemblyName1',
-        'helpClass': 'help-inline',
-        'validations': [
-          {
-            'validator': 'required',
-            'errorMessage': ''
-          },
-          {
-            'validator': 'minLength',
-            'length': 6,
-            'errorMessage': ''
-          }
-        ]
-      },
-      {
-        'type': 'input',
-        'inputType': 'text',
-        'name': 'AssemblyName2',
-        'validations': [
-          {
-            'validator': 'required',
-            'errorMessage': ''
-          },
-          {
-            'validator': 'minLength',
-            'length': 6,
-            'errorMessage': ''
-          }
-        ]
-      },
-      {
-        'type': 'select',
-        'placeholder': '--请选择--',
-        'options': [
-          {
-            'text': '系统生成序号',
-            'value': '系统生成序号'
-          },
-          {
-            'text': '页面字段取当前值',
-            'value': '页面字段取当前值'
-          },
-          {
-            'text': '页面字段取原值',
-            'value': '页面字段取原值'
-          },
-          {
-            'text': '从系统参数取值',
-            'value': '从系统参数取值'
-          }
-        ],
-        'name': 'AssemblyName3',
-        'value': '',
-        'inputClass': 'input-medium'
-      },
-      {
-        'type': 'select',
-        'placeholder': '--请选择--',
-        'options': [
-          {
-            'text': '取数据库空值',
-            'value': '取数据库空值'
-          }
-        ],
-        'name': 'AssemblyName4',
-        'value': '',
-        'inputClass': 'input-medium'
-      },
-      {
-        'type': 'select',
-        'placeholder': '--请选择--',
-        'options': [
-          {
-            'text': '字符',
-            'value': '字符'
-          },
-          {
-            'text': '日期',
-            'value': '日期'
-          },
-          {
-            'text': '数值',
-            'value': '数值'
-          },
-          {
-            'text': '布尔',
-            'value': '布尔'
-          }
-        ],
-        'name': 'AssemblyName5',
-        'value': '',
-        'inputClass': 'input-medium'
-      },
-      {
-        'type': 'select',
-        'placeholder': '--请选择--',
-        'options': [
-          {
-            'text': '用户id',
-            'value': '用户id'
-          },
-          {
-            'text': '部门id',
-            'value': '部门id'
-          },
-          {
-            'text': '角色',
-            'value': '角色'
-          }
-        ],
-        'name': 'AssemblyName6',
-        'value': '',
-        'inputClass': 'input-medium'
-      },
-      {
-        'type': 'input',
-        'inputType': 'text',
-        'name': 'AssemblyName7',
-        'validations': [
-          {
-            'validator': 'required',
-            'errorMessage': ''
-          },
-          {
-            'validator': 'minLength',
-            'length': 6,
-            'errorMessage': ''
-          }
-        ]
-      },
-    ]);
+    const fieldIdentity = CommonUtility.uuID(5);
+    const conent=this.__formConfigsparameterContent;
+    
+    conent.forEach(Field => {
+      Field.name=fieldIdentity+'_'+Field.name;
+    });
+
+    this._formConfigsparameter.push(conent);
+    this._formConfigsparameter = $.extend(true, [], this._formConfigsparameter);
   };
 
 
   getCodemirrorValue() {
 
-     alert(this.codemirror.getValue());
+    alert(this.codemirror.getValue());
   };
 
-  form1Save(){
-    alert('参数json') ;
-   console.log(this.form1.getValue());
+
+  //大概的字段结构(只是gridview的)，这个结构也需要从树上传递进来，用来区别tree treegrid
+  fieldJson = {
+    "title": "用户名",
+    "data": "Name",
+    "renderName": {
+      "type": "notNull",
+      "data": {}
+    }
   };
+
+  form1Save() {
+    //将表单信息分组取出每个字段信息json格式如下    [ { rowId: '1', cols: { id: '1', name: 'mc', code: '001' } } ];
+    const formJson = [];
+    const formValue = this.form1.getValue();
+    for (var key in formValue) { //遍历表单提交的数据
+      const formRow = {//可以将此结构定义在其他地方，动态加载，就和加载树节点一样
+        rowId: '',
+        cols: {}
+      };
+      let isRow = false;
+      // 随机标识id_字段名
+      const index = key.indexOf('_');
+      const fromRowId = key.substring(0, index);//行标识
+      const fromItem = key.substring(index + 1, key.length);//字段标识
+      formJson.forEach(row => {
+        if (row.rowId == fromRowId) {//判断是否存在行
+          isRow = true;
+          //存在行，添加属性
+          row.cols[fromItem] = formValue[key];
+        }
+      });
+      if (!isRow) {//不存在行，添加属性
+        formRow.rowId = fromRowId;
+        formRow.cols[fromItem] = formValue[key];
+        formJson.push(formRow);
+      }
+
+    }
+
+    console.log('保存');
+    console.log(formJson);
+  };
+
+  form2Save() {
+
+    console.log(this.form2.getValue());
+
+
+  };
+
+
+  //切换数据源
+  setComponentDic(Data?) {
+
+    this._formConfigs = [];
+    this._formConfigsTitle = Data.field.titleHeader;
+    this._formConfigsContent=Data.field.content;
+    
+    this._formConfigsparameter = [];
+    this.__formConfigsparameterTitle = Data.parameter.titleHeader;
+    this.__formConfigsparameterContent=Data.parameter.content;
+  }
 
 }
