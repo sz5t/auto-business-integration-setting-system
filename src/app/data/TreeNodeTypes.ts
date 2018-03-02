@@ -274,7 +274,7 @@ export class TreeNode {
   a_attr: string;
   parent: string;
   readonly: false;
-  value: any;
+  data: any;
   state: {
     opened: true,
     disabled: true,
@@ -283,6 +283,24 @@ export class TreeNode {
 }
 
 export class SettingTreeNodeResource {
+  public static settingTreeNode = {
+    id: '', text: '', icon: '', li_attr: '', a_attr: '', parent: '', readonly: false, data: {},
+    state: {
+      opened: true,
+      disabled: true,
+      selected: false,
+    },
+    type: ''
+  };
+
+  public static settingTreeLayoutNode =  {
+    id: '', text: '', icon: 'fa fa-clone icon-state-success', li_attr: '', a_attr: '', parent: '', readonly: true, data: {},
+    state: {
+      opened: true,
+      disabled: true,
+      selected: false,
+    }
+  };
   private _totalArea: any[];
   get totalArea(): any[] {
     return this._totalArea;
@@ -558,24 +576,5 @@ export class SettingTreeNodeResource {
       }
     ];
   }
-
-  public static settingTreeNode = {
-    id: '', text: '', icon: '', li_attr: '', a_attr: '', parent: '', readonly: false, data: null,
-    state: {
-      opened: true,
-      disabled: true,
-      selected: false,
-    },
-    type: ''
-  };
-
-  public static settingTreeLayoutNode =  {
-    id: '', text: '', icon: 'fa fa-clone icon-state-success', li_attr: '', a_attr: '', parent: '', readonly: true, value: null,
-    state: {
-      opened: true,
-      disabled: true,
-      selected: false,
-    }
-  };
 
 }

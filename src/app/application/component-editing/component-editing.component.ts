@@ -1,8 +1,8 @@
 import { Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { ClientStorageService } from '../../services/client-storage.service';
-import { NodeTypes, SettingTreeNodeResource } from "../../data/TreeNodeTypes";
-import { CommonUtility } from "../../framework/utility/common-utility";
+import { NodeTypes, SettingTreeNodeResource } from '../../data/TreeNodeTypes';
+import { CommonUtility } from '../../framework/utility/common-utility';
 import { App } from '../../components/layout/cn-layout/cn-layout.component';
 import { CnstAttributeComponent } from '../../components/dynamic/cnst-attribute/cnst-attribute.component';
 import { CnstDatasourceComponent } from '../../components/dynamic/cnst-datasource/cnst-datasource.component';
@@ -22,7 +22,7 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
 
   @ViewChild(CnstAttributeComponent) CnstAttribute: CnstAttributeComponent;
   @ViewChild(CnstDatasourceComponent) CnstDatasource: CnstDatasourceComponent;
-  
+
   //@ViewChildren('blocks') blocks: QueryList<ElementRef>;
   // @ViewChildren('blocks') blocks: QueryList<CnDynamicBlockPortletComponent>;
   _config;
@@ -88,251 +88,251 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
     grid_view: {
       attribute: {
         viewId: {
-          name: "viewId", text: "组件id", value: "", IsShow: true, form: {
+          name: 'viewId', text: '组件id', value: '', IsShow: true, form: {
             'type': 'label',
             'name': 'viewId',
             'label': 'viewId',
 
           },
-          remark: "备注说明是id"
+          remark: '备注说明是id'
         },
         component: {
-          name: "component", text: "组件名称", value: "", IsShow: true, form: {
+          name: 'component', text: '组件名称', value: '', IsShow: true, form: {
             'type': 'label',
             'name': 'component',
             'label': '数据列表',
 
           },
-          remark: "组件名称"
+          remark: '组件名称'
         },
         classType: {
-          name: "classType", text: "", value: "", IsShow: false,
+          name: 'classType', text: '', value: '', IsShow: false,
           form: {
             'type': 'label',
             'name': 'classType',
             'label': 'classType',
           },
-          remark: "备注说明是id"
+          remark: '备注说明是id'
         },
         searchForm: {
-          name: "searchForm", text: "查询", value: "", IsShow: false,
+          name: 'searchForm', text: '查询', value: '', IsShow: false,
           form: {
             'type': 'label',
             'name': 'searchForm',
             'label': 'viewId',
 
           },
-          remark: "查询表单"
+          remark: '查询表单'
         },
         toolbarsConfig: {
-          name: "toolbarsConfig", text: "工具栏", value: "", IsShow: false,
+          name: 'toolbarsConfig', text: '工具栏', value: '', IsShow: false,
           form: {
             'type': 'label',
             'name': 'toolbarsConfig',
             'label': 'toolbarsConfig',
 
           },
-          remark: "工具栏"
+          remark: '工具栏'
         },
         ordering: {
-          name: "ordering", text: "排序", value: "", IsShow: true,
+          name: 'ordering', text: '排序', value: '', IsShow: true,
           form: {
             'type': 'label',
             'name': 'ordering',
             'label': 'ordering',
 
           },
-          remark: "排序"
+          remark: '排序'
         },
         paging: {
-          name: "", text: "", value: "", IsShow: false,
+          name: '', text: '', value: '', IsShow: false,
           form: {
             'type': 'label',
             'name': 'viewId',
             'label': 'viewId',
 
           },
-          remark: "备注说明是id"
+          remark: '备注说明是id'
         },
         processing: {
-          name: "", text: "", value: "", IsShow: false,
+          name: '', text: '', value: '', IsShow: false,
           form: {
             'type': 'label',
             'name': 'viewId',
             'label': 'viewId',
 
           },
-          remark: "备注说明是id"
+          remark: '备注说明是id'
         },
         searching: {
-          name: "", text: "", value: "", IsShow: false,
+          name: '', text: '', value: '', IsShow: false,
           form: {
             'type': 'label',
             'name': 'viewId',
             'label': 'viewId',
 
           },
-          remark: "备注说明是id"
+          remark: '备注说明是id'
         },
         deferRender: {
-          name: "", text: "", value: "", IsShow: false,
+          name: '', text: '', value: '', IsShow: false,
           form: {
             'type': 'label',
             'name': 'viewId',
             'label': 'viewId',
 
           },
-          remark: "备注说明是id"
+          remark: '备注说明是id'
         },
         columnConfigClass: {
-          name: "", text: "", value: "", IsShow: false,
+          name: '', text: '', value: '', IsShow: false,
           form: {
             'type': 'label',
             'name': 'viewId',
             'label': 'viewId',
 
           },
-          remark: "备注说明是id"
+          remark: '备注说明是id'
         },
         columnFilter: {
-          name: "", text: "", value: "", IsShow: false,
+          name: '', text: '', value: '', IsShow: false,
           form: {
             'type': 'label',
             'name': 'viewId',
             'label': 'viewId',
 
           },
-          remark: "备注说明是id"
+          remark: '备注说明是id'
         },
         autoWidth: {
-          name: "", text: "", value: "", IsShow: false,
+          name: '', text: '', value: '', IsShow: false,
           form: {
             'type': 'label',
             'name': 'viewId',
             'label': 'viewId',
 
           },
-          remark: "备注说明是id"
+          remark: '备注说明是id'
         },
         destroy: {
-          name: "", text: "", value: "", IsShow: false,
+          name: '', text: '', value: '', IsShow: false,
           form: {
             'type': 'label',
             'name': 'viewId',
             'label': 'viewId',
 
           },
-          remark: "备注说明是id"
+          remark: '备注说明是id'
         },
         lengthMenu: {
-          name: "", text: "", value: "", IsShow: false,
+          name: '', text: '', value: '', IsShow: false,
           form: {
             'type': 'label',
             'name': 'viewId',
             'label': 'viewId',
 
           },
-          remark: "备注说明是id"
+          remark: '备注说明是id'
         },
         rowId: {
-          name: "", text: "", value: "", IsShow: false,
+          name: '', text: '', value: '', IsShow: false,
           form: {
             'type': 'label',
             'name': 'viewId',
             'label': 'viewId',
 
           },
-          remark: "备注说明是id"
+          remark: '备注说明是id'
         },
         pagingType: {
-          name: "", text: "", value: "", IsShow: false,
+          name: '', text: '', value: '', IsShow: false,
           form: {
             'type': 'label',
             'name': 'viewId',
             'label': 'viewId',
 
           },
-          remark: "备注说明是id"
+          remark: '备注说明是id'
         },
         pageLength: {
-          name: "", text: "", value: "", IsShow: false,
+          name: '', text: '', value: '', IsShow: false,
           form: {
             'type': 'label',
             'name': 'viewId',
             'label': 'viewId',
 
           },
-          remark: "备注说明是id"
+          remark: '备注说明是id'
         },
         orderMulti: {
-          name: "", text: "", value: "", IsShow: false,
+          name: '', text: '', value: '', IsShow: false,
           form: {
             'type': 'label',
             'name': 'viewId',
             'label': 'viewId',
 
           },
-          remark: "备注说明是id"
+          remark: '备注说明是id'
         },
         select: {
-          name: "", text: "", value: "", IsShow: false,
+          name: '', text: '', value: '', IsShow: false,
           form: {
             'type': 'label',
             'name': 'viewId',
             'label': 'viewId',
 
           },
-          remark: "备注说明是id"
+          remark: '备注说明是id'
         },
         responsive: {
-          name: "", text: "", value: "", IsShow: false,
+          name: '', text: '', value: '', IsShow: false,
           form: {
             'type': 'label',
             'name': 'viewId',
             'label': 'viewId',
 
           },
-          remark: "备注说明是id"
+          remark: '备注说明是id'
         },
         columnDefs: {
-          name: "", text: "", value: "", IsShow: false,
+          name: '', text: '', value: '', IsShow: false,
           form: {
             'type': 'label',
             'name': 'viewId',
             'label': 'viewId',
 
           },
-          remark: "备注说明是id"
+          remark: '备注说明是id'
         },
         order: {
-          name: "order", text: "", value: "", IsShow: false,
+          name: 'order', text: '', value: '', IsShow: false,
           form: {
             'type': 'label',
             'name': 'viewId',
             'label': 'viewId',
 
           },
-          remark: "备注说明是id"
+          remark: '备注说明是id'
         },
         dom: {
-          name: "dom", text: "", value: "", IsShow: false,
+          name: 'dom', text: '', value: '', IsShow: false,
           form: {
             'type': 'label',
             'name': 'viewId',
             'label': 'viewId',
 
           },
-          remark: "备注说明是id"
+          remark: '备注说明是id'
         },
         columnConfigs: {
-          name: "columnConfigs", text: "字段配置", value: "", IsShow: false,
+          name: 'columnConfigs', text: '字段配置', value: '', IsShow: false,
           form: {
             'type': 'label',
             'name': 'columnConfigs',
             'label': 'columnConfigs',
 
           },
-          remark: "字段配置"
+          remark: '字段配置'
         }
       },
       field: {//字段 （列头，内容行）
@@ -618,28 +618,28 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
 
     },
     tree_view: {
-      attribute:{
+      attribute: {
         viewId: {
-          name: "viewId", text: "组件id", value: "", IsShow: true,
+          name: 'viewId', text: '组件id', value: '', IsShow: true,
           form: {
             'type': 'label',
             'name': 'viewId',
             'label': 'viewId',
-  
+
           },
-          remark: "备注说明是id"
+          remark: '备注说明是id'
         },
         component: {
-          name: "component", text: "组件名称", value: "", IsShow: true,
+          name: 'component', text: '组件名称', value: '', IsShow: true,
           form: {
             'type': 'label',
             'name': 'component',
             'label': '树',
           },
-          remark: ""
+          remark: ''
         },
         classType: {
-          name: "classType", text: "类型", value: "", IsShow: false,
+          name: 'classType', text: '类型', value: '', IsShow: false,
           form: {
             'type': 'select',
             'placeholder': '--请选择--',
@@ -661,10 +661,10 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
             'value': '',
             'inputClass': 'input-medium'
           },
-          remark: ""
+          remark: ''
         },
         rootConfigs: {
-          name: "rootConfigs", text: "", value: "", IsShow: false,
+          name: 'rootConfigs', text: '', value: '', IsShow: false,
           form: {
             'type': 'select',
             'placeholder': '--请选择--',
@@ -686,10 +686,10 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
             'value': '',
             'inputClass': 'input-medium'
           },
-          remark: ""
+          remark: ''
         },
         childConfigList: {
-          name: "childConfigList", text: "", value: "", IsShow: false,
+          name: 'childConfigList', text: '', value: '', IsShow: false,
           form: {
             'type': 'select',
             'placeholder': '--请选择--',
@@ -711,7 +711,7 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
             'value': '',
             'inputClass': 'input-medium'
           },
-          remark: ""
+          remark: ''
         }
       },
       field: {//字段 （列头，内容行）
@@ -937,11 +937,11 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
           ]
 
       }
-      
+
     }
   };
 
- 
+
   ngAfterViewInit() {
     this.preview.nativeElement.style.height = window.screen.availHeight + 'px';
     this.editor.nativeElement.style.height = window.screen.availHeight + 'px';
@@ -952,7 +952,7 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
         const settingData = this.clientService.getLocalStorage(funcName);
         console.log( settingData);
         this._config =  settingData;
-        let treeData = [{
+        const treeData = [{
           id: funcName, text: '配置结构树', icon: 'fa fa-folder icon-state-warning', li_attr: '', a_attr: '', parent: '#', readonly: false, data: null,
           state: {
             opened: true,
@@ -976,10 +976,10 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
               n++;
               const nodeitem = { ...SettingTreeNodeResource.settingTreeNode };
               nodeitem.id = 'nodeitem_' + n;
-              nodeitem.text = "tabs标签页";
+              nodeitem.text = 'tabs标签页';
               nodeitem.icon = setting.titleIcon;
               nodeitem.parent = node.id;
-              nodeitem.type = "tabs";//类型里未维护
+              nodeitem.type = 'tabs'; //类型里未维护
               nodeitem.state.disabled = false;
 
               treeData.push(nodeitem);
@@ -991,7 +991,7 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
                 nodetab.text = tab.title;
                 nodetab.icon = setting.titleIcon;
                 nodetab.parent = nodeitem.id;
-                nodetab.type = "tab";//类型里未维护
+                nodetab.type = 'tab'; //类型里未维护
                 nodetab.state.disabled = false;
                 nodetab.state.opened = false;
                 treeData.push(nodetab);
@@ -1005,18 +1005,18 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
                   nodetabitem.type = tab.viewCfg.component;
                   nodetabitem.state.disabled = false;
                   nodetabitem.state.opened = false;
-                  nodeitem.data=setting.viewCfg;
+                  nodeitem.data = setting.viewCfg;
                   treeData.push(nodetabitem);
-                  for (var key in tab.viewCfg) {
+                  for (const key in tab.viewCfg) {
                     n++;
                     const nodetabitems = { ...SettingTreeNodeResource.settingTreeNode };
                     nodetabitems.id = 'nodetabitems_' + n;
-                    nodetabitems.text = this.ComponentDic[tab.viewCfg.component].attribute[key].text + " " + key;
+                    nodetabitems.text = this.ComponentDic[tab.viewCfg.component].attribute[key].text + ' ' + key;
                     nodetabitems.icon = setting.titleIcon;
                     nodetabitems.parent = nodetabitem.id;
                     nodetabitems.type = key;
                     nodetabitems.state.disabled = false;
-                   
+
                     treeData.push(nodetabitems);
                     console.log(key);
                   }
@@ -1038,13 +1038,13 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
                 nodeitem.type = setting.viewCfg.component;
                 nodeitem.state.disabled = false;
                 nodeitem.state.opened = false;
-                nodeitem.data=setting.viewCfg;
+                nodeitem.data = setting.viewCfg;
                 treeData.push(nodeitem);
-                for (var key in setting.viewCfg) {
+                for (const key in setting.viewCfg) {
                   n++;
                   const nodeitems = { ...SettingTreeNodeResource.settingTreeNode };
                   nodeitems.id = 'nodeitems_' + n;
-                  nodeitems.text = this.ComponentDic[setting.viewCfg.component].attribute[key].text + " " + key;
+                  nodeitems.text = this.ComponentDic[setting.viewCfg.component].attribute[key].text + ' ' + key;
                   nodeitems.icon = setting.titleIcon;
                   nodeitems.parent = nodeitem.id;
                   nodeitems.type = key;
@@ -1123,10 +1123,10 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
           }
         });
         //点击选中树节点
-        $tree.on("changed.jstree", (e, data) => {
+        $tree.on('changed.jstree', (e, data) => {
           //选中节点的时候，其实是同时去切换数据源和属性。
-          this.nodeJson=data.node.data;
-          this.cfgJson=this.ComponentDic[data.node.type];
+          this.nodeJson = data.node.data;
+          this.cfgJson = this.ComponentDic[data.node.type];
          //this.CnstDatasource.setComponentDic(this.ComponentDic[data.node.type],data.node.data);
 
          // this.CnstAttribute.setComponentDic(this.ComponentDic[data.node.type],data.node.data);
@@ -1143,7 +1143,7 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
   createTreePropsNode() {
     return [
 
-    ]
+    ];
   }
 
   createGridPropsNode(pid) {
@@ -1156,6 +1156,6 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
           selected: false
         }, type: ''
       }
-    ]
+    ];
   }
 }

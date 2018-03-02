@@ -58,5 +58,8 @@ export class CnstDynamicFieldDirective implements IField, OnChanges, OnInit {
     this.component.instance.config = this.config;
     this.component.instance.group = this.group;
     this.component.instance.submitValid = this.submitValid;
+    if(this.config.type === 'select'){
+      this.component.instance
+    }
   }
 }

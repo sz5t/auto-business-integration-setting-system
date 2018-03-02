@@ -112,6 +112,16 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
     }
   }
 
+  setFormValue(data) {
+    if(data){
+      for (const d in data){
+        if(data.hasOwnProperty(d)){
+          this.setValue(d, data[d]);
+        }
+      }
+    }
+  }
+
   getControlValue(name: string) {
     return this.form.controls[name].value;
   }

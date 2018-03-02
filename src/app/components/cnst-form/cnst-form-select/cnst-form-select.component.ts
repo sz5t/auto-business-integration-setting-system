@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {IField} from '../../form/form-models/IField';
 import {IFieldConfig} from '../../form/form-models/IFieldConfig';
 import {FormGroup} from '@angular/forms';
@@ -14,13 +14,12 @@ export class CnstFormSelectComponent implements IField, OnInit, AfterViewInit {
   submitValid: boolean;
   config: IFieldConfig;
   group: FormGroup;
-
-
+  @ViewChild('select') select: ElementRef;
   ngOnInit(): void {
 
   }
 
   ngAfterViewInit(): void {
-    $('.bs-select').selectpicker();
+    //$(this.select.nativeElement).selectpicker();
   }
 }

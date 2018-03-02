@@ -91,7 +91,6 @@ export class OperationSettingComponent implements OnInit, AfterViewInit{
       },
       {
         'type': 'select',
-        'placeholder': '无',
         'options': [
           {
             'text': '无',
@@ -142,6 +141,10 @@ export class OperationSettingComponent implements OnInit, AfterViewInit{
           {
             'text': '浏览状态',
             'value': 'normal'
+          },
+          {
+            'text': '新增状态',
+            'value': 'new'
           },
           {
             'text': '编辑状态',
@@ -232,7 +235,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit{
           id: funcName,
           text: '操作设置',
           icon: 'fa fa-cogs icon-state-warning',
-          li_attr: '', a_attr: '', parent: '#', readonly: false, value: null,
+          li_attr: '', a_attr: '', parent: '#', readonly: false, data: {},
           state: {
             opened: true,
             disabled: true,
@@ -330,8 +333,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit{
           }
         });
         $tree.on('select_node.jstree', (e, data) => {
-          console.log(data);
-          this.propertyForm.setValue('operationName', data.node.data.operationName);
+          this.propertyForm.setFormValue(data.node.data);
         });
       }
     });
@@ -367,31 +369,81 @@ export class OperationSettingComponent implements OnInit, AfterViewInit{
       parentId: parentId,
       title: '新增',
       type: NodeTypes.NODE_TYPE.BUTTON_ADD,
-      disabled: false
+      disabled: false,
+      data: {
+        operationLabel: '新增',
+        operationName: 'add',
+        operationIcon: 'fa fa-plus',
+        operationType: 'none',
+        operationState: 'new',
+        operationNoneState: true,
+        operationDefaultState: true,
+        operationOrder: '2'
+      }
     });
     const updateOpt = this.createNode({
       parentId: parentId,
       title: '编辑',
       type: NodeTypes.NODE_TYPE.BUTTON_EDIT,
-      disabled: false
+      disabled: false,
+      data: {
+        operationLabel: '编辑',
+        operationName: 'none',
+        operationIcon: 'fa fa-pencil',
+        operationType: 'none',
+        operationState: 'edit',
+        operationNoneState: true,
+        operationDefaultState: true,
+        operationOrder: '3'
+      }
     });
     const delOpt = this.createNode({
       parentId: parentId,
       title: '删除',
       type: NodeTypes.NODE_TYPE.BUTTON_DELETE,
-      disabled: false
+      disabled: false,
+      data: {
+        operationLabel: '删除',
+        operationName: 'remove',
+        operationIcon: 'fa fa-remove',
+        operationType: 'confirm',
+        operationState: 'normal',
+        operationNoneState: true,
+        operationDefaultState: true,
+        operationOrder: '4'
+      }
     });
     const saveOpt = this.createNode({
       parentId: parentId,
       title: '保存',
       type: NodeTypes.NODE_TYPE.BUTTON_SAVE,
-      disabled: false
+      disabled: false,
+      data: {
+        operationLabel: '保存',
+        operationName: 'save',
+        operationIcon: 'fa fa-save',
+        operationType: 'none',
+        operationState: 'normal',
+        operationNoneState: true,
+        operationDefaultState: true,
+        operationOrder: '5'
+      }
     });
     const cancelOpt = this.createNode({
       parentId: parentId,
       title: '取消',
       type: NodeTypes.NODE_TYPE.BUTTON_CANCEL,
-      disabled: false
+      disabled: false,
+      data: {
+        operationLabel: '取消',
+        operationName: 'cancel',
+        operationIcon: 'fa fa-reply',
+        operationType: 'none',
+        operationState: 'normal',
+        operationNoneState: true,
+        operationDefaultState: true,
+        operationOrder: '6'
+      }
     });
     return [refreshOpt, addOpt, updateOpt, delOpt, saveOpt, cancelOpt];
   }
