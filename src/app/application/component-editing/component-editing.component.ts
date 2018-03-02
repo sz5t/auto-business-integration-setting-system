@@ -941,7 +941,7 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
     }
   };
 
-
+  settingData;
   ngAfterViewInit() {
     this.preview.nativeElement.style.height = window.screen.availHeight + 'px';
     this.editor.nativeElement.style.height = window.screen.availHeight + 'px';
@@ -949,9 +949,9 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
     $(this.selectFunc.nativeElement).on('changed.bs.select', (e, index, newValue, oldValue) => {
       if (newValue) {
         const funcName = $(this.selectFunc.nativeElement).selectpicker('val');
-        const settingData = this.clientService.getLocalStorage(funcName);
-        console.log( settingData);
-        this._config =  settingData;
+        this.settingData = this.clientService.getLocalStorage(funcName);
+        console.log(this.settingData);
+        this._config = this.settingData;
         const treeData = [{
           id: funcName, text: '配置结构树', icon: 'fa fa-folder icon-state-warning', li_attr: '', a_attr: '', parent: '#', readonly: false, data: null,
           state: {
@@ -960,7 +960,7 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
             selected: false
           }, type: ''
         }];
-        settingData.forEach(settings => {
+        this.settingData.forEach(settings => {
           let n = 0;
           settings.forEach(setting => {
             n++;
@@ -1005,7 +1005,7 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
                   nodetabitem.type = tab.viewCfg.component;
                   nodetabitem.state.disabled = false;
                   nodetabitem.state.opened = false;
-                  nodeitem.data = setting.viewCfg;
+                  nodetabitem.data = { type: 'tab', settings: settings, setting: setting,tab:tab, data: tab.viewCfg };
                   treeData.push(nodetabitem);
                   for (const key in tab.viewCfg) {
                     n++;
@@ -1018,7 +1018,7 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
                     nodetabitems.state.disabled = false;
 
                     treeData.push(nodetabitems);
-                    console.log(key);
+
                   }
                 }
 
@@ -1038,7 +1038,7 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
                 nodeitem.type = setting.viewCfg.component;
                 nodeitem.state.disabled = false;
                 nodeitem.state.opened = false;
-                nodeitem.data = setting.viewCfg;
+                nodeitem.data = { type: 'component', settings: settings, setting: setting, data: setting.viewCfg };
                 treeData.push(nodeitem);
                 for (const key in setting.viewCfg) {
                   n++;
@@ -1050,7 +1050,7 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
                   nodeitems.type = key;
                   nodeitems.state.disabled = false;
                   treeData.push(nodeitems);
-                  console.log(key);
+
                 }
               }
             }
@@ -1122,15 +1122,51 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
             }
           }
         });
-        //点击选中树节点
-        $tree.on('changed.jstree', (e, data) => {
+        //点击选中树节点selected
+        $tree.on('select_node.jstree', (e, data) => {
           //选中节点的时候，其实是同时去切换数据源和属性。
-          this.nodeJson = data.node.data;
-          this.cfgJson = this.ComponentDic[data.node.type];
-         //this.CnstDatasource.setComponentDic(this.ComponentDic[data.node.type],data.node.data);
 
-         // this.CnstAttribute.setComponentDic(this.ComponentDic[data.node.type],data.node.data);
-          console.log( settingData);
+          if (data.node.data.type == 'component') {
+            this.settingData.forEach(settings => {
+              if (JSON.stringify(settings) === JSON.stringify(data.node.data.settings))//this.Compare(settings,data.node.data.settings)
+              {
+                settings.forEach(setting => {
+                  if (JSON.stringify(setting) === JSON.stringify(data.node.data.setting)) {
+                    this.nodeJson = setting.viewCfg;
+                  }
+                });
+              }
+            });
+
+          }
+          else if (data.node.data.type === 'tab') {
+            this.settingData.forEach(settings => {
+              if (JSON.stringify(settings) === JSON.stringify(data.node.data.settings))//this.Compare(settings,data.node.data.settings)
+              {
+                settings.forEach(setting => {
+                  if (JSON.stringify(setting) === JSON.stringify(data.node.data.setting)) {
+
+                    setting.tabs.forEach(tab => { // tabs
+                      if (JSON.stringify(tab) === JSON.stringify(data.node.data.tab)) {
+                        this.nodeJson = tab.viewCfg;
+                      }
+                    });
+                  }
+                });
+              }
+            });
+
+
+          }
+
+          this.cfgJson = this.ComponentDic[data.node.type];
+          //this.CnstDatasource.setComponentDic(this.ComponentDic[data.node.type],data.node.data);
+          // this.CnstAttribute.setComponentDic(this.ComponentDic[data.node.type],data.node.data);
+          console.log('点击节点');
+          console.log(this.settingData);
+          // console.log(data.node.data);
+          //console.log($tree.jstree('get_path', data.node, ['/']));
+
         });
       }
     });
@@ -1158,4 +1194,7 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
       }
     ];
   }
+
+
+
 }
