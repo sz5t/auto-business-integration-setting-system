@@ -88,6 +88,26 @@ export class CnstDatasourceComponent implements OnInit, AfterViewInit, OnChanges
 
   };
 
+  addFieldChanges(columnConfigsData?) {
+    
+    
+    columnConfigsData.forEach(element => {
+ 
+      const conent = $.extend(true, [], this._formConfigsContent);
+  
+      conent.forEach(Field => {
+        Field.name = element.rowId + '_' + Field.name;
+
+      });
+  
+      this._formConfigs.push(conent);
+    });
+       
+    
+        this._formConfigs = $.extend(true, [], this._formConfigs);
+    
+      };
+
   addparameter() {
     const fieldIdentity = CommonUtility.uuID(5);
     const conent = $.extend(true, [], this.__formConfigsparameterContent);
@@ -100,9 +120,8 @@ export class CnstDatasourceComponent implements OnInit, AfterViewInit, OnChanges
   };
 
   ngOnChanges() {
-    alert('hh');
+  
     if (this.cfgJson) {
-
 
       this._formConfigs = [];
       this._formConfigsTitle = this.cfgJson.field.titleHeader;
@@ -111,6 +130,10 @@ export class CnstDatasourceComponent implements OnInit, AfterViewInit, OnChanges
       this._formConfigsparameter = [];
       this.__formConfigsparameterTitle = this.cfgJson.parameter.titleHeader;
       this.__formConfigsparameterContent = this.cfgJson.parameter.content;
+
+      //配置信息
+      //this._treeData.component
+      this._treeData.columnConfigsData
     }
   }
 
@@ -169,6 +192,7 @@ export class CnstDatasourceComponent implements OnInit, AfterViewInit, OnChanges
     console.log(formJson);
     console.log(fieldJson);
     this._treeData.columnConfigs = fieldJson;
+    this._treeData.columnConfigsData = formJson;
   };
 
   form2Save() {
@@ -224,10 +248,9 @@ export class CnstDatasourceComponent implements OnInit, AfterViewInit, OnChanges
       parameterItemJson.fieldName = row.cols.AssemblyName7;
       parameterJson.push(parameterItemJson);
     });
-    console.log('保存');
-    console.log(formJson);
-    console.log(parameterJson);
-    this._treeData.parametercfg = parameterJson;
+
+    this._treeData.parameterCfg = parameterJson;
+    this._treeData.parameterCfgData = formJson;
     console.log(this._treeData);
   };
 
