@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
-import {NodeTypes, SettingTreeNodeResource} from '../../data/TreeNodeTypes';
+import {NodeTypes, SettingTreeNodeResource, OperationSettingNodeTypes} from '../../data/TreeNodeTypes';
 import {ClientStorageService} from '../../services/client-storage.service';
 import {CommonUtility} from '../../framework/utility/common-utility';
 import {addPathToRoutes} from '@angular/cli/lib/ast-tools';
@@ -18,7 +18,8 @@ export class OperationSettingComponent implements OnInit, AfterViewInit{
   @ViewChild('editor') editor: ElementRef;
   @ViewChild('settingTree') settingTree: ElementRef;
   @ViewChild(CnstDynamicFormComponent) propertyForm: CnstDynamicFormComponent;
-  _config;
+  _config = [];
+  _navsData;
   _settingHeader = {
     header: [
       { title: '属性名', width: '100px' },
@@ -37,7 +38,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit{
       {
         'type': 'input',
         'inputType': 'text',
-        'name': 'operationName',
+        'name': 'operationLabel',
         'helpText': '',
         'inputClass': 'input-inline input-medium',
         'placeholder': '',
@@ -58,7 +59,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit{
       {
         'type': 'input',
         'inputType': 'text',
-        'name': 'operationLabel',
+        'name': 'operationName',
         'helpText': '',
         'inputClass': 'input-inline input-medium',
         'placeholder': '',
@@ -277,37 +278,25 @@ export class OperationSettingComponent implements OnInit, AfterViewInit{
         });
         $(this.settingTree.nativeElement).jstree('destroy');
         const $tree = $(this.settingTree.nativeElement);
-        const instance = $tree.jstree(true);
+
         const createAction = (t, n) => {
+          const instance = $tree.jstree(true);
           switch (n) {
-            // toolbar config
-            case NodeTypes.NODE_TYPE.LAYOUT:
-              const component_submenu = t[NodeTypes.NODE_TYPE.LAYOUT_COMPONENT_ADD].submenu;
-              const layout_submenu = t[NodeTypes.NODE_TYPE.LAYOUT_LAYOUT_ADD].submenu;
-              component_submenu[NodeTypes.NODE_TYPE.LAYOUT_TREE].action = (data) => {
-                const node = instance.get_node(data.reference[0]);
-                //const node = _menu.jstree('get_node', data.reference[0]);
-                const newID = instance.create_node(node.id, NodeTypes.buttonNode, 'last', () => {
+            case NodeTypes.NODE_TYPE.LAYOUT_GRIDVIEW:
+              t['addButton'].action = (data) => {
+                const node = $tree.jstree('get_node', data.reference[0]);
+                const newId = instance.create_node(node.id, NodeTypes.buttonNode, 'last', () => {
                   instance.deselect_node(node.id);
                 }, true);
-                instance.select_node(newID);
-                const nd = instance.get_node(newID);
-                instance.edit(nd);
+                instance.select_node(newId);
               };
-              component_submenu[NodeTypes.NODE_TYPE.LAYOUT_GRIDVIEW].action = (data) => {
-                alert('refresh button');
-              };
-              layout_submenu[NodeTypes.NODE_TYPE.LAYOUT_TABS].action = (data) => {
-                alert('delete all button');
-              };
-              layout_submenu[NodeTypes.NODE_TYPE.LAYOUT_ACCORDION].action = (data) => {
-                alert('delete all button');
-              };
-              t[NodeTypes.NODE_TYPE.LAYOUT_COMPONENT_REMOVE].action = (data) => {
-
-              };
-              t[NodeTypes.NODE_TYPE.LAYOUT_LAYOUT_REMOVE].action = (data) => {
-
+              break;
+            case NodeTypes.NODE_TYPE.BUTTON:
+              t['removeButton'].action = (data) => {
+                const node = $tree.jstree('get_node', data.reference[0]);
+                instance.delete_node(node);
+                this.propertyForm.resetFormValue();
+                this._navsData = [];
               };
               break;
           }
@@ -326,7 +315,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit{
           'contextmenu': {
             'items': function (node) {
               const type = this.get_type(node);
-              const _smenu = NodeTypes[type];
+              const _smenu = OperationSettingNodeTypes[type];
               createAction(_smenu, type);
               return _smenu;
             }
@@ -334,6 +323,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit{
         });
         $tree.on('select_node.jstree', (e, data) => {
           this.propertyForm.setFormValue(data.node.data);
+          this._navsData = $tree.jstree('get_path', data.node);
         });
       }
     });
@@ -346,13 +336,15 @@ export class OperationSettingComponent implements OnInit, AfterViewInit{
     node.parent = info.parentId;
     node.state.disabled = info.disabled;
     node.data = info.data;
+    node.icon = info.icon ? info.icon : '';
     return node;
   }
   initOperations(parentId) {
     const refreshOpt = this.createNode({
       parentId: parentId,
       title: '刷新',
-      type: NodeTypes.NODE_TYPE.BUTTON_REFRESH,
+      icon: 'fa fa-refresh text-primary',
+      type: NodeTypes.NODE_TYPE.BUTTON,
       disabled: false,
       data: {
         operationLabel: '刷新',
@@ -368,8 +360,9 @@ export class OperationSettingComponent implements OnInit, AfterViewInit{
     const addOpt = this.createNode({
       parentId: parentId,
       title: '新增',
-      type: NodeTypes.NODE_TYPE.BUTTON_ADD,
+      type: NodeTypes.NODE_TYPE.BUTTON,
       disabled: false,
+      icon: 'fa fa-plus text-info',
       data: {
         operationLabel: '新增',
         operationName: 'add',
@@ -384,8 +377,9 @@ export class OperationSettingComponent implements OnInit, AfterViewInit{
     const updateOpt = this.createNode({
       parentId: parentId,
       title: '编辑',
-      type: NodeTypes.NODE_TYPE.BUTTON_EDIT,
+      type: NodeTypes.NODE_TYPE.BUTTON,
       disabled: false,
+      icon: 'fa fa-pencil text-info',
       data: {
         operationLabel: '编辑',
         operationName: 'none',
@@ -400,8 +394,9 @@ export class OperationSettingComponent implements OnInit, AfterViewInit{
     const delOpt = this.createNode({
       parentId: parentId,
       title: '删除',
-      type: NodeTypes.NODE_TYPE.BUTTON_DELETE,
+      type: NodeTypes.NODE_TYPE.BUTTON,
       disabled: false,
+      icon: 'fa fa-remove font-red',
       data: {
         operationLabel: '删除',
         operationName: 'remove',
@@ -416,8 +411,9 @@ export class OperationSettingComponent implements OnInit, AfterViewInit{
     const saveOpt = this.createNode({
       parentId: parentId,
       title: '保存',
-      type: NodeTypes.NODE_TYPE.BUTTON_SAVE,
+      type: NodeTypes.NODE_TYPE.BUTTON,
       disabled: false,
+      icon: 'fa fa-save text-success',
       data: {
         operationLabel: '保存',
         operationName: 'save',
@@ -432,8 +428,9 @@ export class OperationSettingComponent implements OnInit, AfterViewInit{
     const cancelOpt = this.createNode({
       parentId: parentId,
       title: '取消',
-      type: NodeTypes.NODE_TYPE.BUTTON_CANCEL,
+      type: NodeTypes.NODE_TYPE.BUTTON,
       disabled: false,
+      icon: 'fa fa-reply text-muted',
       data: {
         operationLabel: '取消',
         operationName: 'cancel',

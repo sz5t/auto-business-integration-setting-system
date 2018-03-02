@@ -6,9 +6,7 @@ import { CnstPortletGridviewComponent } from './cnst-portlet-gridview/cnst-portl
 import { CnstPortletTabsComponent } from './cnst-portlet-tabs/cnst-portlet-tabs.component';
 import { CnstPortletTreeComponent } from './cnst-portlet-tree/cnst-portlet-tree.component';
 import { CnstPortletTabconcentComponent } from './cnst-portlet-tabconcent/cnst-portlet-tabconcent.component';
-
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {CnForceRsModule} from '../components/cn-force-rs.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -18,7 +16,6 @@ import {CnForceRsModule} from '../components/cn-force-rs.module';
   exports:[
     CnstPortletComponent,
     CnstPortletGridviewComponent
-    
   ],
   entryComponents:[
     CnstPortletComponent,
@@ -33,7 +30,7 @@ import {CnForceRsModule} from '../components/cn-force-rs.module';
     CnstPortletGridviewComponent,
     CnstPortletTabsComponent,
     CnstPortletTreeComponent,
-    CnstPortletTabconcentComponent,
+    CnstPortletTabconcentComponent
     ]
 })
 export class CnstComponentModule { }

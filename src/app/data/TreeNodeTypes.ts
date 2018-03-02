@@ -9,7 +9,7 @@ export class NodeTypes {
     LAYOUT_LAYOUT_ADD: 'addLayout',
     LAYOUT_LAYOUT_REMOVE: 'removeLayout',
     LAYOUT_TREE: 'tree',
-    LAYOUT_GRIDVIEW: 'gridview',
+    LAYOUT_GRIDVIEW: 'grid_view',
     LAYOUT_TABS: 'tabs',
     LAYOUT_TAB: 'tab',
     LAYOUT_ACCORDION: 'accordion',
@@ -118,6 +118,7 @@ export class NodeTypes {
       'separator_after': false
     },
   };
+
   public static toolbarConfig = {
     'refresh': {
       'label': '<span class="fa fa-refresh font-blue"></span> 刷新',
@@ -241,11 +242,26 @@ export class NodeTypes {
   public static component_form_node = {};
   public static component_accordion_node = {};
   public static buttonNode = {
-    text: '按钮', icon: '', li_attr: '', a_attr: '', parent: 'viewCfg_1_toolbarsConfig', readonly: true, value: null,
+    text: '操作',
+    icon: '',
+    li_attr: '',
+    a_attr: '',
+    parent: '',
+    readonly: false,
+    data: {
+      operationLabel: '操作',
+      operationName: '',
+      operationIcon: '',
+      operationType: 'none',
+      operationState: 'new',
+      operationNoneState: true,
+      operationDefaultState: true,
+      operationOrder: ''
+    },
     state: {
       opened: true,
       disabled: false,
-      selected: false,
+      selected: true,
     }, type: 'button'
   };
   public static fieldNode = {
@@ -577,4 +593,21 @@ export class SettingTreeNodeResource {
     ];
   }
 
+}
+
+export class OperationSettingNodeTypes {
+  public static grid_view = {
+    'addButton':{
+      'label': '添加按钮',
+      'icon': 'fa fa-plus',
+      'separator_after': false
+    }
+  };
+  public static button = {
+    'removeButton':{
+      'label': '移除按钮',
+      'icon': 'fa fa-remove',
+      'separator_after': false
+    },
+  };
 }
