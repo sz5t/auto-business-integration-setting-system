@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation, ComponentRef, ViewContainerRef, ComponentFactoryResolver, ComponentFactory } from '@angular/core';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { ClientStorageService } from '../../services/client-storage.service';
 import { NodeTypes, SettingTreeNodeResource } from '../../data/TreeNodeTypes';
@@ -21,7 +21,11 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
   @ViewChild('treeScroller') treeScroller: ElementRef;
 
   @ViewChild(CnstAttributeComponent) CnstAttribute: CnstAttributeComponent;
-  @ViewChild(CnstDatasourceComponent) CnstDatasource: CnstDatasourceComponent;
+  //@ViewChild(CnstDatasourceComponent) CnstDatasource: CnstDatasourceComponent;
+
+  componentRef: ComponentRef<CnstDatasourceComponent>;
+  @ViewChild("dataSourceContainer", { read: ViewContainerRef }) container: ViewContainerRef;
+
 
   //@ViewChildren('blocks') blocks: QueryList<ElementRef>;
   // @ViewChildren('blocks') blocks: QueryList<CnDynamicBlockPortletComponent>;
@@ -29,8 +33,10 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
   _json;
   nodeJson;
   cfgJson;
+  attribute;//组件属性
+  attributeData;//组件属性值
   @Input() _treeData;
-  constructor(private clientService: ClientStorageService) {
+  constructor(private clientService: ClientStorageService, private resolver: ComponentFactoryResolver) {
     this._json = [
       {
         portletkey: 'portletkey01',
@@ -355,34 +361,13 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
               'type': 'input',
               'inputType': 'text',
               'name': 'AssemblyName1',
-              'helpClass': 'help-inline',
-              'validations': [
-                {
-                  'validator': 'required',
-                  'errorMessage': ''
-                },
-                {
-                  'validator': 'minLength',
-                  'length': 6,
-                  'errorMessage': ''
-                }
-              ]
+              'helpClass': 'help-inline'
+
             },
             {
               'type': 'input',
               'inputType': 'text',
-              'name': 'AssemblyName2',
-              'validations': [
-                {
-                  'validator': 'required',
-                  'errorMessage': ''
-                },
-                {
-                  'validator': 'minLength',
-                  'length': 6,
-                  'errorMessage': ''
-                }
-              ]
+              'name': 'AssemblyName2'
             },
             {
               'type': 'select',
@@ -447,17 +432,7 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
               'type': 'input',
               'inputType': 'text',
               'name': 'AssemblyName6',
-              'validations': [
-                {
-                  'validator': 'required',
-                  'errorMessage': ''
-                },
-                {
-                  'validator': 'minLength',
-                  'length': 6,
-                  'errorMessage': ''
-                }
-              ]
+
             }
           ]
 
@@ -732,17 +707,7 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
               'inputType': 'text',
               'name': 'AssemblyName1',
               'helpClass': 'help-inline',
-              'validations': [
-                {
-                  'validator': 'required',
-                  'errorMessage': ''
-                },
-                {
-                  'validator': 'minLength',
-                  'length': 6,
-                  'errorMessage': ''
-                }
-              ]
+
             },
             {
               'type': 'select',
@@ -769,17 +734,7 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
               'type': 'input',
               'inputType': 'text',
               'name': 'AssemblyName3',
-              'validations': [
-                {
-                  'validator': 'required',
-                  'errorMessage': ''
-                },
-                {
-                  'validator': 'minLength',
-                  'length': 6,
-                  'errorMessage': ''
-                }
-              ]
+
             }
           ]
 
@@ -960,9 +915,9 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
             selected: false
           }, type: ''
         }];
-        this.settingData.forEach(settings => {
+        this.settingData.forEach((settings, i) => {
           let n = 0;
-          settings.forEach(setting => {
+          settings.forEach((setting, j) => {
             n++;
             const node = { ...SettingTreeNodeResource.settingTreeNode };
             node.id = 'node_' + n;
@@ -984,7 +939,7 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
 
               treeData.push(nodeitem);
 
-              setting.tabs.forEach(tab => {
+              setting.tabs.forEach((tab, k) => {
                 n++;
                 const nodetab = { ...SettingTreeNodeResource.settingTreeNode };
                 nodetab.id = 'nodetab_' + n;
@@ -1005,7 +960,7 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
                   nodetabitem.type = tab.viewCfg.component;
                   nodetabitem.state.disabled = false;
                   nodetabitem.state.opened = false;
-                  nodetabitem.data = { type: 'tab', settings: settings, setting: setting,tab:tab, data: tab.viewCfg };
+                  nodetabitem.data = { type: 'tab', settings: i, setting: j, tab: k, data: tab.viewCfg };
                   treeData.push(nodetabitem);
                   for (const key in tab.viewCfg) {
                     n++;
@@ -1038,7 +993,7 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
                 nodeitem.type = setting.viewCfg.component;
                 nodeitem.state.disabled = false;
                 nodeitem.state.opened = false;
-                nodeitem.data = { type: 'component', settings: settings, setting: setting, data: setting.viewCfg };
+                nodeitem.data = { type: 'component', settings: i, setting: j, data: setting.viewCfg };
                 treeData.push(nodeitem);
                 for (const key in setting.viewCfg) {
                   n++;
@@ -1125,45 +1080,26 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
         //点击选中树节点selected
         $tree.on('select_node.jstree', (e, data) => {
           //选中节点的时候，其实是同时去切换数据源和属性。
+          console.log('开始选择节点');
 
           if (data.node.data.type == 'component') {
-            this.settingData.forEach(settings => {
-              if (JSON.stringify(settings) === JSON.stringify(data.node.data.settings))//this.Compare(settings,data.node.data.settings)
-              {
-                settings.forEach(setting => {
-                  if (JSON.stringify(setting) === JSON.stringify(data.node.data.setting)) {
-                    this.nodeJson = setting.viewCfg;
-                  }
-                });
-              }
-            });
-
+            this.nodeJson = this.settingData[data.node.data.settings][data.node.data.setting].viewCfg;
           }
           else if (data.node.data.type === 'tab') {
-            this.settingData.forEach(settings => {
-              if (JSON.stringify(settings) === JSON.stringify(data.node.data.settings))//this.Compare(settings,data.node.data.settings)
-              {
-                settings.forEach(setting => {
-                  if (JSON.stringify(setting) === JSON.stringify(data.node.data.setting)) {
-
-                    setting.tabs.forEach(tab => { // tabs
-                      if (JSON.stringify(tab) === JSON.stringify(data.node.data.tab)) {
-                        this.nodeJson = tab.viewCfg;
-                      }
-                    });
-                  }
-                });
-              }
-            });
-
-
+            this.nodeJson = this.settingData[data.node.data.settings][data.node.data.setting].tabs[data.node.data.tab].viewCfg;
+          }
+          else {
+            this.nodeJson = {};
           }
 
           this.cfgJson = this.ComponentDic[data.node.type];
-          //this.CnstDatasource.setComponentDic(this.ComponentDic[data.node.type],data.node.data);
-          // this.CnstAttribute.setComponentDic(this.ComponentDic[data.node.type],data.node.data);
+          this.attribute=this.ComponentDic[data.node.type];//组件对应的属性
+          //this.attributeData={}; 组件属性值
           console.log('点击节点');
-          console.log(this.settingData);
+          console.log(this.nodeJson);
+          console.log(this.cfgJson);
+
+          this.createComponent(this.nodeJson, this.cfgJson);
           // console.log(data.node.data);
           //console.log($tree.jstree('get_path', data.node, ['/']));
 
@@ -1196,5 +1132,74 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
   }
 
 
+  createComponent(dataSource, cfgJson) {
+    this.container.clear();
+    const factory: ComponentFactory<CnstDatasourceComponent> =
+      this.resolver.resolveComponentFactory(CnstDatasourceComponent);
+    this.componentRef = this.container.createComponent(factory);
+    this.componentRef.instance._dataSource = dataSource;
+    this.componentRef.instance._cfgJson = cfgJson;
+    this.componentRef.instance.callbackSaveField.subscribe(event => {
+      this.saveField(event);
+    });
+    this.componentRef.instance.callbackSaveParameter.subscribe(event => {
+      this.saveParameter(event);
+    });
+    //  this.componentRef.instance.output.subscribe((msg: string) => console.log(msg));
+  }
+
+  ngOnDestroy() {
+    this.componentRef.destroy()
+  }
+
+  //保存字段信息 
+  saveField(data?) {
+    //{Configs:fieldJson,ConfigsData:formJson}
+    const fieldJson = [];
+
+    data.forEach(row => {
+
+      const fieldItemJson = {
+        "title": "",
+        "data": "",
+        "renderName": {}
+      };
+      fieldItemJson.title = row.cols.AssemblyName2;
+      fieldItemJson.data = row.cols.AssemblyName1;
+      fieldJson.push(fieldItemJson);
+    });
+    this.nodeJson.columnConfigs = fieldJson;
+    this.nodeJson.columnConfigsData = data;
+  }
+
+  //保存参数信息
+  saveParameter(data?) {
+
+    const parameterJson = [];
+
+    data.forEach(row => {
+
+      const parameterItemJson = {
+        "parameterName": "",
+        "replace": "",
+        "valueAs": "",
+        "valueType": '',
+        "parameterType": '',
+        "systemParameter": '',
+        "fieldName": ''
+
+      };
+      parameterItemJson.parameterName = row.cols.AssemblyName1;
+      parameterItemJson.replace = row.cols.AssemblyName2;
+      parameterItemJson.valueAs = row.cols.AssemblyName3;
+      parameterItemJson.valueType = row.cols.AssemblyName4;
+      parameterItemJson.parameterType = row.cols.AssemblyName5;
+      parameterItemJson.systemParameter = row.cols.AssemblyName6;
+      parameterItemJson.fieldName = row.cols.AssemblyName7;
+      parameterJson.push(parameterItemJson);
+    });
+    this.nodeJson.parameterCfg = parameterJson;
+    this.nodeJson.parameterCfgData = data;
+  }
 
 }
