@@ -218,11 +218,8 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
 
 
   ngChangesRow() {
-    alert('bh');
     if (this.form) {
-      alert('bh-form');
       const controls = Object.keys(this.form.controls);
-
       const configControls = this.controls.map(item => item.name);
 
       controls

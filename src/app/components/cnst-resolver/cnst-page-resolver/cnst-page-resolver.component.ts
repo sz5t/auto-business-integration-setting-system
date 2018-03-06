@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,Input} from '@angular/core';
 const colClsType: { [type: string]: IValueOffset } = {
   md: { value: 'col-md-', offset: 'col-md-offset-' },
   sm: { value: 'col-sm-', offset: 'col-sm-offset-' },
@@ -12,6 +12,7 @@ const colClsType: { [type: string]: IValueOffset } = {
 })
 export class CnstPageResolverComponent implements OnInit {
 
+  @Input() viewPage;
   //判断是否是数组 Array.isArray(arr)
   _viewPage = [
     [
@@ -366,7 +367,12 @@ export class CnstPageResolverComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    if(this.viewPage){
+      this._viewPage=this.viewPage;
+    }
     this.layoutPass();
+   
+
   }
 
 
