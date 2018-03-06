@@ -39,7 +39,6 @@ import {CnstCodemirrorComponent} from './cnst-codemirror/cnst-codemirror.compone
 import {CnstFormModule} from '../cnst-form/cnst-form.module';
 import {CnstAttributeComponent} from './cnst-attribute/cnst-attribute.component';
 import {CnstPropertyNavComponent} from "./cnst-property-nav/cnst-property-nav.component";
-import { CnstTabPropertyEditorComponent } from './src/app/components/dynamic/cnst-tab-property-editor/cnst-tab-property-editor.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -84,8 +83,7 @@ import { CnstTabPropertyEditorComponent } from './src/app/components/dynamic/cns
     CnstDatasourceComponent,
     CnstCodemirrorComponent,
     CnstAttributeComponent,
-    CnstPropertyNavComponent,
-    CnstTabPropertyEditorComponent
+    CnstPropertyNavComponent
   ],
   exports: [
     CnDynamicLayoutComponent,
