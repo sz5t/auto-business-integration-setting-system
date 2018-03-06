@@ -33,7 +33,6 @@ export class CnstCodemirrorComponent implements OnInit, AfterViewInit {
   }
   getValue(){
     return this.editor.getValue();
-
   }
 
 

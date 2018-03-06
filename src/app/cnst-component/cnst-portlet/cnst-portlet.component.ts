@@ -10,6 +10,7 @@ import { CnstPortletTabsComponent } from '../cnst-portlet-tabs/cnst-portlet-tabs
 import {App} from '../../components/layout/cn-layout/cn-layout.component';
 
 import { ICnstPortlet } from '../cnst-portlet';
+import {NodeTypes} from "../../data/TreeNodeTypes";
 const components: { [type: string]: Type<ICnstPortlet> } = {
   grid_view: CnstPortletGridviewComponent,
   tree_view: CnstPortletTreeComponent,
@@ -37,6 +38,128 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
       'viewId': '',
       'component': 'tree_view',
       'classType': 'tree',
+      'toolbarsConfigData': [
+        {
+          parentId: '',
+          title: '刷新',
+          icon: 'fa fa-refresh text-primary',
+          type: NodeTypes.NODE_TYPE.BUTTON,
+          disabled: false,
+          data: {
+            index: 0,
+            btnData: {
+              operationLabel: '刷新',
+              operationName: 'refresh',
+              operationIcon: 'fa fa-refresh',
+              operationType: 'refresh',
+              operationState: 'normal',
+              operationNoneState: true,
+              operationDefaultState: true,
+              operationOrder: '1'
+            }
+          }
+        },
+        {
+          parentId: '',
+          title: '新增',
+          type: NodeTypes.NODE_TYPE.BUTTON,
+          disabled: false,
+          icon: 'fa fa-plus text-info',
+          data: {
+            index: 1,
+            btnData: {
+              operationLabel: '新增',
+              operationName: 'add',
+              operationIcon: 'fa fa-plus',
+              operationType: 'none',
+              operationState: 'new',
+              operationNoneState: true,
+              operationDefaultState: true,
+              operationOrder: '2'
+            }
+          }
+        },
+        {
+          parentId: '',
+          title: '编辑',
+          type: NodeTypes.NODE_TYPE.BUTTON,
+          disabled: false,
+          icon: 'fa fa-pencil text-info',
+          data: {
+            index: 2,
+            btnData: {
+              operationLabel: '编辑',
+              operationName: 'none',
+              operationIcon: 'fa fa-pencil',
+              operationType: 'none',
+              operationState: 'edit',
+              operationNoneState: true,
+              operationDefaultState: true,
+              operationOrder: '3'
+            }
+          }
+        },
+        {
+          parentId: '',
+          title: '删除',
+          type: NodeTypes.NODE_TYPE.BUTTON,
+          disabled: false,
+          icon: 'fa fa-remove font-red',
+          data: {
+            index: 3,
+            btnData: {
+              operationLabel: '删除',
+              operationName: 'remove',
+              operationIcon: 'fa fa-remove',
+              operationType: 'confirm',
+              operationState: 'normal',
+              operationNoneState: true,
+              operationDefaultState: true,
+              operationOrder: '4'
+            }
+          }
+        },
+        {
+          parentId: '',
+          title: '保存',
+          type: NodeTypes.NODE_TYPE.BUTTON,
+          disabled: false,
+          icon: 'fa fa-save text-success',
+          data: {
+            index: 4,
+            btnData : {
+              operationLabel: '保存',
+              operationName: 'save',
+              operationIcon: 'fa fa-save',
+              operationType: 'after_sql',
+              operationState: 'normal',
+              operationNoneState: true,
+              operationDefaultState: true,
+              operationOrder: '5'
+            }
+          }
+        },
+        {
+          parentId: '',
+          title: '取消',
+          type: NodeTypes.NODE_TYPE.BUTTON,
+          disabled: false,
+          icon: 'fa fa-reply text-muted',
+          data: {
+            index: 5,
+            btnData: {
+              operationLabel: '取消',
+              operationName: 'cancel',
+              operationIcon: 'fa fa-reply',
+              operationType: 'none',
+              operationState: 'normal',
+              operationNoneState: true,
+              operationDefaultState: true,
+              operationOrder: '6'
+            }
+          }
+        }
+      ],
       'rootConfigs': [],
       'childConfigList': []
     }}},
@@ -47,6 +170,128 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
         'classType': 'GridView',
         'searchForm': [],
         'toolbarsConfig': [],
+        'toolbarsConfigData': [
+          {
+            parentId: '',
+            title: '刷新',
+            icon: 'fa fa-refresh text-primary',
+            type: NodeTypes.NODE_TYPE.BUTTON,
+            disabled: false,
+            data: {
+              index: 0,
+              btnData: {
+                operationLabel: '刷新',
+                operationName: 'refresh',
+                operationIcon: 'fa fa-refresh',
+                operationType: 'refresh',
+                operationState: 'normal',
+                operationNoneState: true,
+                operationDefaultState: true,
+                operationOrder: '1'
+              }
+            }
+          },
+          {
+            parentId: '',
+            title: '新增',
+            type: NodeTypes.NODE_TYPE.BUTTON,
+            disabled: false,
+            icon: 'fa fa-plus text-info',
+            data: {
+              index: 1,
+              btnData: {
+                operationLabel: '新增',
+                operationName: 'add',
+                operationIcon: 'fa fa-plus',
+                operationType: 'none',
+                operationState: 'new',
+                operationNoneState: true,
+                operationDefaultState: true,
+                operationOrder: '2'
+              }
+            }
+          },
+          {
+            parentId: '',
+            title: '编辑',
+            type: NodeTypes.NODE_TYPE.BUTTON,
+            disabled: false,
+            icon: 'fa fa-pencil text-info',
+            data: {
+              index: 2,
+              btnData: {
+                operationLabel: '编辑',
+                operationName: 'none',
+                operationIcon: 'fa fa-pencil',
+                operationType: 'none',
+                operationState: 'edit',
+                operationNoneState: true,
+                operationDefaultState: true,
+                operationOrder: '3'
+              }
+            }
+          },
+          {
+            parentId: '',
+            title: '删除',
+            type: NodeTypes.NODE_TYPE.BUTTON,
+            disabled: false,
+            icon: 'fa fa-remove font-red',
+            data: {
+              index: 3,
+              btnData: {
+                operationLabel: '删除',
+                operationName: 'remove',
+                operationIcon: 'fa fa-remove',
+                operationType: 'confirm',
+                operationState: 'normal',
+                operationNoneState: true,
+                operationDefaultState: true,
+                operationOrder: '4'
+              }
+            }
+          },
+          {
+            parentId: '',
+            title: '保存',
+            type: NodeTypes.NODE_TYPE.BUTTON,
+            disabled: false,
+            icon: 'fa fa-save text-success',
+            data: {
+              index: 4,
+              btnData : {
+                operationLabel: '保存',
+                operationName: 'save',
+                operationIcon: 'fa fa-save',
+                operationType: 'after_sql',
+                operationState: 'normal',
+                operationNoneState: true,
+                operationDefaultState: true,
+                operationOrder: '5'
+              }
+            }
+          },
+          {
+            parentId: '',
+            title: '取消',
+            type: NodeTypes.NODE_TYPE.BUTTON,
+            disabled: false,
+            icon: 'fa fa-reply text-muted',
+            data: {
+              index: 5,
+              btnData: {
+                operationLabel: '取消',
+                operationName: 'cancel',
+                operationIcon: 'fa fa-reply',
+                operationType: 'none',
+                operationState: 'normal',
+                operationNoneState: true,
+                operationDefaultState: true,
+                operationOrder: '6'
+              }
+            }
+          }
+        ],
         'ordering': true,
         'paging': true,
         'processing': false,
