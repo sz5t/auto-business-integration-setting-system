@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { IFieldConfig } from '../form/form-models/IFieldConfig';
+import { CommonUtility } from '../../framework/utility/common-utility';
 declare let bootbox: any;
 @Component({
   exportAs: 'cnstDynamicForm',
@@ -12,6 +13,7 @@ declare let bootbox: any;
 export class CnstDynamicFormComponent implements OnInit, OnChanges {
   @Input() configs;
   @Input() configsTitle;
+  @Input() ConfigsContent;
   @Input() config: IFieldConfig[] = [];
   @Input() submitValid;
   @Output() submit: EventEmitter<any> = new EventEmitter<any>();
@@ -19,11 +21,11 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
 
   get controls() {
     const allControls = [];
-    this.configs.forEach(config => {
-      config.forEach(control => {
-        allControls.push(control);
+      this.configs.forEach(config => {
+        config.forEach(control => {
+          allControls.push(control);
+        });
       });
-    });
     return allControls.filter(({type}) => {
       return type !== 'button' && type !== 'label';
     });
@@ -162,4 +164,77 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
   }
 
 
+  addRowChanges(columnConfigsData?) {
+    const row = [];
+    if (columnConfigsData.length > 0) {
+      const fieldData = {};
+      columnConfigsData.forEach(element => {
+        const conent = $.extend(true, [], this.ConfigsContent);
+        conent.forEach(Field => {
+          Field.name = element.rowId + '_' + Field.name;
+        });
+        for (var key in element.cols) {
+          const colsname = element.rowId + '_' + key;
+          fieldData[colsname] = element.cols[key];
+        }
+        row.push(conent);
+
+      });
+      this.configs = row;
+    }
+    else {
+      this.configs = [];
+    }
+  }
+  addRow() {
+    const fieldIdentity = CommonUtility.uuID(5);
+    const conent = $.extend(true, [], this.ConfigsContent);
+    conent.forEach(Field => {
+      Field.name = fieldIdentity + '_' + Field.name;
+    });
+    this.configs.push(conent);
+   // this.configs = $.extend(true, [], this.configs);
+    this.ngChangesRow();
+  }
+  changeRowFormValue(columnConfigsData) {
+    const row = [];
+    if (columnConfigsData.length > 0) {
+      const fieldData = {};
+      columnConfigsData.forEach(element => {
+        const conent = $.extend(true, [], this.ConfigsContent);
+        conent.forEach(Field => {
+          Field.name = element.rowId + '_' + Field.name;
+        });
+        for (var key in element.cols) {
+          const colsname = element.rowId + '_' + key;
+          fieldData[colsname] = element.cols[key];
+        }
+        row.push(conent);
+
+      });
+      this.setFormValue(fieldData);
+    }
+  }
+
+
+  ngChangesRow() {
+    alert('bh');
+    if (this.form) {
+      alert('bh-form');
+      const controls = Object.keys(this.form.controls);
+
+      const configControls = this.controls.map(item => item.name);
+
+      controls
+        .filter(control => !configControls.includes(control))
+        .forEach(control => this.form.removeControl(control));
+
+      configControls
+        .filter(control => !controls.includes(control))
+        .forEach(name => {
+          const item = this.controls.find(control => control.name === name);
+          this.form.addControl(name, this.createControl(item));
+        });
+    }
+  }
 }

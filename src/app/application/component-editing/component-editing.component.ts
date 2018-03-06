@@ -351,7 +351,7 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
             { title: '是否显示', width: 'auto' },
             { title: '顺序', width: 'auto' },
           ],
-          deletebutton: {
+          deleteButton: {
             show: true
           }
         },
@@ -448,7 +448,7 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
             { title: '系统参数', width: 'auto' },
             { title: '取值或赋值字段名', width: 'auto' }
           ],
-          deletebutton: {
+          deleteButton: {
             show: true
           }
         },
@@ -696,7 +696,7 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
             { title: '数据类型', width: 'auto' },
             { title: '顺序', width: 'auto' },
           ],
-          deletebutton: {
+          deleteButton: {
             show: true
           }
         },
@@ -750,7 +750,7 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
             { title: '系统参数', width: 'auto' },
             { title: '取值或赋值字段名', width: 'auto' }
           ],
-          deletebutton: {
+          deleteButton: {
             show: true
           }
         },
@@ -963,16 +963,18 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
                   nodetabitem.data = { type: 'tab', settings: i, setting: j, tab: k, data: tab.viewCfg };
                   treeData.push(nodetabitem);
                   for (const key in tab.viewCfg) {
-                    n++;
-                    const nodetabitems = { ...SettingTreeNodeResource.settingTreeNode };
-                    nodetabitems.id = 'nodetabitems_' + n;
-                    nodetabitems.text = this.ComponentDic[tab.viewCfg.component].attribute[key].text + ' ' + key;
-                    nodetabitems.icon = setting.titleIcon;
-                    nodetabitems.parent = nodetabitem.id;
-                    nodetabitems.type = key;
-                    nodetabitems.state.disabled = false;
+                    if (this.ComponentDic[tab.viewCfg.component].attribute[key]) {
+                      n++;
+                      const nodetabitems = { ...SettingTreeNodeResource.settingTreeNode };
+                      nodetabitems.id = 'nodetabitems_' + n;
+                      nodetabitems.text = this.ComponentDic[tab.viewCfg.component].attribute[key].text + ' ' + key;
+                      nodetabitems.icon = setting.titleIcon;
+                      nodetabitems.parent = nodetabitem.id;
+                      nodetabitems.type = key;
+                      nodetabitems.state.disabled = false;
 
-                    treeData.push(nodetabitems);
+                      treeData.push(nodetabitems);
+                    }
 
                   }
                 }
@@ -996,16 +998,17 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
                 nodeitem.data = { type: 'component', settings: i, setting: j, data: setting.viewCfg };
                 treeData.push(nodeitem);
                 for (const key in setting.viewCfg) {
-                  n++;
-                  const nodeitems = { ...SettingTreeNodeResource.settingTreeNode };
-                  nodeitems.id = 'nodeitems_' + n;
-                  nodeitems.text = this.ComponentDic[setting.viewCfg.component].attribute[key].text + ' ' + key;
-                  nodeitems.icon = setting.titleIcon;
-                  nodeitems.parent = nodeitem.id;
-                  nodeitems.type = key;
-                  nodeitems.state.disabled = false;
-                  treeData.push(nodeitems);
-
+                  if (this.ComponentDic[setting.viewCfg.component].attribute[key]) {
+                    n++;
+                    const nodeitems = { ...SettingTreeNodeResource.settingTreeNode };
+                    nodeitems.id = 'nodeitems_' + n;
+                    nodeitems.text = this.ComponentDic[setting.viewCfg.component].attribute[key].text + ' ' + key;
+                    nodeitems.icon = setting.titleIcon;
+                    nodeitems.parent = nodeitem.id;
+                    nodeitems.type = key;
+                    nodeitems.state.disabled = false;
+                    treeData.push(nodeitems);
+                  }
                 }
               }
             }
@@ -1093,7 +1096,7 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
           }
 
           this.cfgJson = this.ComponentDic[data.node.type];
-          this.attribute=this.ComponentDic[data.node.type];//组件对应的属性
+          this.attribute = this.ComponentDic[data.node.type];//组件对应的属性
           //this.attributeData={}; 组件属性值
           console.log('点击节点');
           console.log(this.nodeJson);

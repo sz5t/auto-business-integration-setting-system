@@ -1,0 +1,26 @@
+<div *ngIf="configTabs">
+  <ul class="nav nav-tabs">
+    <li *ngFor="let tab of configTabs" class="tabs.active {{tab.active}}">
+      <a href="#{{tab.id}}" data-toggle="tab">
+        <span (click)="checkTab($event,tab)">{{tab.title}}</span>
+      </a>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div *ngFor="let tab of configTabs" class="tab-pane fade {{tab.active}}" id="{{tab.id}}">
+      <div cnst-component-resolver [config]="tab.viewCfg"></div>
+    </div>
+  </div>
+
+</div>
+
+<div *ngIf="_isArray">
+  <ng-container *ngFor="let configItem of config">
+    <div cnst-component-resolver [config]="configItem"></div>
+  </ng-container>
+</div>
+<div>
+  <div *ngIf="!_isArray && config">
+    <div #dynamicComponent></div>
+  </div>
+</div>

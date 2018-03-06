@@ -8,6 +8,8 @@ import {CnGridModule} from './grid/cn-grid.module';
 import {CnDynamicModule} from './dynamic/dynamic.module';
 import {CommonModule} from '@angular/common';
 import {CnstFormModule} from "./cnst-form/cnst-form.module";
+import {CnstResolverModule} from "./cnst-resolver/cnst-resolver.module";
+
 /*import {CnContextmenuComponent} from './cn-contextmenu/cn-contextmenu.component';
 import {CnPortletComponent} from './cn-portlet/cn-portlet.component';*/
 @NgModule({
@@ -20,7 +22,8 @@ import {CnPortletComponent} from './cn-portlet/cn-portlet.component';*/
     CnTreeModule,
     CnGridModule,
     CnDynamicModule,
-    CnstFormModule
+    CnstFormModule,
+    CnstResolverModule
   ],
   exports: [
     CnLayoutModule,
@@ -30,7 +33,8 @@ import {CnPortletComponent} from './cn-portlet/cn-portlet.component';*/
     CnTreeModule,
     CnGridModule,
     CnDynamicModule,
-    CnstFormModule
+    CnstFormModule,
+    CnstResolverModule
   ],
   declarations: [
 

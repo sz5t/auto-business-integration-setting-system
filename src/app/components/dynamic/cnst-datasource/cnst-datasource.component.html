@@ -30,7 +30,7 @@
         <cnst-dynamic-form #fieldForm="cnstDynamicForm" [configs]="_formConfigs" [configsTitle]="_formConfigsTitle"></cnst-dynamic-form>
         <div>
           <a class="btn btn-success" (click)="addField()">新增</a>
-          <a class="btn btn-success" (click)="form1Save()">保存</a>
+          <a class="btn btn-success" (click)="fieldFormSave()">保存</a>
         </div>
 
       </div>
@@ -38,7 +38,7 @@
 
         <cnst-dynamic-form #parameterForm="cnstDynamicForm" [configs]="_formConfigsparameter" [configsTitle]="_formConfigsparameterTitle"></cnst-dynamic-form>
         <a class="btn btn-success" (click)="addparameter()">新增</a>
-        <a class="btn btn-success" (click)="form2Save()">保存</a>
+        <a class="btn btn-success" (click)="parameterFormSave()">保存</a>
       </div>
 
     </div>

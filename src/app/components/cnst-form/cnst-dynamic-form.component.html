@@ -6,7 +6,9 @@
     <thead>
     <tr style="background:#eef1f5">
       <td  *ngFor="let title of configsTitle.header" [ngStyle]="{width:title.width}" >{{title.title}}</td>
-      <td *ngIf="configsTitle.deletebutton.show==true"></td>
+      <td *ngIf="configsTitle.deleteButton">
+      
+      </td> 
     </tr>
     </thead>
     <tbody>
@@ -21,10 +23,14 @@
                       [group]="form">
         </ng-container>
       </td>
-      <td *ngIf="configsTitle.deletebutton.show==true"><a class="btn btn-warning" (click)="delrow(configData)">删除</a></td>
+       <td *ngIf="configsTitle.deleteButton"><a class="btn btn-warning" (click)="delrow(configData)">删除</a></td>
     </tr>
     </tbody>
   </table>
+  <div>
+      <a class="btn btn-success" (click)="addRow()">新增</a>
+      <a class="btn btn-success" (click)="getValue()">保存</a>
+    </div>
 </form>
 
 
