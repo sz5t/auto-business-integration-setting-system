@@ -72,7 +72,8 @@ export class OperationSettingComponent implements OnInit, AfterViewInit {
           }
         ]
       }
-    ], [
+    ],
+    [
       {
         'type': 'label',
         'label': '图标：'
@@ -86,7 +87,8 @@ export class OperationSettingComponent implements OnInit, AfterViewInit {
         'placeholder': '',
         'helpClass': 'help-inline'
       },
-    ], [
+    ],
+    [
       {
         'type': 'label',
         'label': '类型：'
@@ -131,7 +133,8 @@ export class OperationSettingComponent implements OnInit, AfterViewInit {
         'value': 'none',
         'inputClass': 'input-medium'
       },
-    ], [
+    ],
+    [
       {
         'type': 'label',
         'label': '操作后状态：'
@@ -157,7 +160,8 @@ export class OperationSettingComponent implements OnInit, AfterViewInit {
         'value': 'normal',
         'inputClass': 'input-medium'
       },
-    ], [
+    ],
+    [
       {
         'type': 'label',
         'label': '空数据状态：'
@@ -179,7 +183,8 @@ export class OperationSettingComponent implements OnInit, AfterViewInit {
         'value': true,
         'inputClass': 'input-medium'
       },
-    ], [
+    ],
+    [
       {
         'type': 'label',
         'label': '默认状态：'
@@ -201,7 +206,8 @@ export class OperationSettingComponent implements OnInit, AfterViewInit {
         'value': true,
         'inputClass': 'input-medium'
       },
-    ], [
+    ],
+    [
       {
         'type': 'label',
         'label': '顺序：'
@@ -210,6 +216,21 @@ export class OperationSettingComponent implements OnInit, AfterViewInit {
         'type': 'input',
         'inputType': 'text',
         'name': 'operationOrder',
+        'helpText': '',
+        'inputClass': 'input-inline input-medium',
+        'placeholder': '',
+        'helpClass': 'help-inline'
+      }
+    ],
+    [
+      {
+        'type': 'label',
+        'label': 'SQL：'
+      },
+      {
+        'type': 'codeEditor',
+        'inputType': 'text',
+        'name': 'operationSQL',
         'helpText': '',
         'inputClass': 'input-inline input-medium',
         'placeholder': '',

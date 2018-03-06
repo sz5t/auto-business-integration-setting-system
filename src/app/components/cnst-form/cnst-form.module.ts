@@ -4,8 +4,10 @@ import {CnstFormInputComponent} from './cnst-form-input/cnst-form-input.componen
 import {CnstFormSelectComponent} from './cnst-form-select/cnst-form-select.component';
 import {CnstFormRadioComponent} from './cnst-form-radio/cnst-form-radio.component';
 import {CnstDynamicFieldDirective} from './cnst-dynamic-field.directive';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {CnstDynamicFormComponent} from "./cnst-dynamic-form.component";
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {CnstDynamicFormComponent} from './cnst-dynamic-form.component';
+import { CnstFormCodeEditorComponent } from './cnst-form-code-editor/cnst-form-code-editor.component';
+import { CnstFormCodeMirrorComponent } from './cnst-form-code-editor/cnst-form-code-mirror/cnst-form-code-mirror.component';
 
 @NgModule({
   imports: [
@@ -18,20 +20,24 @@ import {CnstDynamicFormComponent} from "./cnst-dynamic-form.component";
     CnstFormSelectComponent,
     CnstFormRadioComponent,
     CnstDynamicFormComponent,
-    CnstDynamicFieldDirective
+    CnstDynamicFieldDirective,
+    CnstFormCodeEditorComponent,
+    CnstFormCodeMirrorComponent
   ],
   exports: [
     CnstFormInputComponent,
     CnstFormSelectComponent,
     CnstFormRadioComponent,
     CnstDynamicFormComponent,
-    CnstDynamicFieldDirective
+    CnstDynamicFieldDirective,
+    CnstFormCodeEditorComponent
   ],
   entryComponents: [
     CnstFormInputComponent,
     CnstFormSelectComponent,
     CnstFormRadioComponent,
-    CnstDynamicFormComponent
+    CnstDynamicFormComponent,
+    CnstFormCodeEditorComponent
   ]
 })
 export class CnstFormModule { }

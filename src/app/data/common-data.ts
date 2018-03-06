@@ -30,8 +30,64 @@ export class CommonData {
           'active': 'active in',
           'viewCfg': [
             {
-              'component': 'code_view',
-              'codeType': 'sql'
+              'component': 'form_view',
+              'formHeader': {
+                'header': [
+                  { title: '编号', width: 'auto' },
+                  { title: 'SQL语句', width: 'auto' },
+                  { title: '执行方式', width: 'auto' },
+                  { title: '执行状态', width: 'auto' },
+                ],
+                'deleteButton': {
+                  'show': true
+                }
+              },
+              'formContent': [
+                {
+                  'type': 'input',
+                  'inputType': 'text',
+                  'name': 'execSqlId'
+                },
+                {
+                  'type': 'input',
+                  'inputType': 'text',
+                  'name': 'execSqlStr'
+                },
+                {
+                  'type': 'select',
+                  'placeholder': '--请选择--',
+                  'options': [
+                    {
+                      'text': '执行一次',
+                      'value': '1'
+                    },
+                    {
+                      'text': '执行两次',
+                      'value': '2'
+                    }
+                  ],
+                  'name': 'execSqlMethod',
+                  'value': '',
+                  'inputClass': 'input-medium'
+                },
+                {
+                  'type': 'select',
+                  'placeholder': '--请选择--',
+                  'options': [
+                    {
+                      'text': '新增状态',
+                      'value': 'new'
+                    },
+                    {
+                      'text': '更新状态',
+                      'value': 'modify'
+                    }
+                  ],
+                  'name': 'execSqlStatus',
+                  'value': '',
+                  'inputClass': 'input-medium'
+                }
+              ]
             },
             {
               'component': 'form_view',
@@ -45,202 +101,111 @@ export class CommonData {
                   { title: '系统参数', width: 'auto' },
                   { title: '取值或赋值字段名', width: 'auto' }
                 ],
-                'deletebutton': {
-                  'show': false
+                'deleteButton': {
+                  'show': true
                 }
               },
               'formContent': [
-                [
-                  {
-                    'type': 'label',
-                    'label': '名称：'
-                  },
-                  {
-                    'type': 'input',
-                    'inputType': 'text',
-                    'name': 'operationLabel',
-                    'helpText': '',
-                    'inputClass': 'input-inline input-medium',
-                    'placeholder': '',
-                    'helpClass': 'help-inline',
-                    'validations': [
-                      {
-                        'validator': 'required',
-                        'errorMessage': ''
-                      }
-                    ]
-                  }
-                ],
-                [
-                  {
-                    'type': 'label',
-                    'label': '标识：'
-                  },
-                  {
-                    'type': 'input',
-                    'inputType': 'text',
-                    'name': 'operationName',
-                    'helpText': '',
-                    'inputClass': 'input-inline input-medium',
-                    'placeholder': '',
-                    'helpClass': 'help-inline',
-                    'validations': [
-                      {
-                        'validator': 'required',
-                        'errorMessage': ''
-                      }
-                    ]
-                  }
-                ],
-                [
-                  {
-                    'type': 'label',
-                    'label': '图标：'
-                  },
-                  {
-                    'type': 'input',
-                    'inputType': 'text',
-                    'name': 'operationIcon',
-                    'helpText': '',
-                    'inputClass': 'input-inline input-medium',
-                    'placeholder': '',
-                    'helpClass': 'help-inline'
-                  },
-                ],
-                [
-                  {
-                    'type': 'label',
-                    'label': '类型：'
-                  },
-                  {
-                    'type': 'select',
-                    'options': [
-                      {
-                        'text': '无',
-                        'value': 'none'
-                      },
-                      {
-                        'text': '刷新数据',
-                        'value': 'refresh'
-                      },
-                      {
-                        'text': '执行SQL',
-                        'value': 'exec_sql'
-                      },
-                      {
-                        'text': '执行SQL后刷新',
-                        'value': 'after_sql'
-                      },
-                      {
-                        'text': '弹出确认框',
-                        'value': 'confirm'
-                      },
-                      {
-                        'text': '弹出窗体',
-                        'value': 'dialog'
-                      },
-                      {
-                        'text': '弹出表单',
-                        'value': 'form'
-                      },
-                      {
-                        'text': '执行SQL后刷新主界面',
-                        'value': 'refresh_parent'
-                      }
-                    ],
-                    'name': 'operationType',
-                    'value': 'none',
-                    'inputClass': 'input-medium'
-                  }
-                ],
-                [
-                  {
-                    'type': 'label',
-                    'label': '操作后状态：'
-                  },
-                  {
-                    'type': 'select',
-                    'placeholder': '浏览状态',
-                    'options': [
-                      {
-                        'text': '浏览状态',
-                        'value': 'normal'
-                      },
-                      {
-                        'text': '新增状态',
-                        'value': 'new'
-                      },
-                      {
-                        'text': '编辑状态',
-                        'value': 'edit'
-                      }
-                    ],
-                    'name': 'operationState',
-                    'value': 'normal',
-                    'inputClass': 'input-medium'
-                  },
-                ],
-                [
-                  {
-                    'type': 'label',
-                    'label': '空数据状态：'
-                  },
-                  {
-                    'type': 'select',
-                    'placeholder': '启用',
-                    'options': [
-                      {
-                        'text': '启用',
-                        'value': true
-                      },
-                      {
-                        'text': '禁用',
-                        'value': false
-                      }
-                    ],
-                    'name': 'operationNoneState',
-                    'value': true,
-                    'inputClass': 'input-medium'
-                  },
-                ],
-                [
-                  {
-                    'type': 'label',
-                    'label': '默认状态：'
-                  },
-                  {
-                    'type': 'select',
-                    'placeholder': '启用',
-                    'options': [
-                      {
-                        'text': '启用',
-                        'value': true
-                      },
-                      {
-                        'text': '禁用',
-                        'value': false
-                      }
-                    ],
-                    'name': 'operationDefaultState',
-                    'value': true,
-                    'inputClass': 'input-medium'
-                  },
-                ],
-                [
-                  {
-                    'type': 'label',
-                    'label': '顺序：'
-                  },
-                  {
-                    'type': 'input',
-                    'inputType': 'text',
-                    'name': 'operationOrder',
-                    'helpText': '',
-                    'inputClass': 'input-inline input-medium',
-                    'placeholder': '',
-                    'helpClass': 'help-inline'
-                  }
-                ]
+                {
+                  'type': 'input',
+                  'inputType': 'text',
+                  'name': 'paramName',
+                  'helpClass': 'help-inline'
+                },
+                {
+                  'type': 'input',
+                  'inputType': 'text',
+                  'name': 'paramReplaceStr'
+                },
+                {
+                  'type': 'select',
+                  'placeholder': '--请选择--',
+                  'options': [
+                    {
+                      'text': '系统生成序号',
+                      'value': '系统生成序号'
+                    },
+                    {
+                      'text': '页面字段取当前值',
+                      'value': '页面字段取当前值'
+                    },
+                    {
+                      'text': '页面字段取原值',
+                      'value': '页面字段取原值'
+                    },
+                    {
+                      'text': '从系统参数取值',
+                      'value': '从系统参数取值'
+                    }
+                  ],
+                  'name': 'paramValueFrom',
+                  'value': '',
+                  'inputClass': 'input-medium'
+                },
+                {
+                  'type': 'select',
+                  'placeholder': '--请选择--',
+                  'options': [
+                    {
+                      'text': '取数据库空值',
+                      'value': '取数据库空值'
+                    }
+                  ],
+                  'name': 'paramNullValue',
+                  'value': '',
+                  'inputClass': 'input-medium'
+                },
+                {
+                  'type': 'select',
+                  'placeholder': '--请选择--',
+                  'options': [
+                    {
+                      'text': '字符',
+                      'value': '字符'
+                    },
+                    {
+                      'text': '日期',
+                      'value': '日期'
+                    },
+                    {
+                      'text': '数值',
+                      'value': '数值'
+                    },
+                    {
+                      'text': '布尔',
+                      'value': '布尔'
+                    }
+                  ],
+                  'name': 'paramDataType',
+                  'value': '',
+                  'inputClass': 'input-medium'
+                },
+                {
+                  'type': 'select',
+                  'placeholder': '--请选择--',
+                  'options': [
+                    {
+                      'text': '用户id',
+                      'value': '用户id'
+                    },
+                    {
+                      'text': '部门id',
+                      'value': '部门id'
+                    },
+                    {
+                      'text': '角色',
+                      'value': '角色'
+                    }
+                  ],
+                  'name': 'paramFromSystem',
+                  'value': '',
+                  'inputClass': 'input-medium'
+                },
+                {
+                  'type': 'input',
+                  'inputType': 'text',
+                  'name': 'paramValueField'
+                },
               ]
             }
           ]
