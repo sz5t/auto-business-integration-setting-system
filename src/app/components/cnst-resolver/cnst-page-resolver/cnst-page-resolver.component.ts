@@ -62,7 +62,7 @@ export class CnstPageResolverComponent implements OnInit {
                     'show': true
                   }
                 },
-                'formContent': [
+                'formContents': [
                   {
                     'type': 'input',
                     'inputType': 'text',
@@ -125,7 +125,7 @@ export class CnstPageResolverComponent implements OnInit {
                     'show': true
                   }
                 },
-                'formContent':[
+                'formContents':[
                   {
                     'type': 'input',
                     'inputType': 'text',

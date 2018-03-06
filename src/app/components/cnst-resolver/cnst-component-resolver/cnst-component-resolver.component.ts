@@ -33,8 +33,8 @@ export class CnstComponentResolverComponent implements OnInit,AfterViewInit {
        this.resolver.resolveComponentFactory(CnstDynamicFormComponent);
       this.componentRef = this.container.createComponent(factory);
       this.componentRef.instance.configsTitle=this.config.formHeader;
-      this.componentRef.instance.ConfigsContent=this.config.formContent;
-      this.componentRef.instance.configs=[];
+      this.componentRef.instance.ConfigsContent=this.config.formContents?this.config.formContents:[];
+      this.componentRef.instance.configs=this.config.formContent?this.config.formContent:[];
     }
 
   }
