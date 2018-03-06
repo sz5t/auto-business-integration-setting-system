@@ -5,6 +5,7 @@ import {CommonUtility} from '../../framework/utility/common-utility';
 import {addPathToRoutes} from '@angular/cli/lib/ast-tools';
 import {del} from 'selenium-webdriver/http';
 import {CnstDynamicFormComponent} from '../../components/cnst-form/cnst-dynamic-form.component';
+import {CommonData} from "../../data/common-data";
 declare let $: any;
 @Component({
   selector: 'cn-operation-setting',
@@ -12,7 +13,7 @@ declare let $: any;
   templateUrl: './operation-setting.component.html',
   styleUrls: ['./operation-setting.component.css']
 })
-export class OperationSettingComponent implements OnInit, AfterViewInit{
+export class OperationSettingComponent implements OnInit, AfterViewInit {
   @ViewChild('selectFunc') selectFunc: ElementRef;
   @ViewChild('preview') preview: ElementRef;
   @ViewChild('editor') editor: ElementRef;
@@ -22,8 +23,8 @@ export class OperationSettingComponent implements OnInit, AfterViewInit{
   _navsData;
   _settingHeader = {
     header: [
-      { title: '属性名', width: '100px' },
-      { title: '属性值', width: 'auto' }
+      {title: '属性名', width: '100px'},
+      {title: '属性值', width: 'auto'}
     ],
     deletebutton: {
       show: false
@@ -103,11 +104,11 @@ export class OperationSettingComponent implements OnInit, AfterViewInit{
           },
           {
             'text': '执行SQL',
-            'value': 'exec_SQL'
+            'value': 'exec_sql'
           },
           {
             'text': '执行SQL后刷新',
-            'value': 'after_SQL'
+            'value': 'after_sql'
           },
           {
             'text': '弹出确认框',
@@ -216,6 +217,12 @@ export class OperationSettingComponent implements OnInit, AfterViewInit{
       }
     ]
   ];
+  _currentNodeId;
+  _currentNodeData;
+  _currentNodeDataIndex;
+  _currentNewData;
+  $tree;
+  _showTab = [false, false, false, false, false];
   constructor(private clientService: ClientStorageService) {
 
   }
@@ -228,7 +235,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit{
     //this.editor.nativeElement.style.height = window.screen.availHeight + 'px';
     $(this.selectFunc.nativeElement).selectpicker();
     $(this.selectFunc.nativeElement).on('changed.bs.select', (e, index, newValue, oldValue) => {
-      if (newValue){
+      if (newValue) {
         const funcName = $(this.selectFunc.nativeElement).selectpicker('val');
         const settingData = this.clientService.getLocalStorage(funcName);
         this._config = settingData;
@@ -243,49 +250,83 @@ export class OperationSettingComponent implements OnInit, AfterViewInit{
             selected: false
           }, type: ''
         }];
-        settingData.forEach(settings => {
-          settings.forEach(setting => {
+        settingData.forEach((settings, settingsIndex) => {
+          settings.forEach((setting, settingIndex) => {
             const node = {...SettingTreeNodeResource.settingTreeNode};
-            node.id = 'node_' + CommonUtility.uuID(6);
+            node.id = setting.id;
             node.text = setting.title;
             node.parent = funcName;
-            if (setting.tabs){
+            if (setting.tabs) {
               node.type = NodeTypes.NODE_TYPE.LAYOUT_TABS;
               node.state.disabled = true;
-              if (setting.tabs){
-                setting.tabs.forEach(tab => {
+              if (setting.tabs) {
+                setting.tabs.forEach((tab, tabIndex) => {
                   const tabNode = this.createNode({
                     parentId: node.id,
                     title: tab.title,
                     type: NodeTypes.NODE_TYPE.LAYOUT_TAB,
-                    disabled: false
+                    disabled: false,
+                    data: {
+                      type: 'tab',
+                      settingsIndex: settingsIndex,
+                      settingIndex: settingIndex,
+                      tabIndex: tabIndex
+                    }
                   });
                   treeData.push(tabNode);
-                  if (tab.viewCfg){
-                    treeData.push(...this.initOperations(tabNode.id));
+                  if (tab.viewCfg) {
+                    treeData.push(...this.initOperations(tabNode.id, tab.viewCfg.toolbarsConfigData));
                   }
                 });
               }
-            }else if (setting.viewCfg) {
+            } else if (setting.viewCfg) {
               node.type = setting.viewCfg.component;
               node.state.disabled = false;
-              if (node.type === 'grid_view'){
-                treeData.push(...this.initOperations(node.id));
+              node.data = {
+                type: 'component',
+                settingsIndex: settingsIndex,
+                settingIndex: settingIndex,
+              };
+              if (node.type === 'grid_view') {
+                treeData.push(...this.initOperations(node.id, setting.viewCfg.toolbarsConfigData));
               }
             }
             treeData.push(node);
           });
         });
         $(this.settingTree.nativeElement).jstree('destroy');
-        const $tree = $(this.settingTree.nativeElement);
+        this.$tree = $(this.settingTree.nativeElement);
 
         const createAction = (t, n) => {
-          const instance = $tree.jstree(true);
+          const instance = this.$tree.jstree(true);
           switch (n) {
             case NodeTypes.NODE_TYPE.LAYOUT_GRIDVIEW:
               t['addButton'].action = (data) => {
-                const node = $tree.jstree('get_node', data.reference[0]);
-                const newId = instance.create_node(node.id, NodeTypes.buttonNode, 'last', () => {
+                const node = this.$tree.jstree('get_node', data.reference[0]);
+                const idIndex = this._currentNewData.length  > 0 ? this._currentNewData.length: 0;
+                const newOperationData = {
+                  operationLabel: '操作',
+                  operationName: '',
+                  operationIcon: '',
+                  operationType: 'none',
+                  operationState: 'new',
+                  operationNoneState: true,
+                  operationDefaultState: true,
+                  operationOrder: ''
+                };
+                const newNode = this.createNode({
+                  parentId: node.id,
+                  title: '操作',
+                  type: NodeTypes.NODE_TYPE.BUTTON,
+                  disabled: false,
+                  data: {
+                    index: idIndex,
+                    btnData: newOperationData
+                  }
+                });
+                treeData.push(newNode);
+                this._currentNewData.push({data:{index:idIndex, btnData:newOperationData}});
+                const newId = instance.create_node(node.id, newNode, 'last', () => {
                   instance.deselect_node(node.id);
                 }, true);
                 instance.select_node(newId);
@@ -293,7 +334,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit{
               break;
             case NodeTypes.NODE_TYPE.BUTTON:
               t['removeButton'].action = (data) => {
-                const node = $tree.jstree('get_node', data.reference[0]);
+                const node = this.$tree.jstree('get_node', data.reference[0]);
                 instance.delete_node(node);
                 this.propertyForm.resetFormValue();
                 this._navsData = [];
@@ -301,7 +342,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit{
               break;
           }
         };
-        $tree.jstree({
+        this.$tree.jstree({
           'core': {
             'themes': {
               'responsive': true
@@ -310,8 +351,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit{
             'data': treeData
           },
           'types': NodeTypes.nodeTypes,
-          'state': { 'key': 'demo2' },
-          'plugins': ['dnd', 'state', 'types', 'contextmenu'],
+          'plugins': ['dnd', 'state', 'types', 'contextmenu', 'wholerow'],
           'contextmenu': {
             'items': function (node) {
               const type = this.get_type(node);
@@ -321,13 +361,47 @@ export class OperationSettingComponent implements OnInit, AfterViewInit{
             }
           }
         });
-        $tree.on('select_node.jstree', (e, data) => {
-          this.propertyForm.setFormValue(data.node.data);
-          this._navsData = $tree.jstree('get_path', data.node);
+        this.$tree.on('select_node.jstree', (e, data) => {
+          this._currentNodeId = data.node.id;
+          const nd = data.node.data;
+          if (nd.btnData){
+            const parentNode = this.$tree.jstree('get_node', data.node.parent);
+            const pNodeData = parentNode.data;
+            if (pNodeData.type === 'component') {
+              this._currentNodeData = this._config[pNodeData.settingsIndex][pNodeData.settingIndex]
+                .viewCfg.toolbarsConfigData;
+              this._currentNodeDataIndex = nd.index;
+            }
+            else if (pNodeData.type === 'tab') {
+              this._currentNodeData = this._config[pNodeData.settingsIndex][pNodeData.settingIndex]
+                .tabs[pNodeData.tabIndex]
+                .viewCfg.toolbarsConfigData;
+              this._currentNodeDataIndex = nd.index;
+            }
+            console.log(this._currentNodeData[this._currentNodeDataIndex]);
+            this.propertyForm.setFormValue(this._currentNodeData[this._currentNodeDataIndex].data.btnData);
+          }
+          if (data.node.data.type === 'component'){
+            this._currentNewData = this._config[data.node.data.settingsIndex][data.node.data.settingIndex]
+              .viewCfg.toolbarsConfigData;
+          }
+          if (data.node.data.type === 'tab') {
+            this._currentNewData = this._config[data.node.data.settingsIndex][data.node.data.settingIndex]
+              .tabs[data.node.data.tabIndex]
+              .viewCfg.toolbarsConfigData;
+          }
+
+          this._navsData = this.$tree.jstree('get_path', data.node);
         });
       }
     });
+    this.propertyForm.changes.subscribe((value) => {
+      if(value){
+        this.setOperationFunction(value);
+      }
+    });
   }
+
   createNode(info) {
     const node = {...SettingTreeNodeResource.settingTreeNode};
     node.id = 'node_' + CommonUtility.uuID(6);
@@ -339,109 +413,59 @@ export class OperationSettingComponent implements OnInit, AfterViewInit{
     node.icon = info.icon ? info.icon : '';
     return node;
   }
-  initOperations(parentId) {
-    const refreshOpt = this.createNode({
-      parentId: parentId,
-      title: '刷新',
-      icon: 'fa fa-refresh text-primary',
-      type: NodeTypes.NODE_TYPE.BUTTON,
-      disabled: false,
-      data: {
-        operationLabel: '刷新',
-        operationName: 'refresh',
-        operationIcon: 'fa fa-refresh',
-        operationType: 'refresh',
-        operationState: 'normal',
-        operationNoneState: true,
-        operationDefaultState: true,
-        operationOrder: '1'
-      }
+
+  initOperations(parentId, btnsData) {
+    const initButtons = [];
+    btnsData.forEach(btn => {
+      btn.parentId = parentId;
+      initButtons.push(this.createNode(btn));
     });
-    const addOpt = this.createNode({
-      parentId: parentId,
-      title: '新增',
-      type: NodeTypes.NODE_TYPE.BUTTON,
-      disabled: false,
-      icon: 'fa fa-plus text-info',
-      data: {
-        operationLabel: '新增',
-        operationName: 'add',
-        operationIcon: 'fa fa-plus',
-        operationType: 'none',
-        operationState: 'new',
-        operationNoneState: true,
-        operationDefaultState: true,
-        operationOrder: '2'
+    return initButtons;
+  }
+
+  save(event) {
+    if (this._currentNodeId && this.$tree) {
+      const node = this.$tree.jstree('get_node', this._currentNodeId);
+      node.data.data = event;
+      this.$tree.jstree('rename_node', node, event.operationLabel);
+      if (this._currentNodeData[this._currentNodeDataIndex]){
+        this._currentNodeData[this._currentNodeDataIndex].data.btnData = event;
+      }else {
+        this._currentNodeData.push({data:{index: this._currentNodeDataIndex,btnData: event}});
       }
-    });
-    const updateOpt = this.createNode({
-      parentId: parentId,
-      title: '编辑',
-      type: NodeTypes.NODE_TYPE.BUTTON,
-      disabled: false,
-      icon: 'fa fa-pencil text-info',
-      data: {
-        operationLabel: '编辑',
-        operationName: 'none',
-        operationIcon: 'fa fa-pencil',
-        operationType: 'none',
-        operationState: 'edit',
-        operationNoneState: true,
-        operationDefaultState: true,
-        operationOrder: '3'
-      }
-    });
-    const delOpt = this.createNode({
-      parentId: parentId,
-      title: '删除',
-      type: NodeTypes.NODE_TYPE.BUTTON,
-      disabled: false,
-      icon: 'fa fa-remove font-red',
-      data: {
-        operationLabel: '删除',
-        operationName: 'remove',
-        operationIcon: 'fa fa-remove',
-        operationType: 'confirm',
-        operationState: 'normal',
-        operationNoneState: true,
-        operationDefaultState: true,
-        operationOrder: '4'
-      }
-    });
-    const saveOpt = this.createNode({
-      parentId: parentId,
-      title: '保存',
-      type: NodeTypes.NODE_TYPE.BUTTON,
-      disabled: false,
-      icon: 'fa fa-save text-success',
-      data: {
-        operationLabel: '保存',
-        operationName: 'save',
-        operationIcon: 'fa fa-save',
-        operationType: 'none',
-        operationState: 'normal',
-        operationNoneState: true,
-        operationDefaultState: true,
-        operationOrder: '5'
-      }
-    });
-    const cancelOpt = this.createNode({
-      parentId: parentId,
-      title: '取消',
-      type: NodeTypes.NODE_TYPE.BUTTON,
-      disabled: false,
-      icon: 'fa fa-reply text-muted',
-      data: {
-        operationLabel: '取消',
-        operationName: 'cancel',
-        operationIcon: 'fa fa-reply',
-        operationType: 'none',
-        operationState: 'normal',
-        operationNoneState: true,
-        operationDefaultState: true,
-        operationOrder: '6'
-      }
-    });
-    return [refreshOpt, addOpt, updateOpt, delOpt, saveOpt, cancelOpt];
+    }
+  }
+
+  submit($event) {
+    this.propertyForm.handleSubmit($event);
+  }
+
+  setOperationFunction(value) {
+    switch (value.operationType) {
+      case CommonData.OPERATION_TYPE.none:
+        this._showTab = [false, false, false, false, true];
+        break;
+      case CommonData.OPERATION_TYPE.exec_sql:
+        this._showTab = [true, false, false, false, true];
+        break;
+      case CommonData.OPERATION_TYPE.after_SQL:
+        this._showTab = [true, false, false, false, true];
+        break;
+      case CommonData.OPERATION_TYPE.refresh:
+        this._showTab = [true, false, false, false, true];
+        break;
+      case CommonData.OPERATION_TYPE.confirm:
+        this._showTab = [true, false, true, false, true];
+        break;
+      case CommonData.OPERATION_TYPE.form:
+        this._showTab = [true, true, false, false, true];
+        break;
+      case CommonData.OPERATION_TYPE.window:
+        this._showTab = [true, false, false, true, true];
+        break;
+      case CommonData.OPERATION_TYPE.refresh_parent:
+        this._showTab = [true, true, false, false, false];
+        break;
+    }
   }
 }

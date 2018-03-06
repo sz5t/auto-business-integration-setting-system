@@ -25,7 +25,7 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
       });
     });
     return allControls.filter(({type}) => {
-      return type !== 'button';
+      return type !== 'button' && type !== 'label';
     });
   }
 
