@@ -28,8 +28,8 @@
     </tbody>
   </table>
   <div>
-      <a class="btn btn-success" (click)="addRow()">新增</a>
-      <a class="btn btn-success" (click)="getValue()">保存</a>
+      <a *ngIf="configsTitle.addButton" class="btn btn-success" (click)="addRow()">新增</a>
+      <a *ngIf="configsTitle.saveButton" class="btn btn-success" (click)="getValue()">保存</a>
     </div>
 </form>
 
