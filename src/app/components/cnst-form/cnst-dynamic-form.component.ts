@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewEncapsul
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { IFieldConfig } from '../form/form-models/IFieldConfig';
 import { CommonUtility } from '../../framework/utility/common-utility';
+import { retry } from 'rxjs/operator/retry';
 declare let bootbox: any;
 @Component({
   exportAs: 'cnstDynamicForm',
@@ -19,6 +20,8 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
   @Output() submit: EventEmitter<any> = new EventEmitter<any>();
   form: FormGroup;
 
+  _viewId;
+  _fromType;
   get controls() {
     const allControls = [];
       this.configs.forEach(config => {
@@ -234,12 +237,15 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
   }
 
 /**表单赋值 */
-  setViewFormValue(fromValue){
+  setViewFormValue(viewId?,fromValue?){
+    this._viewId=viewId;
     //console.log('赋值',fromValue);
      if(Array.isArray(fromValue)){//列表赋值
        this.setRowChanges(fromValue);
+       this._fromType='fromGroup';
      }else{//表单赋值
       this.setFormValue(fromValue);
+      this._fromType='from';
      }
   }
 
@@ -270,6 +276,58 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
     else {
       this.configs = [];
     }
+  }
+
+
+  getValueByViewId(){
+    if(this._fromType==='from'){
+      return {viewId:this._viewId,data:this.value};
+    }
+    else if(this._fromType==='fromGroup')
+    {
+      return {viewId:this._viewId,data:this.formatSubmitValue()};
+    }
+    else{
+      return null;
+    }
+   
+  }
+
+  formatSubmitValue(){
+    const formJson = [];
+    const formValue = this.value;
+    const submitValue=[];
+    for (var key in formValue) { //遍历表单提交的数据
+      const formRow = {//可以将此结构定义在其他地方，动态加载，就和加载树节点一样
+        rowId: '',
+        cols: {}
+      };
+      let isRow = false;
+      // 随机标识id_字段名
+      const index = key.indexOf('_');
+      const fromRowId = key.substring(0, index);//行标识
+      const fromItem = key.substring(index + 1, key.length);//字段标识
+      formJson.forEach(row => {
+        if (row.rowId == fromRowId) {//判断是否存在行
+          isRow = true;
+          //存在行，添加属性
+          row.cols[fromItem] = formValue[key];
+        }
+      });
+      if (!isRow) {//不存在行，添加属性
+        formRow.rowId = fromRowId;
+        formRow.cols[fromItem] = formValue[key];
+        formJson.push(formRow);
+      }
+
+    }
+
+    formJson.forEach(row => {
+      submitValue.push(row.cols);
+    });
+
+    return submitValue;
+
   }
 
 
