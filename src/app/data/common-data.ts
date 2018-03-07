@@ -268,7 +268,8 @@ export class CommonData {
             ],
             'deleteButton': {
               'show': true
-            }
+            },
+            'addButton': {}
           },
           'formContents': [
             {
@@ -303,6 +304,10 @@ export class CommonData {
               'placeholder': '--请选择--',
               'options': [
                 {
+                  'text': '浏览',
+                  'value': 'new'
+                },
+                {
                   'text': '新增状态',
                   'value': 'new'
                 },
@@ -332,7 +337,8 @@ export class CommonData {
             ],
             'deleteButton': {
               'show': true
-            }
+            },
+            'addButton': {}
           },
           'formContents': [
             {

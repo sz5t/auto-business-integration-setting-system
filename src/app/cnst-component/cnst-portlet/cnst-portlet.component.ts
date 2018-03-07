@@ -36,7 +36,8 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
 
   // 右键弹出菜单
   menuList = [
-    { id: 'tree_view', icon: 'icon-user', title: '添加树', data: {'viewCfg': {
+    {
+      id: 'tree_view', icon: 'icon-user', title: '添加树', data: {'viewCfg': {
       'viewId': '',
       'component': 'tree_view',
       'classType': 'tree',
@@ -165,7 +166,8 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
       'rootConfigs': [],
       'childConfigList': []
     }}},
-    { id: 'grid_view', icon: 'icon-user', title: '数据网格', data: {
+    {
+      id: 'grid_view', icon: 'icon-user', title: '数据网格', data: {
       'viewCfg': {
         'viewId': '',
         'component': 'grid_view',
@@ -181,6 +183,56 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
             disabled: false,
             data: {
               index: 0,
+              btnData: [
+                {
+                  viewId: 'viewId_property',
+                  data: {
+                    operationLabel: '刷新',
+                    operationName: 'refresh',
+                    operationIcon: 'fa fa-refresh',
+                    operationType: 'refresh',
+                    operationState: 'normal',
+                    operationNoneState: true,
+                    operationDefaultState: true,
+                    operationOrder: '1'
+                  }
+                },
+                {
+                  viewId: 'viewId_sql',
+                  data: [
+                    {
+                      execSqlId: 'execSqlId',
+                      execSqlStr: '001',
+                      execSqlMethod: '1',
+                      execSqlStatus: 'normal'
+                    }
+                  ]
+                },
+                {
+                  viewId: 'viewId_sqlParam',
+                  data: [
+                    {
+                      paramName: '@Name_',
+                      paramReplaceStr: '',
+                      paramValueFrom: 'UI',
+                      paramNullValue: '',
+                      paramDataType: 'string',
+                      paramFromSystem: '',
+                      paramValueField: 'Name'
+                    },
+                  ]
+                },
+              ]
+            }
+          },
+          {
+            parentId: '',
+            title: '新增',
+            type: NodeTypes.NODE_TYPE.BUTTON,
+            disabled: false,
+            icon: 'fa fa-plus text-info',
+            data: {
+              index: 1,
               btnData: [
                 {
                   viewId: 'viewId_property',
@@ -225,56 +277,6 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
           },
           {
             parentId: '',
-            title: '新增',
-            type: NodeTypes.NODE_TYPE.BUTTON,
-            disabled: false,
-            icon: 'fa fa-plus text-info',
-            data: {
-              index: 1,
-              btnData: [
-                {
-                  viewId: 'viewId_' + CommonUtility.uuID(4),
-                  data: {
-                    operationLabel: '刷新',
-                    operationName: 'refresh',
-                    operationIcon: 'fa fa-refresh',
-                    operationType: 'refresh',
-                    operationState: 'normal',
-                    operationNoneState: true,
-                    operationDefaultState: true,
-                    operationOrder: '1'
-                  }
-                },
-                {
-                  viewId: 'viewId_' + CommonUtility.uuID(4),
-                  data: [
-                    {
-                      execSqlId: 'execSqlId',
-                      execSqlStr: '001',
-                      execSqlMethod: '1',
-                      execSqlStatus: '1'
-                    }
-                  ]
-                },
-                {
-                  viewId: 'viewId_' + CommonUtility.uuID(4),
-                  data: [
-                    {
-                      paramName: '@Name_',
-                      paramReplaceStr: '',
-                      paramValueFrom: 'UI',
-                      paramNullValue: '',
-                      paramDataType: 'string',
-                      paramFromSystem: '',
-                      paramValueField: 'Name'
-                    },
-                  ]
-                },
-              ]
-            }
-          },
-          {
-            parentId: '',
             title: '编辑',
             type: NodeTypes.NODE_TYPE.BUTTON,
             disabled: false,
@@ -283,7 +285,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
               index: 2,
               btnData: [
                 {
-                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  viewId: 'viewId_property',
                   data: {
                     operationLabel: '刷新',
                     operationName: 'refresh',
@@ -296,7 +298,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                   }
                 },
                 {
-                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  viewId: 'viewId_sql',
                   data: [
                     {
                       execSqlId: 'execSqlId',
@@ -307,7 +309,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                   ]
                 },
                 {
-                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  viewId: 'viewId_sqlParam',
                   data: [
                     {
                       paramName: '@Name_',
@@ -333,7 +335,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
               index: 3,
               btnData: [
                 {
-                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  viewId: 'viewId_property',
                   data: {
                     operationLabel: '刷新',
                     operationName: 'refresh',
@@ -346,7 +348,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                   }
                 },
                 {
-                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  viewId: 'viewId_sql',
                   data: [
                     {
                       execSqlId: 'execSqlId',
@@ -357,7 +359,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                   ]
                 },
                 {
-                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  viewId: 'viewId_sqlParam',
                   data: [
                     {
                       paramName: '@Name_',
@@ -383,7 +385,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
               index: 4,
               btnData : [
                 {
-                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  viewId: 'viewId_property',
                   data: {
                     operationLabel: '刷新',
                     operationName: 'refresh',
@@ -396,7 +398,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                   }
                 },
                 {
-                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  viewId: 'viewId_sql',
                   data: [
                     {
                       execSqlId: 'execSqlId',
@@ -407,7 +409,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                   ]
                 },
                 {
-                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  viewId: 'viewId_sqlParam',
                   data: [
                     {
                       paramName: '@Name_',
@@ -433,7 +435,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
               index: 5,
               btnData: [
                 {
-                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  viewId: 'viewId_property',
                   data: {
                     operationLabel: '刷新',
                     operationName: 'refresh',
@@ -446,7 +448,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                   }
                 },
                 {
-                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  viewId: 'viewId_sql',
                   data: [
                     {
                       execSqlId: 'execSqlId',
@@ -457,7 +459,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                   ]
                 },
                 {
-                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  viewId: 'viewId_sqlParam',
                   data: [
                     {
                       paramName: '@Name_',
