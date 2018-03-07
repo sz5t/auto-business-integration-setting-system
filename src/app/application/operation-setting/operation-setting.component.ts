@@ -331,16 +331,46 @@ export class OperationSettingComponent implements OnInit, AfterViewInit {
               t['addButton'].action = (data) => {
                 const node = this.$tree.jstree('get_node', data.reference[0]);
                 const idIndex = this._currentNewData.length  > 0 ? this._currentNewData.length : 0;
-                const newOperationData = {
-                  operationLabel: '操作',
-                  operationName: '',
-                  operationIcon: '',
-                  operationType: 'none',
-                  operationState: 'new',
-                  operationNoneState: true,
-                  operationDefaultState: true,
-                  operationOrder: ''
-                };
+                const newOperationData = [
+                  {
+                    viewId: 'viewId_property',
+                    data: {
+                      operationLabel: '刷新',
+                      operationName: 'refresh',
+                      operationIcon: 'fa fa-refresh',
+                      operationType: 'refresh',
+                      operationState: 'normal',
+                      operationNoneState: true,
+                      operationDefaultState: true,
+                      operationOrder: '1'
+                    }
+                  },
+                  {
+                    viewId: 'viewId_sql',
+                    data: [
+                      {
+                        execSqlId: 'execSqlId',
+                        execSqlStr: '001',
+                        execSqlMethod: '1',
+                        execSqlStatus: 'normal'
+                      }
+                    ]
+                  },
+                  {
+                    viewId: 'viewId_sqlParam',
+                    data: [
+                      {
+                        paramName: '@Name_',
+                        paramReplaceStr: '',
+                        paramValueFrom: 'UI',
+                        paramNullValue: '',
+                        paramDataType: 'string',
+                        paramFromSystem: '',
+                        paramValueField: 'Name'
+                      },
+                    ]
+                  },
+                ];
                 const newNode = this.createNode({
                   parentId: node.id,
                   title: '操作',
@@ -362,9 +392,33 @@ export class OperationSettingComponent implements OnInit, AfterViewInit {
             case NodeTypes.NODE_TYPE.BUTTON:
               t['removeButton'].action = (data) => {
                 const node = this.$tree.jstree('get_node', data.reference[0]);
+                const parentNode = this.$tree.jstree('get_node', node.parent);
+                const pNodeData = parentNode.data;
+                const nd = node.data;
+                if (pNodeData.type === 'component') {
+                  this._config[pNodeData.settingsIndex][pNodeData.settingIndex]
+                    .viewCfg.toolbarsConfigData.splice(nd.index, 1);
+                }
+                else if (pNodeData.type === 'tab') {
+                  this._config[pNodeData.settingsIndex][pNodeData.settingIndex]
+                    .tabs[pNodeData.tabIndex]
+                    .viewCfg.toolbarsConfigData.splice(nd.index, 1);
+                }
+
+                console.log(parentNode);
+                if(parentNode.children.length >1){
+                  parentNode.children.forEach((child, ind) => {
+                    if(ind > nd.index){
+                      this.$tree.jstree('get_node', child).data.index--;
+                    }
+                  });
+                }
+
+
                 instance.delete_node(node);
-                this.propertyForm.resetFormValue();
                 this._navsData = [];
+
+
               };
               break;
           }
@@ -389,6 +443,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit {
           }
         });
         this.$tree.on('select_node.jstree', (e, data) => {
+          console.log(data);
           this._currentNodeId = data.node.id;
           const nd = data.node.data;
           if (nd.btnData){
@@ -406,6 +461,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit {
               this._currentNodeDataIndex = nd.index;
             }
             // 设置赋值调用
+            console.log(this._currentNodeData, this._currentNodeDataIndex);
             this.subject.sendMessage({type: 'setValue'}, this._currentNodeData[this._currentNodeDataIndex].data.btnData);
             /*this.propertyForm.setFormValue(this._currentNodeData[this._currentNodeDataIndex].data.btnData);*/
           }
@@ -451,20 +507,17 @@ export class OperationSettingComponent implements OnInit, AfterViewInit {
       oldData.forEach(d => {
         if(d.viewId === formData.data.viewId){
           d.data = formData.data.data;
+          if(d.viewId === 'viewId_property') {
+            if (this._currentNodeId && this.$tree) {
+             const node = this.$tree.jstree('get_node', this._currentNodeId);
+             node.data.data = formData.data.data;
+             this.$tree.jstree('rename_node', node, formData.data.data.operationLabel);
+             }
+          }
         }
       });
     });
     this.subject.sendMessage({type: 'getValue'},{});
-    /*if (this._currentNodeId && this.$tree) {
-      const node = this.$tree.jstree('get_node', this._currentNodeId);
-      node.data.data = event;
-      this.$tree.jstree('rename_node', node, event.operationLabel);
-      if (this._currentNodeData[this._currentNodeDataIndex]){
-        this._currentNodeData[this._currentNodeDataIndex].data.btnData = event;
-      }else {
-        this._currentNodeData.push({data: {index: this._currentNodeDataIndex, btnData: event}});
-      }
-    }*/
   }
 
   submit($event) {
