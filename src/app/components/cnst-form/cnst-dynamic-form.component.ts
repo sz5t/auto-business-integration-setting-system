@@ -255,9 +255,10 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
   setRowChanges(columnConfigsData?) {
     const row = [];
     if (columnConfigsData.length > 0) {
-      const fieldIdentity = CommonUtility.uuID(5);
+     
       const fieldData = {};
       columnConfigsData.forEach(element => {
+        const fieldIdentity = CommonUtility.uuID(5);
         const conent = $.extend(true, [], this.ConfigsContent);
         conent.forEach(Field => {
           Field.name = fieldIdentity + '_' + Field.name;
