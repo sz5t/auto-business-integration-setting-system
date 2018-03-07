@@ -11,6 +11,7 @@ import {App} from '../../components/layout/cn-layout/cn-layout.component';
 
 import { ICnstPortlet } from '../cnst-portlet';
 import {NodeTypes} from "../../data/TreeNodeTypes";
+import {CommonData} from "../../data/common-data";
 const components: { [type: string]: Type<ICnstPortlet> } = {
   grid_view: CnstPortletGridviewComponent,
   tree_view: CnstPortletTreeComponent,
@@ -187,7 +188,8 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                 operationState: 'normal',
                 operationNoneState: true,
                 operationDefaultState: true,
-                operationOrder: '1'
+                operationOrder: '1',
+                sql:[]
               }
             }
           },

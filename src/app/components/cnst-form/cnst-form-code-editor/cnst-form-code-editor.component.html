@@ -1,8 +1,7 @@
 <div [formGroup]="group" class="text-left">
   <select  #select [formControlName]="config.name" class="bs-select form-control"></select>
-  <div class="codeArea" style="width:400px">
+  <div #codeArea class="codeArea" style="width:400px">
     <cnst-form-code-mirror [ngStyle]="{'position':'absolute','z-index':'100','width':_width}"></cnst-form-code-mirror>
-
   </div>
 </div>
 

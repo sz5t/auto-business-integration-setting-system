@@ -18,7 +18,7 @@ export class CnstFormCodeEditorComponent implements OnInit, AfterViewInit, IFiel
   _options = new Option('', '', true, true);
   @ViewChild(CnstFormCodeMirrorComponent) codeMirror: CnstFormCodeMirrorComponent;
   @ViewChild('select') select: ElementRef;
-
+  @ViewChild('codeArea') codeArea: ElementRef;
   constructor() {
     this._width = document.body.offsetWidth/3 + 'px';
   }
@@ -27,16 +27,16 @@ export class CnstFormCodeEditorComponent implements OnInit, AfterViewInit, IFiel
 
   }
   ngAfterViewInit (){
-    $('.codeArea').hide();
+    $(this.codeArea.nativeElement).hide();
     this.select.nativeElement.options.add(this._options);
     $(this.select.nativeElement).bind('click', () => {
-      $('.codeArea').show(100);
+      $(this.codeArea.nativeElement).show(100);
       this._isShow = !this._isShow;
       if(!this._isShow){
         const value = this.codeMirror.getValue();
         this._options.value = value;
         this._options.text = value;
-        $('.codeArea').hide(100);
+        $(this.codeArea.nativeElement).hide(100);
       }
     });
   }

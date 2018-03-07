@@ -215,8 +215,6 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
       this.setFormValue(fieldData);
     }
   }
-
-
   ngChangesRow() {
     if (this.form) {
       const controls = Object.keys(this.form.controls);

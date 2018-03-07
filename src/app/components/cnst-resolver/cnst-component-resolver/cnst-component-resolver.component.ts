@@ -1,42 +1,54 @@
-import { Component, OnInit, Input,ViewChild, ViewContainerRef, AfterViewInit, ComponentFactoryResolver, ComponentFactory, ComponentRef } from '@angular/core';
+import {
+  Component, OnInit, Input, ViewChild, ViewContainerRef, AfterViewInit, ComponentFactoryResolver,
+  ComponentFactory, ComponentRef, OnChanges
+} from '@angular/core';
 import { CnstDynamicFormComponent } from '../../cnst-form/cnst-dynamic-form.component';
+import {SubjectMessageService} from "../../../services/subject-message.service";
 
 @Component({
   selector: 'cnst-component-resolver,[cnst-component-resolver]',
   templateUrl: './cnst-component-resolver.component.html',
   styleUrls: ['./cnst-component-resolver.component.css']
 })
-export class CnstComponentResolverComponent implements OnInit,AfterViewInit {
+export class CnstComponentResolverComponent implements OnInit, AfterViewInit, OnChanges {
   componentRef: ComponentRef<CnstDynamicFormComponent>;
   @ViewChild('dynamicComponent', { read: ViewContainerRef }) container: ViewContainerRef;
 
-  @Input() configTabs;//标签页
-  @Input() config;//组件
-
- 
+  @Input() configTabs; //标签页
+  @Input() config; //组件
   _isArray;
-  constructor(private resolver: ComponentFactoryResolver) { }
+  constructor(
+    private resolver: ComponentFactoryResolver,
+    private subjectMessage: SubjectMessageService
+    ) {
 
+  }
   ngOnInit() {
-    this._isArray=Array.isArray(this.config);
+    this._isArray = Array.isArray(this.config);
+
+  }
+  ngOnChanges() {
+
   }
   ngAfterViewInit(): void {
-   
-    //创建组件
-    if(!this._isArray && this.config){
-     
-      console.log('this.container:',this.container);
-      this.container.clear();
-     // const factory = this.resolver.resolveComponentFactory<CnstDynamicFormComponent>();
-     // this.componentRef = this.container.createComponent(factory);
-      const factory: ComponentFactory<CnstDynamicFormComponent> =
-       this.resolver.resolveComponentFactory(CnstDynamicFormComponent);
-      this.componentRef = this.container.createComponent(factory);
-      this.componentRef.instance.configsTitle=this.config.formHeader;
-      this.componentRef.instance.ConfigsContent=this.config.formContents?this.config.formContents:[];
-      this.componentRef.instance.configs=this.config.formContent?this.config.formContent:[];
-    }
 
+    // 创建组件
+    if (!this._isArray && this.config){
+      //this.container.clear();
+      // const factory = this.resolver.resolveComponentFactory<CnstDynamicFormComponent>();
+      // this.componentRef = this.container.createComponent(factory);
+      const factory: ComponentFactory<CnstDynamicFormComponent> =
+        this.resolver.resolveComponentFactory(CnstDynamicFormComponent);
+      this.componentRef = this.container.createComponent(factory);
+      this.componentRef.instance.configsTitle = this.config.formHeader;
+      this.componentRef.instance.ConfigsContent = this.config.formContents ? this.config.formContents : [];
+      this.componentRef.instance.configs = this.config.formContent ? this.config.formContent : [];
+      if(this.subjectMessage){
+        this.subjectMessage.getMessage().subscribe(value => {
+          this.componentRef.instance.setFormValue(value);
+        });
+      }
+    }
   }
 
   checkTab(event?, tab?: any){

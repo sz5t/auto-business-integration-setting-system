@@ -14,6 +14,7 @@ import {TokenInterceptor} from './services/interceptor/token.interceptor';
 import {LoginAuthService} from './services/login-auth.service';
 import {MockDataService} from './services/mock-data.service';
 import { SafeHtmlPipe } from './pipe/safe-html.pipe';
+import {SubjectMessageService} from './services/subject-message.service';
 @NgModule({
   declarations: [
     AppComponent
@@ -32,6 +33,7 @@ import { SafeHtmlPipe } from './pipe/safe-html.pipe';
     ClientStorageService,
     LoginAuthService,
     MockDataService,
+    SubjectMessageService,
     Broadcaster,
     {
       provide: HTTP_INTERCEPTORS,
