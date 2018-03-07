@@ -3,7 +3,7 @@ import {
   ComponentFactory, ComponentRef, OnChanges
 } from '@angular/core';
 import { CnstDynamicFormComponent } from '../../cnst-form/cnst-dynamic-form.component';
-import {SubjectMessageService} from "../../../services/subject-message.service";
+import { SubjectMessageService } from "../../../services/subject-message.service";
 
 @Component({
   selector: 'cnst-component-resolver,[cnst-component-resolver]',
@@ -20,7 +20,7 @@ export class CnstComponentResolverComponent implements OnInit, AfterViewInit, On
   constructor(
     private resolver: ComponentFactoryResolver,
     private subjectMessage: SubjectMessageService
-    ) {
+  ) {
 
   }
   ngOnInit() {
@@ -33,7 +33,7 @@ export class CnstComponentResolverComponent implements OnInit, AfterViewInit, On
   ngAfterViewInit(): void {
 
     // 创建组件
-    if (!this._isArray && this.config){
+    if (!this._isArray && this.config) {
       //this.container.clear();
       // const factory = this.resolver.resolveComponentFactory<CnstDynamicFormComponent>();
       // this.componentRef = this.container.createComponent(factory);
@@ -43,15 +43,26 @@ export class CnstComponentResolverComponent implements OnInit, AfterViewInit, On
       this.componentRef.instance.configsTitle = this.config.formHeader;
       this.componentRef.instance.ConfigsContent = this.config.formContents ? this.config.formContents : [];
       this.componentRef.instance.configs = this.config.formContent ? this.config.formContent : [];
-      if(this.subjectMessage){
+      if (this.subjectMessage) {
         this.subjectMessage.getMessage().subscribe(value => {
-          this.componentRef.instance.setFormValue(value);
+          console.log('value',value);
+          if (Array.isArray(value)) {
+            value.forEach(element => {
+              if (element.viewId === this.config.viewId) {
+                this.componentRef.instance.setViewFormValue(element.data);
+              }
+            });
+          }
+
+
         });
       }
     }
   }
 
-  checkTab(event?, tab?: any){
+  //赋值结构{viewId:,data:[]?{}}
+
+  checkTab(event?, tab?: any) {
     this.configTabs.forEach(tabItem => {
       tabItem.active = '';
     });

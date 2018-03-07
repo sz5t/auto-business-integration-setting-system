@@ -232,4 +232,45 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
         });
     }
   }
+
+/**表单赋值 */
+  setViewFormValue(fromValue){
+    //console.log('赋值',fromValue);
+     if(Array.isArray(fromValue)){//列表赋值
+       this.setRowChanges(fromValue);
+     }else{//表单赋值
+      this.setFormValue(fromValue);
+     }
+  }
+
+
+
+/**赋值生成行 */
+  setRowChanges(columnConfigsData?) {
+    const row = [];
+    if (columnConfigsData.length > 0) {
+      const fieldIdentity = CommonUtility.uuID(5);
+      const fieldData = {};
+      columnConfigsData.forEach(element => {
+        const conent = $.extend(true, [], this.ConfigsContent);
+        conent.forEach(Field => {
+          Field.name = fieldIdentity + '_' + Field.name;
+        });
+        for (var key in element) {
+          const colsname = fieldIdentity + '_' + key;
+          fieldData[colsname] = element[key];
+        }
+        row.push(conent);
+        
+      });
+      this.configs = row;
+      this.ngChangesRow();
+      this.setFormValue(fieldData);
+    }
+    else {
+      this.configs = [];
+    }
+  }
+
+
 }
