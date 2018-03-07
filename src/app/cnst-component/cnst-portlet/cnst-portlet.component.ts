@@ -183,7 +183,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
               index: 0,
               btnData: [
                 {
-                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  viewId: 'viewId_property',
                   data: {
                     operationLabel: '刷新',
                     operationName: 'refresh',
@@ -196,7 +196,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                   }
                 },
                 {
-                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  viewId: 'viewId_sql',
                   data: [
                     {
                       execSqlId: 'execSqlId',
@@ -207,7 +207,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                   ]
                 },
                 {
-                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  viewId: 'viewId_sqlParam',
                   data: [
                     {
                       paramName: '@Name_',

@@ -29,7 +29,7 @@ export class CommonData {
       'active': 'active in',
       'viewCfg': [
         {
-          'viewId': 'viewId_' + CommonUtility.uuID(6),
+          'viewId': 'viewId_property',
           'component': 'form_view',
           'formHeader': {
             header: [
@@ -257,7 +257,7 @@ export class CommonData {
       'active': '',
       'viewCfg': [
         {
-          'viewId': 'viewId_' + CommonUtility.uuID(6),
+          'viewId': 'viewId_sql',
           'component': 'form_view',
           'formHeader': {
             'header': [
@@ -318,7 +318,7 @@ export class CommonData {
           ]
         },
         {
-          'viewId': 'viewId_' + CommonUtility.uuID(6),
+          'viewId': 'viewId_sqlParam',
           'component': 'form_view',
           'formHeader': {
             'header': [
