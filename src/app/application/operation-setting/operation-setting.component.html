@@ -42,7 +42,7 @@
       </div>
     </div>
   </div>
-  <div class="portlet light col-md-8">
+  <!--<div class="portlet light col-md-8">
     <div class="portlet-title tabbable-line">
       <div class="caption"><i class="fa fa-cog"></i> 属性设置</div>
       <ul class="nav nav-tabs">
@@ -82,14 +82,14 @@
       <cnst-property-nav [navsData]="_navsData"></cnst-property-nav>
       <div class="tab-content">
         <div class="tab-pane fade active in" id="tab_operation">
-          <!--操作定义属性编辑器-->
+          &lt;!&ndash;操作定义属性编辑器&ndash;&gt;
           <cnst-dynamic-form *ngIf="_content" (submit)="save($event)" [configs]="_content" [configsTitle]="_settingHeader"></cnst-dynamic-form>
         </div>
-        <!--根据操作定义中的操作类型动态加载下标签内容，并进行编辑-->
-        <!--SQL语句-->
-        <!--操作表单-->
-        <!--确认操作-->
-        <!--弹出窗体-->
+        &lt;!&ndash;根据操作定义中的操作类型动态加载下标签内容，并进行编辑&ndash;&gt;
+        &lt;!&ndash;SQL语句&ndash;&gt;
+        &lt;!&ndash;操作表单&ndash;&gt;
+        &lt;!&ndash;确认操作&ndash;&gt;
+        &lt;!&ndash;弹出窗体&ndash;&gt;
         <div *ngIf="_showTab[0]" class="tab-pane fade" id="tab_sql">
 
         </div>
@@ -115,7 +115,7 @@
         </button>
       </div>
     </div>
-  </div>
+  </div>-->
   <div class="portlet light col-md-8">
     <div class="portlet-title tabbable-line">
       <div class="caption"><i class="fa fa-cog"></i> 属性设置</div>

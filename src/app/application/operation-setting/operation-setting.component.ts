@@ -406,8 +406,8 @@ export class OperationSettingComponent implements OnInit, AfterViewInit {
               this._currentNodeDataIndex = nd.index;
             }
             // 设置赋值调用
-            this.subject.sendMessage(this._currentNodeData[this._currentNodeDataIndex].data.btnData);
-            this.propertyForm.setFormValue(this._currentNodeData[this._currentNodeDataIndex].data.btnData);
+            this.subject.sendMessage({type: 'setValue'}, this._currentNodeData[this._currentNodeDataIndex].data.btnData);
+            /*this.propertyForm.setFormValue(this._currentNodeData[this._currentNodeDataIndex].data.btnData);*/
           }
           if (data.node.data.type === 'component'){
             this._currentNewData = this._config[data.node.data.settingsIndex][data.node.data.settingIndex]
@@ -420,11 +420,6 @@ export class OperationSettingComponent implements OnInit, AfterViewInit {
           }
           this._navsData = this.$tree.jstree('get_path', data.node);
         });
-      }
-    });
-    this.propertyForm.changes.subscribe((value) => {
-      if (value){
-        this.setOperationFunction(value);
       }
     });
   }
@@ -451,7 +446,16 @@ export class OperationSettingComponent implements OnInit, AfterViewInit {
   }
 
   save(event) {
-    if (this._currentNodeId && this.$tree) {
+    this.subject.getMessage().subscribe(formData => {
+      const oldData = this._currentNodeData[this._currentNodeDataIndex].data.btnData;
+      oldData.forEach(d => {
+        if(d.viewId === formData.data.viewId){
+          d.data = formData.data.data;
+        }
+      });
+    });
+    this.subject.sendMessage({type: 'getValue'},{});
+    /*if (this._currentNodeId && this.$tree) {
       const node = this.$tree.jstree('get_node', this._currentNodeId);
       node.data.data = event;
       this.$tree.jstree('rename_node', node, event.operationLabel);
@@ -460,7 +464,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit {
       }else {
         this._currentNodeData.push({data: {index: this._currentNodeDataIndex, btnData: event}});
       }
-    }
+    }*/
   }
 
   submit($event) {

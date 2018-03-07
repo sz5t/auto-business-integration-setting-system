@@ -7,8 +7,8 @@ export class SubjectMessageService {
 
   private subject = new Subject<any>();
 
-  sendMessage(message: any) {
-    this.subject.next(message);
+  sendMessage(messageType: any, messageData: any) {
+    this.subject.next({type: messageType, data: messageData});
   }
 
   clearMessage() {

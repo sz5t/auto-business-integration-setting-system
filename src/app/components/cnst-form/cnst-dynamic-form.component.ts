@@ -267,7 +267,7 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
           fieldData[colsname] = element[key];
         }
         row.push(conent);
-        
+
       });
       this.configs = row;
       this.ngChangesRow();
@@ -280,6 +280,7 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
 
 
   getValueByViewId(){
+    debugger;
     if(this._fromType==='from'){
       return {viewId:this._viewId,data:this.value};
     }
@@ -290,7 +291,7 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
     else{
       return null;
     }
-   
+
   }
 
   formatSubmitValue(){
