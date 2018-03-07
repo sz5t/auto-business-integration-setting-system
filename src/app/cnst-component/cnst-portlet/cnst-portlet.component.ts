@@ -10,15 +10,16 @@ import { CnstPortletTabsComponent } from '../cnst-portlet-tabs/cnst-portlet-tabs
 import {App} from '../../components/layout/cn-layout/cn-layout.component';
 
 import { ICnstPortlet } from '../cnst-portlet';
-import {NodeTypes} from "../../data/TreeNodeTypes";
-import {CommonData} from "../../data/common-data";
+import {NodeTypes} from '../../data/TreeNodeTypes';
+import {CommonData} from '../../data/common-data';
+import {CommonUtility} from '../../framework/utility/common-utility';
 const components: { [type: string]: Type<ICnstPortlet> } = {
   grid_view: CnstPortletGridviewComponent,
   tree_view: CnstPortletTreeComponent,
   tabs_view: CnstPortletTabsComponent
 };
 @Component({
-  selector: 'cnst-portlet,[cnst-portlet]',
+  selector: 'cnst-portlet, [cnst-portlet]',
   encapsulation: ViewEncapsulation.None,
   templateUrl: './cnst-portlet.component.html',
   styleUrls: ['./cnst-portlet.component.css']
@@ -33,7 +34,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
   @ViewChild(CnstPortletContextmenuComponent) menu: CnstPortletContextmenuComponent;
   @ViewChild('portlet') portlet: ElementRef;
 
-  //右键弹出菜单
+  // 右键弹出菜单
   menuList = [
     { id: 'tree_view', icon: 'icon-user', title: '添加树', data: {'viewCfg': {
       'viewId': '',
@@ -180,17 +181,46 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
             disabled: false,
             data: {
               index: 0,
-              btnData: {
-                operationLabel: '刷新',
-                operationName: 'refresh',
-                operationIcon: 'fa fa-refresh',
-                operationType: 'refresh',
-                operationState: 'normal',
-                operationNoneState: true,
-                operationDefaultState: true,
-                operationOrder: '1',
-                sql:[]
-              }
+              btnData: [
+                {
+                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  data: {
+                    operationLabel: '刷新',
+                    operationName: 'refresh',
+                    operationIcon: 'fa fa-refresh',
+                    operationType: 'refresh',
+                    operationState: 'normal',
+                    operationNoneState: true,
+                    operationDefaultState: true,
+                    operationOrder: '1'
+                  }
+                },
+                {
+                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  data: [
+                    {
+                      execSqlId: 'execSqlId',
+                      execSqlStr: '001',
+                      execSqlMethod: '1',
+                      execSqlStatus: '1'
+                    }
+                  ]
+                },
+                {
+                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  data: [
+                    {
+                      paramName: '@Name_',
+                      paramReplaceStr: '',
+                      paramValueFrom: 'UI',
+                      paramNullValue: '',
+                      paramDataType: 'string',
+                      paramFromSystem: '',
+                      paramValueField: 'Name'
+                    },
+                  ]
+                },
+              ]
             }
           },
           {
@@ -201,16 +231,46 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
             icon: 'fa fa-plus text-info',
             data: {
               index: 1,
-              btnData: {
-                operationLabel: '新增',
-                operationName: 'add',
-                operationIcon: 'fa fa-plus',
-                operationType: 'none',
-                operationState: 'new',
-                operationNoneState: true,
-                operationDefaultState: true,
-                operationOrder: '2'
-              }
+              btnData: [
+                {
+                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  data: {
+                    operationLabel: '刷新',
+                    operationName: 'refresh',
+                    operationIcon: 'fa fa-refresh',
+                    operationType: 'refresh',
+                    operationState: 'normal',
+                    operationNoneState: true,
+                    operationDefaultState: true,
+                    operationOrder: '1'
+                  }
+                },
+                {
+                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  data: [
+                    {
+                      execSqlId: 'execSqlId',
+                      execSqlStr: '001',
+                      execSqlMethod: '1',
+                      execSqlStatus: '1'
+                    }
+                  ]
+                },
+                {
+                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  data: [
+                    {
+                      paramName: '@Name_',
+                      paramReplaceStr: '',
+                      paramValueFrom: 'UI',
+                      paramNullValue: '',
+                      paramDataType: 'string',
+                      paramFromSystem: '',
+                      paramValueField: 'Name'
+                    },
+                  ]
+                },
+              ]
             }
           },
           {
@@ -221,16 +281,46 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
             icon: 'fa fa-pencil text-info',
             data: {
               index: 2,
-              btnData: {
-                operationLabel: '编辑',
-                operationName: 'none',
-                operationIcon: 'fa fa-pencil',
-                operationType: 'none',
-                operationState: 'edit',
-                operationNoneState: true,
-                operationDefaultState: true,
-                operationOrder: '3'
-              }
+              btnData: [
+                {
+                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  data: {
+                    operationLabel: '刷新',
+                    operationName: 'refresh',
+                    operationIcon: 'fa fa-refresh',
+                    operationType: 'refresh',
+                    operationState: 'normal',
+                    operationNoneState: true,
+                    operationDefaultState: true,
+                    operationOrder: '1'
+                  }
+                },
+                {
+                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  data: [
+                    {
+                      execSqlId: 'execSqlId',
+                      execSqlStr: '001',
+                      execSqlMethod: '1',
+                      execSqlStatus: '1'
+                    }
+                  ]
+                },
+                {
+                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  data: [
+                    {
+                      paramName: '@Name_',
+                      paramReplaceStr: '',
+                      paramValueFrom: 'UI',
+                      paramNullValue: '',
+                      paramDataType: 'string',
+                      paramFromSystem: '',
+                      paramValueField: 'Name'
+                    },
+                  ]
+                },
+              ]
             }
           },
           {
@@ -241,16 +331,46 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
             icon: 'fa fa-remove font-red',
             data: {
               index: 3,
-              btnData: {
-                operationLabel: '删除',
-                operationName: 'remove',
-                operationIcon: 'fa fa-remove',
-                operationType: 'confirm',
-                operationState: 'normal',
-                operationNoneState: true,
-                operationDefaultState: true,
-                operationOrder: '4'
-              }
+              btnData: [
+                {
+                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  data: {
+                    operationLabel: '刷新',
+                    operationName: 'refresh',
+                    operationIcon: 'fa fa-refresh',
+                    operationType: 'refresh',
+                    operationState: 'normal',
+                    operationNoneState: true,
+                    operationDefaultState: true,
+                    operationOrder: '1'
+                  }
+                },
+                {
+                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  data: [
+                    {
+                      execSqlId: 'execSqlId',
+                      execSqlStr: '001',
+                      execSqlMethod: '1',
+                      execSqlStatus: '1'
+                    }
+                  ]
+                },
+                {
+                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  data: [
+                    {
+                      paramName: '@Name_',
+                      paramReplaceStr: '',
+                      paramValueFrom: 'UI',
+                      paramNullValue: '',
+                      paramDataType: 'string',
+                      paramFromSystem: '',
+                      paramValueField: 'Name'
+                    },
+                  ]
+                },
+              ]
             }
           },
           {
@@ -261,16 +381,46 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
             icon: 'fa fa-save text-success',
             data: {
               index: 4,
-              btnData : {
-                operationLabel: '保存',
-                operationName: 'save',
-                operationIcon: 'fa fa-save',
-                operationType: 'after_sql',
-                operationState: 'normal',
-                operationNoneState: true,
-                operationDefaultState: true,
-                operationOrder: '5'
-              }
+              btnData : [
+                {
+                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  data: {
+                    operationLabel: '刷新',
+                    operationName: 'refresh',
+                    operationIcon: 'fa fa-refresh',
+                    operationType: 'refresh',
+                    operationState: 'normal',
+                    operationNoneState: true,
+                    operationDefaultState: true,
+                    operationOrder: '1'
+                  }
+                },
+                {
+                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  data: [
+                    {
+                      execSqlId: 'execSqlId',
+                      execSqlStr: '001',
+                      execSqlMethod: '1',
+                      execSqlStatus: '1'
+                    }
+                  ]
+                },
+                {
+                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  data: [
+                    {
+                      paramName: '@Name_',
+                      paramReplaceStr: '',
+                      paramValueFrom: 'UI',
+                      paramNullValue: '',
+                      paramDataType: 'string',
+                      paramFromSystem: '',
+                      paramValueField: 'Name'
+                    },
+                  ]
+                },
+              ]
             }
           },
           {
@@ -281,16 +431,46 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
             icon: 'fa fa-reply text-muted',
             data: {
               index: 5,
-              btnData: {
-                operationLabel: '取消',
-                operationName: 'cancel',
-                operationIcon: 'fa fa-reply',
-                operationType: 'none',
-                operationState: 'normal',
-                operationNoneState: true,
-                operationDefaultState: true,
-                operationOrder: '6'
-              }
+              btnData: [
+                {
+                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  data: {
+                    operationLabel: '刷新',
+                    operationName: 'refresh',
+                    operationIcon: 'fa fa-refresh',
+                    operationType: 'refresh',
+                    operationState: 'normal',
+                    operationNoneState: true,
+                    operationDefaultState: true,
+                    operationOrder: '1'
+                  }
+                },
+                {
+                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  data: [
+                    {
+                      execSqlId: 'execSqlId',
+                      execSqlStr: '001',
+                      execSqlMethod: '1',
+                      execSqlStatus: '1'
+                    }
+                  ]
+                },
+                {
+                  viewId: 'viewId_' + CommonUtility.uuID(4),
+                  data: [
+                    {
+                      paramName: '@Name_',
+                      paramReplaceStr: '',
+                      paramValueFrom: 'UI',
+                      paramNullValue: '',
+                      paramDataType: 'string',
+                      paramFromSystem: '',
+                      paramValueField: 'Name'
+                    },
+                  ]
+                },
+              ]
             }
           }
         ],
@@ -340,7 +520,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
   ];
   portletJson = {
     'id': '001',
-    //"title": "用户列表",
+    // "title": "用户列表",
     'titleColor': 'font-green',
     'titleIcon': 'fa fa-cogs',
     'isFullScreen': true,
@@ -365,7 +545,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
       }
     }
   };
-  //布局json信息
+  // 布局json信息
 
   constructor(private resolver: ComponentFactoryResolver, private container1: ViewContainerRef) {
    // if (this.config==undefined ||this.config=='undefined' ||this.config==null )
@@ -403,19 +583,19 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
         const factory = this.resolver.resolveComponentFactory<ICnstPortlet>(components[data.name]);
         this.componentRef = this.container.createComponent(factory);
         this.componentRef.instance.config = data.value;
-        if(data.name === 'grid_view') {
+        if (data.name === 'grid_view') {
           this.config.viewCfg = data.value.viewCfg;
         }
-        if(data.name === 'tree_view') {
+        if (data.name === 'tree_view') {
           this.config.viewCfg = data.value.viewCfg;
         }
-        if(data.name === 'tabs_view') {
+        if (data.name === 'tabs_view') {
           this.config.tabs = data.value.tabs;
           this.componentRef.instance.callback.subscribe(event => {
             this.config.tabs.push(event);
           });
         }
-        if(this.tabContent){
+        if (this.tabContent) {
           this.tabContent.viewCfg = data.value.viewCfg;
         }
       }

@@ -278,7 +278,6 @@ export class OperationSettingComponent implements OnInit, AfterViewInit {
         //生成数据跟节点对象结构
         settingData.forEach((settings, settingsIndex) => {
           settings.forEach((setting, settingIndex) => {
-            console.log(setting);
             const node = {...SettingTreeNodeResource.settingTreeNode};
             node.id = setting.id;
             node.text = setting.title;
