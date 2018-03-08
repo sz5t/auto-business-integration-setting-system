@@ -58,6 +58,7 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
   ngOnInit() {
     this.form = this.createGroup();
   }
+
   ngOnChanges() {
     if (this.form) {
       const controls = Object.keys(this.form.controls);
@@ -76,6 +77,7 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
         });
     }
   }
+
   ngAfterViewInit() {
 
 
@@ -116,6 +118,7 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
     if (this.form.controls[name]) {
     }
   }
+
   resetFormValue() {
     this.form.reset();
   }
@@ -176,7 +179,6 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
     return this.value;
   }
 
-
   addRowChanges(columnConfigsData?) {
     const row = [];
     if (columnConfigsData.length > 0) {
@@ -199,6 +201,10 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
       this.configs = [];
     }
   }
+
+  /**
+   * 添加新行
+   */
   addRow() {
     const fieldIdentity = CommonUtility.uuID(5);
     const conent = $.extend(true, [], this.ConfigsContent);
@@ -209,6 +215,7 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
    // this.configs = $.extend(true, [], this.configs);
     this.ngChangesRow();
   }
+
   changeRowFormValue(columnConfigsData) {
     const row = [];
     if (columnConfigsData.length > 0) {
@@ -228,6 +235,10 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
       this.setFormValue(fieldData);
     }
   }
+
+  /**
+   * 构建新行
+   */
   ngChangesRow() {
     if (this.form) {
       const controls = Object.keys(this.form.controls);
@@ -246,7 +257,11 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
     }
   }
 
-/**表单赋值 */
+  /**
+   * 表单赋值
+   * @param viewId
+   * @param formValue
+   */
   setViewFormValue(viewId?, formValue?){
     this._viewId = viewId;
      if (Array.isArray(formValue)) { // 列表赋值
@@ -258,12 +273,18 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
      }
   }
 
-
-  selectRow(name) {
+  /**
+   * 根据选中行的主键控件，获取当前行的ID
+   * @param name
+   */
+  selectRowIdByControlName(name) {
     console.log(this.getControlValue(name));
   }
 
-/**赋值生成行 */
+  /**
+   * 赋值生成行
+   * @param columnConfigsData
+   */
   setRowChanges(columnConfigsData?) {
     const row = [];
     if (columnConfigsData.length > 0) {
@@ -291,17 +312,17 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
     }
   }
 
-
-  getValueByViewId(){
-    debugger;
+  /**
+   * 根据viewId获取表单数据
+   * @returns {any}
+   */
+  getValueByViewId() {
     if (this._formType === 'form'){
       return {viewId: this._viewId, data: this.value};
-    }
-    else if (this._formType === 'formGroup')
+    } else if (this._formType === 'formGroup')
     {
       return {viewId: this._viewId, data: this.formatSubmitValue()};
-    }
-    else{
+    } else{
       return null;
     }
 
@@ -311,8 +332,8 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
     const formJson = [];
     const formValue = this.value;
     const submitValue = [];
-    for (const key in formValue) { //遍历表单提交的数据
-      const formRow = {//可以将此结构定义在其他地方，动态加载，就和加载树节点一样
+    for (const key in formValue) { // 遍历表单提交的数据
+      const formRow = {// 可以将此结构定义在其他地方，动态加载，就和加载树节点一样
         rowId: '',
         cols: {}
       };
@@ -324,25 +345,20 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
       formJson.forEach(row => {
         if (row.rowId == formRowId) {//判断是否存在行
           isRow = true;
-          //存在行，添加属性
+          // 存在行，添加属性
           row.cols[formItem] = formValue[key];
         }
       });
-      if (!isRow) {//不存在行，添加属性
+      if (!isRow) { // 不存在行，添加属性
         formRow.rowId = formRowId;
         formRow.cols[formItem] = formValue[key];
         formJson.push(formRow);
       }
-
     }
-
     formJson.forEach(row => {
       submitValue.push(row.cols);
     });
 
     return submitValue;
-
   }
-
-
 }

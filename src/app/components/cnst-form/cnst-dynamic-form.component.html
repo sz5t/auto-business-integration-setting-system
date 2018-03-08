@@ -2,6 +2,10 @@
 <form class="form-horizontal" role="form" novalidate
       [formGroup]="form"
       (submit)="handleSubmit($event)">
+  <div class="form-actions">
+    <a *ngIf="configsTitle.addButton" class="btn btn-success" (click)="addRow()">新增</a>
+    <a *ngIf="configsTitle.saveButton" class="btn btn-success" (click)="getValue()">保存</a>
+  </div>
   <table #table class="table table-bordered table-hover">
     <thead>
     <tr style="background:#eef1f5">
@@ -12,7 +16,7 @@
     </tr>
     </thead>
     <tbody *ngFor="let configData of configs">
-    <tr (click)="selectRow(configData[0].name)" role="row">
+    <tr (click)="selectRowIdByControlName(configData[0].name)" role="row">
       <td *ngFor="let field of configData" class="text-center">
           <label *ngIf="field.type =='label'" class="control-label">
             {{field.label}}
@@ -27,11 +31,6 @@
     </tr>
     </tbody>
   </table>
-  <div>
-      <a *ngIf="configsTitle.addButton" class="btn btn-success" (click)="addRow()">新增</a>
-      <a *ngIf="configsTitle.saveButton" class="btn btn-success" (click)="getValue()">保存</a>
-    </div>
 </form>
-
 
 
