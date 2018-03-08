@@ -915,8 +915,9 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
             selected: false
           }, type: ''
         }];
+        let n = 0;
         this.settingData.forEach((settings, i) => {
-          let n = 0;
+          n++;
           settings.forEach((setting, j) => {
             n++;
             const node = { ...SettingTreeNodeResource.settingTreeNode };
@@ -1019,8 +1020,6 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
             /* treeData = treeData.concat(
               this._treeData
             ); */
-
-            //console.log(treeData);
           });
         });
         $(this.settingTree.nativeElement).jstree('destroy');
