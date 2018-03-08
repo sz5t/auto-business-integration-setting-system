@@ -37,8 +37,7 @@ export class CommonData {
               {title: '属性值', width: 'auto'}
             ]
           },
-          'formContent':
-            [
+          'formContent': [
               [
                 {
                   'type': 'label',
@@ -443,6 +442,182 @@ export class CommonData {
             },
           ]
         }
+      ]
+    },
+    {
+      'id': 'tab3',
+      'icon': 'fa fa-text',
+      'color': 'text-warning',
+      'title': '表单设置',
+      'active': '',
+      'viewCfg': [
+        {
+          'viewId': 'viewId_formLayout',
+          'component': 'form_view',
+          'formHeader': {
+            'header': [
+              { title: '属性', width: 'auto' },
+              { title: '属性值', width: 'auto' },
+            ],
+          },
+          'formContent': [
+            [
+              {
+                'type': 'label',
+                'label': '布局类型：'
+              },
+              {
+                'type': 'select',
+                'placeholder': '',
+                'options': [
+                  {
+                    'text': '表格',
+                    'value': 'table'
+                  },
+                  {
+                    'text': '流式',
+                    'value': 'flow'
+                  }
+                ],
+                'name': 'formLayoutType',
+                'value': true,
+                'inputClass': 'input-medium'
+              },
+            ],
+            [
+              {
+                'type': 'label',
+                'label': '列组数：'
+              },
+              {
+                'type': 'input',
+                'inputType': 'text',
+                'name': 'formLayoutNum',
+                'helpText': '',
+                'inputClass': 'input-inline input-medium',
+                'placeholder': '',
+                'helpClass': 'help-inline',
+                'validations': [
+                  {
+                    'validator': 'required',
+                    'errorMessage': ''
+                  }
+                ]
+              }
+            ]
+          ]
+        },
+        {
+          'viewId': 'viewId_formConfig',
+          'component': 'form_view',
+          'formHeader': {
+            'header': [
+              { title: '输入方式', width: 'auto' },
+              { title: '名称', width: 'auto' },
+              { title: '文本类型', width: 'auto' },
+              { title: '标签', width: 'auto' },
+              { title: '提示信息', width: 'auto' },
+              { title: '默认内容', width: 'auto' },
+              { title: '图标', width: 'auto' },
+              { title: '图标位置', width: 'auto' },
+              { title: '数据来源', width: 'auto' }
+            ],
+            'deleteButton': {
+              'show': true
+            },
+            'addButton': {}
+          },
+          'formContents': [
+            {
+              'type': 'input',
+              'inputType': 'text',
+              'name': 'type'
+            },
+            {
+              'type': 'input',
+              'inputType': 'text',
+              'name': 'name'
+            },
+            {
+              'type': 'select',
+              'placeholder': '--请选择--',
+              'options': [
+                {
+                  'text': '字符',
+                  'value': '1'
+                },
+                {
+                  'text': '密码',
+                  'value': '2'
+                },
+                {
+                  'text': '邮箱',
+                  'value': '3'
+                },
+                {
+                  'text': '电话',
+                  'value': '4'
+                },
+                {
+                  'text': '链接地址',
+                  'value': '5'
+                }
+              ],
+              'name': 'inputType',
+              'value': ''
+            },
+            {
+              'type': 'input',
+              'inputType': 'text',
+              'name': 'label'
+            },
+            {
+              'type': 'input',
+              'inputType': 'text',
+              'name': 'helpText'
+            },
+            {
+              'type': 'input',
+              'inputType': 'text',
+              'name': 'placeholder'
+            },
+            {
+              'type': 'input',
+              'inputType': 'text',
+              'name': 'icon'
+            },
+            {
+              'type': 'select',
+              'placeholder': '--请选择--',
+              'options': [
+                {
+                  'text': '左',
+                  'value': 'left'
+                },
+                {
+                  'text': '右',
+                  'value': 'right'
+                },
+              ],
+              'name': 'iconPstn',
+              'value': '',
+              'inputClass': 'input-medium'
+            }
+          ]
+        },
+        {
+          'viewId': 'viewId_formSql'
+        }
+      ]
+    },
+    {
+      'id': 'tab4',
+      'icon': 'fa fa-text',
+      'color': 'text-warning',
+      'title': '确认操作设置',
+      'active': '',
+      'viewCfg': [
+
       ]
     }
   ];

@@ -404,8 +404,6 @@ export class OperationSettingComponent implements OnInit, AfterViewInit {
                     .tabs[pNodeData.tabIndex]
                     .viewCfg.toolbarsConfigData.splice(nd.index, 1);
                 }
-
-                console.log(parentNode);
                 if(parentNode.children.length >1){
                   parentNode.children.forEach((child, ind) => {
                     if(ind > nd.index){
@@ -443,7 +441,6 @@ export class OperationSettingComponent implements OnInit, AfterViewInit {
           }
         });
         this.$tree.on('select_node.jstree', (e, data) => {
-          console.log(data);
           this._currentNodeId = data.node.id;
           const nd = data.node.data;
           if (nd.btnData){
@@ -461,7 +458,6 @@ export class OperationSettingComponent implements OnInit, AfterViewInit {
               this._currentNodeDataIndex = nd.index;
             }
             // 设置赋值调用
-            console.log(this._currentNodeData, this._currentNodeDataIndex);
             this.subject.sendMessage({type: 'setValue'}, this._currentNodeData[this._currentNodeDataIndex].data.btnData);
             /*this.propertyForm.setFormValue(this._currentNodeData[this._currentNodeDataIndex].data.btnData);*/
           }

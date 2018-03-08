@@ -222,6 +222,14 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                     },
                   ]
                 },
+                {
+                  viewId: 'viewId_form',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_confirm',
+                  data: []
+                }
               ]
             }
           },
@@ -237,11 +245,11 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                 {
                   viewId: 'viewId_property',
                   data: {
-                    operationLabel: '刷新',
-                    operationName: 'refresh',
-                    operationIcon: 'fa fa-refresh',
-                    operationType: 'refresh',
-                    operationState: 'normal',
+                    operationLabel: '新增',
+                    operationName: 'new',
+                    operationIcon: 'fa fa-plus',
+                    operationType: 'none',
+                    operationState: 'new',
                     operationNoneState: true,
                     operationDefaultState: true,
                     operationOrder: '1'
@@ -287,11 +295,11 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                 {
                   viewId: 'viewId_property',
                   data: {
-                    operationLabel: '刷新',
-                    operationName: 'refresh',
-                    operationIcon: 'fa fa-refresh',
-                    operationType: 'refresh',
-                    operationState: 'normal',
+                    operationLabel: '编辑',
+                    operationName: 'edit',
+                    operationIcon: 'fa fa-pencil',
+                    operationType: 'none',
+                    operationState: 'edit',
                     operationNoneState: true,
                     operationDefaultState: true,
                     operationOrder: '1'
@@ -337,10 +345,10 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                 {
                   viewId: 'viewId_property',
                   data: {
-                    operationLabel: '刷新',
+                    operationLabel: '删除',
                     operationName: 'refresh',
-                    operationIcon: 'fa fa-refresh',
-                    operationType: 'refresh',
+                    operationIcon: 'fa fa-remove',
+                    operationType: 'confirm',
                     operationState: 'normal',
                     operationNoneState: true,
                     operationDefaultState: true,
@@ -387,11 +395,11 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                 {
                   viewId: 'viewId_property',
                   data: {
-                    operationLabel: '刷新',
-                    operationName: 'refresh',
-                    operationIcon: 'fa fa-refresh',
-                    operationType: 'refresh',
-                    operationState: 'normal',
+                    operationLabel: '保存',
+                    operationName: 'save',
+                    operationIcon: 'fa fa-save',
+                    operationType: 'after_sql',
+                    operationState: 'edit',
                     operationNoneState: true,
                     operationDefaultState: true,
                     operationOrder: '1'
@@ -401,8 +409,14 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                   viewId: 'viewId_sql',
                   data: [
                     {
-                      execSqlId: 'execSqlId',
-                      execSqlStr: '001',
+                      execSqlId: '001',
+                      execSqlStr: 'INSERT INTO',
+                      execSqlMethod: '1',
+                      execSqlStatus: '1'
+                    },
+                    {
+                      execSqlId: '002',
+                      execSqlStr: 'UPDATE',
                       execSqlMethod: '1',
                       execSqlStatus: '1'
                     }
@@ -437,11 +451,11 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                 {
                   viewId: 'viewId_property',
                   data: {
-                    operationLabel: '刷新',
-                    operationName: 'refresh',
-                    operationIcon: 'fa fa-refresh',
-                    operationType: 'refresh',
-                    operationState: 'normal',
+                    operationLabel: '取消',
+                    operationName: 'none',
+                    operationIcon: 'fa fa-reply',
+                    operationType: 'none',
+                    operationState: 'edit',
                     operationNoneState: true,
                     operationDefaultState: true,
                     operationOrder: '1'
