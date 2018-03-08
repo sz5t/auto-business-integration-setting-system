@@ -268,13 +268,15 @@ export class CommonData {
             'deleteButton': {
               'show': true
             },
-            'addButton': {}
+            'addButton': {},
+            'keyId': 'id'
           },
           'formContents': [
             {
               'type': 'input',
               'inputType': 'text',
-              'name': 'execSqlId'
+              'name': 'id',
+              'disabled': 'disabled'
             },
             {
               'type': 'codeEditor',
@@ -326,13 +328,15 @@ export class CommonData {
           'component': 'form_view',
           'formHeader': {
             'header': [
+              { title: '参数编号', width: 'auto' },
               { title: '参数名', width: 'auto' },
               { title: '参数替换字符串', width: 'auto' },
               { title: '取值方式', width: 'auto' },
               { title: '为空取值', width: 'auto' },
               { title: '参数类型', width: 'auto' },
               { title: '系统参数', width: 'auto' },
-              { title: '取值或赋值字段名', width: 'auto' }
+              { title: '取值或赋值字段名', width: 'auto' },
+              { title: 'SQ语句编号', width: 'auto'}
             ],
             'deleteButton': {
               'show': true
@@ -340,6 +344,12 @@ export class CommonData {
             'addButton': {}
           },
           'formContents': [
+            {
+              'type': 'input',
+              'inputType': 'text',
+              'name': 'id',
+              'helpClass': 'help-inline'
+            },
             {
               'type': 'input',
               'inputType': 'text',
@@ -439,6 +449,11 @@ export class CommonData {
               'type': 'input',
               'inputType': 'text',
               'name': 'paramValueField'
+            },
+            {
+              'type': 'input',
+              'inputType': 'text',
+              'name': 'parentId'
             },
           ]
         }
@@ -606,7 +621,13 @@ export class CommonData {
           ]
         },
         {
-          'viewId': 'viewId_formSql'
+          'viewId': 'viewId_formSql',
+          'formHeader': {
+            'header': [
+              { title: '属性', width: 'auto' },
+              { title: '属性值', width: 'auto' },
+            ],
+          }
         }
       ]
     },
@@ -617,7 +638,118 @@ export class CommonData {
       'title': '确认操作设置',
       'active': '',
       'viewCfg': [
-
+        {
+          'viewId': 'viewId_dialog',
+          'component': 'form_view',
+          'formHeader': {
+            'header': [
+              { title: '属性', width: 'auto' },
+              { title: '属性值', width: 'auto' },
+            ],
+          },
+          'formContent': [
+            [
+              {
+                'type': 'label',
+                'label': '布局类型：'
+              },
+              {
+                'type': 'select',
+                'placeholder': '',
+                'options': [
+                  {
+                    'text': '表格',
+                    'value': 'table'
+                  },
+                  {
+                    'text': '流式',
+                    'value': 'flow'
+                  }
+                ],
+                'name': 'formLayoutType',
+                'value': true,
+                'inputClass': 'input-medium'
+              },
+            ],
+            [
+              {
+                'type': 'label',
+                'label': '列组数：'
+              },
+              {
+                'type': 'input',
+                'inputType': 'text',
+                'name': 'formLayoutNum',
+                'helpText': '',
+                'inputClass': 'input-inline input-medium',
+                'placeholder': '',
+                'helpClass': 'help-inline',
+                'validations': [
+                  {
+                    'validator': 'required',
+                    'errorMessage': ''
+                  }
+                ]
+              }
+            ]
+          ]
+        },
+        {
+          'viewId': 'viewId_dialogSql',
+          'component': 'form_view',
+          'formHeader': {
+            'header': [
+              { title: '属性', width: 'auto' },
+              { title: '属性值', width: 'auto' },
+            ],
+          },
+          'formContent': [
+            [
+              {
+                'type': 'label',
+                'label': '布局类型：'
+              },
+              {
+                'type': 'select',
+                'placeholder': '',
+                'options': [
+                  {
+                    'text': '表格',
+                    'value': 'table'
+                  },
+                  {
+                    'text': '流式',
+                    'value': 'flow'
+                  }
+                ],
+                'name': 'formLayoutType',
+                'value': true,
+                'inputClass': 'input-medium'
+              },
+            ],
+            [
+              {
+                'type': 'label',
+                'label': '列组数：'
+              },
+              {
+                'type': 'input',
+                'inputType': 'text',
+                'name': 'formLayoutNum',
+                'helpText': '',
+                'inputClass': 'input-inline input-medium',
+                'placeholder': '',
+                'helpClass': 'help-inline',
+                'validations': [
+                  {
+                    'validator': 'required',
+                    'errorMessage': ''
+                  }
+                ]
+              }
+            ]
+          ]
+        }
       ]
     }
   ];

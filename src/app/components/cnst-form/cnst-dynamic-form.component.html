@@ -2,17 +2,17 @@
 <form class="form-horizontal" role="form" novalidate
       [formGroup]="form"
       (submit)="handleSubmit($event)">
-  <table class="table table-bordered">
+  <table #table class="table table-bordered table-hover">
     <thead>
     <tr style="background:#eef1f5">
       <td  *ngFor="let title of configsTitle.header" [ngStyle]="{width:title.width}" >{{title.title}}</td>
       <td *ngIf="configsTitle.deleteButton">
-      
-      </td> 
+
+      </td>
     </tr>
     </thead>
-    <tbody>
-    <tr *ngFor="let configData of configs">
+    <tbody *ngFor="let configData of configs">
+    <tr (click)="selectRow(configData[0].name)" role="row">
       <td *ngFor="let field of configData" class="text-center">
           <label *ngIf="field.type =='label'" class="control-label">
             {{field.label}}
@@ -32,7 +32,6 @@
       <a *ngIf="configsTitle.saveButton" class="btn btn-success" (click)="getValue()">保存</a>
     </div>
 </form>
-
 
 
 

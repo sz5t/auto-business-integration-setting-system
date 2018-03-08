@@ -335,6 +335,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit {
                   {
                     viewId: 'viewId_property',
                     data: {
+                      id: 'row_' + CommonUtility.uuID(5),
                       operationLabel: '刷新',
                       operationName: 'refresh',
                       operationIcon: 'fa fa-refresh',
@@ -349,7 +350,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit {
                     viewId: 'viewId_sql',
                     data: [
                       {
-                        execSqlId: 'execSqlId',
+                        id: 'row_' + CommonUtility.uuID(5),
                         execSqlStr: '001',
                         execSqlMethod: '1',
                         execSqlStatus: 'normal'
@@ -360,13 +361,15 @@ export class OperationSettingComponent implements OnInit, AfterViewInit {
                     viewId: 'viewId_sqlParam',
                     data: [
                       {
+                        id: 'row_' + CommonUtility.uuID(5),
                         paramName: '@Name_',
                         paramReplaceStr: '',
                         paramValueFrom: 'UI',
                         paramNullValue: '',
                         paramDataType: 'string',
                         paramFromSystem: '',
-                        paramValueField: 'Name'
+                        paramValueField: 'Name',
+                        parentId: ''
                       },
                     ]
                   },

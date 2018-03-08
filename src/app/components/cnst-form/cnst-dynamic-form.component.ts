@@ -1,9 +1,14 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import {
+  AfterViewInit,
+  Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, ViewChild, ViewChildren,
+  ViewEncapsulation
+} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { IFieldConfig } from '../form/form-models/IFieldConfig';
 import { CommonUtility } from '../../framework/utility/common-utility';
 import { retry } from 'rxjs/operator/retry';
 declare let bootbox: any;
+declare let $: any;
 @Component({
   exportAs: 'cnstDynamicForm',
   selector: 'cnst-dynamic-form',
@@ -11,7 +16,8 @@ declare let bootbox: any;
   templateUrl: './cnst-dynamic-form.component.html',
   styleUrls: ['./cnst-dynamic-form.component.css']
 })
-export class CnstDynamicFormComponent implements OnInit, OnChanges {
+export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewInit {
+  @ViewChild('table') table: ElementRef;
   @Input() configs;
   @Input() configsTitle;
   @Input() ConfigsContent;
@@ -21,7 +27,7 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
   form: FormGroup;
 
   _viewId;
-  _fromType;
+  _formType;
   get controls() {
     const allControls = [];
       this.configs.forEach(config => {
@@ -69,6 +75,10 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
           this.form.addControl(name, this.createControl(item));
         });
     }
+  }
+  ngAfterViewInit() {
+
+
   }
 
   createGroup() {
@@ -118,9 +128,9 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
   }
 
   setFormValue(data) {
-    if(data){
+    if (data){
       for (const d in data){
-        if(data.hasOwnProperty(d)){
+        if (data.hasOwnProperty(d)){
           this.setValue(d, data[d]);
         }
       }
@@ -134,13 +144,13 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
   delrow(row?: any) {
     bootbox.confirm({
      // title: "确认",
-      message: "确定要删除?",
+      message: '确定要删除?',
       buttons: {
         confirm: {
-          label: "确定"
+          label: '确定'
         },
         cancel: {
-          label: "取消"
+          label: '取消'
 
         }
       },
@@ -160,7 +170,7 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
     // bootbox.confirm("确定要删除?", function (o) {
     //   alert(o);
     // });
-  };
+  }
 
   getValue(){
     return this.value;
@@ -176,7 +186,7 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
         conent.forEach(Field => {
           Field.name = element.rowId + '_' + Field.name;
         });
-        for (var key in element.cols) {
+        for (const key in element.cols) {
           const colsname = element.rowId + '_' + key;
           fieldData[colsname] = element.cols[key];
         }
@@ -208,7 +218,7 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
         conent.forEach(Field => {
           Field.name = element.rowId + '_' + Field.name;
         });
-        for (var key in element.cols) {
+        for (const key in element.cols) {
           const colsname = element.rowId + '_' + key;
           fieldData[colsname] = element.cols[key];
         }
@@ -237,25 +247,27 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
   }
 
 /**表单赋值 */
-  setViewFormValue(viewId?,fromValue?){
-    this._viewId=viewId;
-    //console.log('赋值',fromValue);
-     if(Array.isArray(fromValue)){//列表赋值
-       this.setRowChanges(fromValue);
-       this._fromType='fromGroup';
-     }else{//表单赋值
-      this.setFormValue(fromValue);
-      this._fromType='from';
+  setViewFormValue(viewId?, formValue?){
+    this._viewId = viewId;
+     if (Array.isArray(formValue)) { // 列表赋值
+       this.setRowChanges(formValue);
+       this._formType = 'formGroup';
+     }else { // 表单赋值
+      this.setFormValue(formValue);
+      this._formType = 'form';
      }
   }
 
 
+  selectRow(name) {
+    console.log(this.getControlValue(name));
+  }
 
 /**赋值生成行 */
   setRowChanges(columnConfigsData?) {
     const row = [];
     if (columnConfigsData.length > 0) {
-     
+
       const fieldData = {};
       columnConfigsData.forEach(element => {
         const fieldIdentity = CommonUtility.uuID(5);
@@ -263,7 +275,7 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
         conent.forEach(Field => {
           Field.name = fieldIdentity + '_' + Field.name;
         });
-        for (var key in element) {
+        for (const key in element) {
           const colsname = fieldIdentity + '_' + key;
           fieldData[colsname] = element[key];
         }
@@ -282,12 +294,12 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
 
   getValueByViewId(){
     debugger;
-    if(this._fromType==='from'){
-      return {viewId:this._viewId,data:this.value};
+    if (this._formType === 'form'){
+      return {viewId: this._viewId, data: this.value};
     }
-    else if(this._fromType==='fromGroup')
+    else if (this._formType === 'formGroup')
     {
-      return {viewId:this._viewId,data:this.formatSubmitValue()};
+      return {viewId: this._viewId, data: this.formatSubmitValue()};
     }
     else{
       return null;
@@ -298,8 +310,8 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
   formatSubmitValue(){
     const formJson = [];
     const formValue = this.value;
-    const submitValue=[];
-    for (var key in formValue) { //遍历表单提交的数据
+    const submitValue = [];
+    for (const key in formValue) { //遍历表单提交的数据
       const formRow = {//可以将此结构定义在其他地方，动态加载，就和加载树节点一样
         rowId: '',
         cols: {}
@@ -307,18 +319,18 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges {
       let isRow = false;
       // 随机标识id_字段名
       const index = key.indexOf('_');
-      const fromRowId = key.substring(0, index);//行标识
-      const fromItem = key.substring(index + 1, key.length);//字段标识
+      const formRowId = key.substring(0, index); //行标识
+      const formItem = key.substring(index + 1, key.length); //字段标识
       formJson.forEach(row => {
-        if (row.rowId == fromRowId) {//判断是否存在行
+        if (row.rowId == formRowId) {//判断是否存在行
           isRow = true;
           //存在行，添加属性
-          row.cols[fromItem] = formValue[key];
+          row.cols[formItem] = formValue[key];
         }
       });
       if (!isRow) {//不存在行，添加属性
-        formRow.rowId = fromRowId;
-        formRow.cols[fromItem] = formValue[key];
+        formRow.rowId = formRowId;
+        formRow.cols[formItem] = formValue[key];
         formJson.push(formRow);
       }
 

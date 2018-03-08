@@ -187,6 +187,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                 {
                   viewId: 'viewId_property',
                   data: {
+                    id: 'row_1',
                     operationLabel: '刷新',
                     operationName: 'refresh',
                     operationIcon: 'fa fa-refresh',
@@ -201,7 +202,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                   viewId: 'viewId_sql',
                   data: [
                     {
-                      execSqlId: 'execSqlId',
+                      id: 'row_1',
                       execSqlStr: '001',
                       execSqlMethod: '1',
                       execSqlStatus: 'normal'
@@ -212,13 +213,15 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                   viewId: 'viewId_sqlParam',
                   data: [
                     {
+                      id: 'row_1',
                       paramName: '@Name_',
                       paramReplaceStr: '',
                       paramValueFrom: 'UI',
                       paramNullValue: '',
                       paramDataType: 'string',
                       paramFromSystem: '',
-                      paramValueField: 'Name'
+                      paramValueField: 'Name',
+                      parentId: 'row_1'
                     },
                   ]
                 },
@@ -245,6 +248,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                 {
                   viewId: 'viewId_property',
                   data: {
+                    id: 'row_1',
                     operationLabel: '新增',
                     operationName: 'new',
                     operationIcon: 'fa fa-plus',
@@ -259,7 +263,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                   viewId: 'viewId_sql',
                   data: [
                     {
-                      execSqlId: 'execSqlId',
+                      id: 'row_1',
                       execSqlStr: '001',
                       execSqlMethod: '1',
                       execSqlStatus: '1'
@@ -270,13 +274,15 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                   viewId: 'viewId_sqlParam',
                   data: [
                     {
+                      id: 'row_1',
                       paramName: '@Name_',
                       paramReplaceStr: '',
                       paramValueFrom: 'UI',
                       paramNullValue: '',
                       paramDataType: 'string',
                       paramFromSystem: '',
-                      paramValueField: 'Name'
+                      paramValueField: 'Name',
+                      parentId: 'row_1'
                     },
                   ]
                 },
@@ -295,6 +301,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                 {
                   viewId: 'viewId_property',
                   data: {
+                    id: 'row_1',
                     operationLabel: '编辑',
                     operationName: 'edit',
                     operationIcon: 'fa fa-pencil',
@@ -309,7 +316,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                   viewId: 'viewId_sql',
                   data: [
                     {
-                      execSqlId: 'execSqlId',
+                      id: 'row_1',
                       execSqlStr: '001',
                       execSqlMethod: '1',
                       execSqlStatus: '1'
@@ -320,6 +327,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                   viewId: 'viewId_sqlParam',
                   data: [
                     {
+                      id: 'row_1',
                       paramName: '@Name_',
                       paramReplaceStr: '',
                       paramValueFrom: 'UI',
@@ -345,6 +353,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                 {
                   viewId: 'viewId_property',
                   data: {
+                    id: 'row_1',
                     operationLabel: '删除',
                     operationName: 'refresh',
                     operationIcon: 'fa fa-remove',
@@ -359,8 +368,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                   viewId: 'viewId_sql',
                   data: [
                     {
-                      execSqlId: 'execSqlId',
-                      execSqlStr: '001',
+                      id: 'row_1',
                       execSqlMethod: '1',
                       execSqlStatus: '1'
                     }
@@ -370,6 +378,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                   viewId: 'viewId_sqlParam',
                   data: [
                     {
+                      id: 'row_1',
                       paramName: '@Name_',
                       paramReplaceStr: '',
                       paramValueFrom: 'UI',
@@ -395,6 +404,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                 {
                   viewId: 'viewId_property',
                   data: {
+                    id: 'row_1',
                     operationLabel: '保存',
                     operationName: 'save',
                     operationIcon: 'fa fa-save',
@@ -409,13 +419,14 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                   viewId: 'viewId_sql',
                   data: [
                     {
+                      id: 'row_1',
                       execSqlId: '001',
                       execSqlStr: 'INSERT INTO',
                       execSqlMethod: '1',
                       execSqlStatus: '1'
                     },
                     {
-                      execSqlId: '002',
+                      id: 'row_2',
                       execSqlStr: 'UPDATE',
                       execSqlMethod: '1',
                       execSqlStatus: '1'
@@ -426,6 +437,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                   viewId: 'viewId_sqlParam',
                   data: [
                     {
+                      id: 'row_1',
                       paramName: '@Name_',
                       paramReplaceStr: '',
                       paramValueFrom: 'UI',
@@ -451,6 +463,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                 {
                   viewId: 'viewId_property',
                   data: {
+                    id: 'row_1',
                     operationLabel: '取消',
                     operationName: 'none',
                     operationIcon: 'fa fa-reply',
@@ -465,7 +478,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                   viewId: 'viewId_sql',
                   data: [
                     {
-                      execSqlId: 'execSqlId',
+                      id: 'row_1',
                       execSqlStr: '001',
                       execSqlMethod: '1',
                       execSqlStatus: '1'
@@ -476,6 +489,7 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                   viewId: 'viewId_sqlParam',
                   data: [
                     {
+                      id: 'row_1',
                       paramName: '@Name_',
                       paramReplaceStr: '',
                       paramValueFrom: 'UI',
