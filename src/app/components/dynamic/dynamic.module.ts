@@ -37,7 +37,8 @@ import {CnstComponentModule} from '../../cnst-component/cnst-component.module';
 import {CnstDatasourceComponent} from './cnst-datasource/cnst-datasource.component';
 import {CnstCodemirrorComponent} from './cnst-codemirror/cnst-codemirror.component';
 import {CnstFormModule} from '../cnst-form/cnst-form.module';
-
+import {CnstAttributeComponent} from './cnst-attribute/cnst-attribute.component';
+import {CnstPropertyNavComponent} from "./cnst-property-nav/cnst-property-nav.component";
 @NgModule({
   imports: [
     CommonModule,
@@ -80,7 +81,9 @@ import {CnstFormModule} from '../cnst-form/cnst-form.module';
     SafeHtmlPipe,
     CnContextmenuComponent,
     CnstDatasourceComponent,
-    CnstCodemirrorComponent
+    CnstCodemirrorComponent,
+    CnstAttributeComponent,
+    CnstPropertyNavComponent
   ],
   exports: [
     CnDynamicLayoutComponent,
@@ -104,7 +107,9 @@ import {CnstFormModule} from '../cnst-form/cnst-form.module';
     CnDynamicFieldsDirective,
     CnContextmenuComponent,
     CnstDatasourceComponent,
-    CnstCodemirrorComponent
+    CnstCodemirrorComponent,
+    CnstAttributeComponent,
+    CnstPropertyNavComponent
   ],
   entryComponents: [
     CnDynamicColumnComponent,
@@ -125,7 +130,9 @@ import {CnstFormModule} from '../cnst-form/cnst-form.module';
     CnDynamicDetailDialogComponent,
     CnDynamicDetailComponent,
     CnDynamicTextInfoComponent,
-    CnstCodemirrorComponent
+    CnstCodemirrorComponent,
+    CnstAttributeComponent,
+    CnstDatasourceComponent
   ]
 })
 export class CnDynamicModule {

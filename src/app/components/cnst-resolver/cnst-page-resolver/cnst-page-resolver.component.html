@@ -1,0 +1,7 @@
+<div *ngFor="let row of _viewPage" class="row">
+  <div *ngFor="let col of row"  class="{{col.Cls}}">
+
+    <div *ngIf="col.tabs"  cnst-component-resolver [configTabs]="col.tabs"></div>
+    <div *ngIf="!col.tabs" cnst-component-resolver [config]="col.viewCfg"></div>
+  </div>
+</div>

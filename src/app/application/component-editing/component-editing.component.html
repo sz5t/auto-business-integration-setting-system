@@ -1,8 +1,8 @@
 <div class="row">
-  <div #editor class="portlet light bordered  col-md-4">
+  <div #editor class="portlet light  col-md-3">
     <div class="portlet-title">
       <div class="caption">
-        <i class="fa fa-cogs"></i> 区域设置</div>
+        <i class="fa fa-cogs"></i> 组件编辑</div>
     </div>
     <div class="portlet-body">
       <div class="form-horizontal">
@@ -42,9 +42,8 @@
       </div>
     </div>
   </div>
-  <div class="col-md-8">
-    <div class="row">
-
+  <div class="portlet light col-md-9">
+    <div class="portlet-body tabbable-line">
       <ul class="nav nav-tabs">
         <li class="tabs.active active">
           <a href="#tabDataSource01" data-toggle="tab">
@@ -62,18 +61,14 @@
           </a>
         </li>
       </ul>
-
       <div class="tab-content">
         <div class="tab-pane fade active in" id="tabDataSource01">
-
-          <div cnst-datasource></div>
+          <ng-template #dataSourceContainer></ng-template>
         </div>
         <div class="tab-pane fade" id="tabDataSource02">
-          
-          <div cnst-attribute></div>
+          <div cnst-attribute [_attributeData]="attributeData" [_attribute]="attribute"></div>
         </div>
         <div class="tab-pane fade" id="tabDataSource03">
-
           <div #preview class="portlet light bordered bg-inverse">
             <div class="portlet-title">
               <div class="caption">
@@ -86,10 +81,6 @@
         </div>
 
       </div>
-
-
     </div>
-
   </div>
-
 </div>

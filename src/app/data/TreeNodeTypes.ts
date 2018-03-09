@@ -9,7 +9,7 @@ export class NodeTypes {
     LAYOUT_LAYOUT_ADD: 'addLayout',
     LAYOUT_LAYOUT_REMOVE: 'removeLayout',
     LAYOUT_TREE: 'tree',
-    LAYOUT_GRIDVIEW: 'gridview',
+    LAYOUT_GRIDVIEW: 'grid_view',
     LAYOUT_TABS: 'tabs',
     LAYOUT_TAB: 'tab',
     LAYOUT_ACCORDION: 'accordion',
@@ -18,8 +18,12 @@ export class NodeTypes {
     TOOLBAR_CONFIG_NEW: 'new',
     TOOLBAR_CONFIG_DELETE: 'delete',
     BUTTON: 'button',
-    BUTTON_EDIT: 'edit',
-    BUTTON_DELETE: 'delete',
+    BUTTON_EDIT: 'btn_edit',
+    BUTTON_DELETE: 'btn_delete',
+    BUTTON_ADD: 'btn_add',
+    BUTTON_SAVE: 'btn_save',
+    BUTTON_CANCEL: 'btn_cancel',
+    BUTTON_REFRESH: 'btn_refresh',
     COLUMN_CONFIG: 'columnConfig',
     COLUMN_CONFIG_NEW: 'new',
     COLUMN_CONFIG_REFRESH: 'refresh',
@@ -45,6 +49,12 @@ export class NodeTypes {
     'tabs': {'icon': 'fa fa-laptop font-green'},
     'tab': {'icon': 'fa fa-tag font-green-jungle'},
     'button': {'icon': 'fa fa-square-o font-green-jungle'},
+    'btn_refresh': {'icon': 'fa fa-refresh font-green-jungle'},
+    'btn_add': {'icon': 'fa fa-plus font-green-jungle'},
+    'btn_delete': {'icon': 'fa fa-trash font-red'},
+    'btn_edit': {'icon': 'fa fa-pencil font-green-jungle'},
+    'btn_save': {'icon': 'fa fa-save font-blue'},
+    'btn_cancel': {'icon': 'fa fa-reply text-muted'},
     'columnConfig': {'icon': 'fa fa-table font-green'},
     'field': {'icon': 'fa fa-columns font-yellow-soft'},
     'sortConfig': {'icon': 'fa fa-sort-amount-asc font-green'},
@@ -108,6 +118,7 @@ export class NodeTypes {
       'separator_after': false
     },
   };
+
   public static toolbarConfig = {
     'refresh': {
       'label': '<span class="fa fa-refresh font-blue"></span> 刷新',
@@ -231,11 +242,26 @@ export class NodeTypes {
   public static component_form_node = {};
   public static component_accordion_node = {};
   public static buttonNode = {
-    text: '按钮', icon: '', li_attr: '', a_attr: '', parent: 'viewCfg_1_toolbarsConfig', readonly: true, value: null,
+    text: '操作',
+    icon: '',
+    li_attr: '',
+    a_attr: '',
+    parent: '',
+    readonly: false,
+    data: {
+      operationLabel: '操作',
+      operationName: '',
+      operationIcon: '',
+      operationType: 'none',
+      operationState: 'new',
+      operationNoneState: true,
+      operationDefaultState: true,
+      operationOrder: ''
+    },
     state: {
       opened: true,
       disabled: false,
-      selected: false,
+      selected: true,
     }, type: 'button'
   };
   public static fieldNode = {
@@ -264,7 +290,7 @@ export class TreeNode {
   a_attr: string;
   parent: string;
   readonly: false;
-  value: any;
+  data: any;
   state: {
     opened: true,
     disabled: true,
@@ -273,6 +299,24 @@ export class TreeNode {
 }
 
 export class SettingTreeNodeResource {
+  public static settingTreeNode = {
+    id: '', text: '', icon: '', li_attr: '', a_attr: '', parent: '', readonly: false, data: {},
+    state: {
+      opened: true,
+      disabled: true,
+      selected: false,
+    },
+    type: ''
+  };
+
+  public static settingTreeLayoutNode =  {
+    id: '', text: '', icon: 'fa fa-clone icon-state-success', li_attr: '', a_attr: '', parent: '', readonly: true, data: {},
+    state: {
+      opened: true,
+      disabled: true,
+      selected: false,
+    }
+  };
   private _totalArea: any[];
   get totalArea(): any[] {
     return this._totalArea;
@@ -549,23 +593,21 @@ export class SettingTreeNodeResource {
     ];
   }
 
-  public static settingTreeNode = {
-    id: '', text: '', icon: '', li_attr: '', a_attr: '', parent: '', readonly: false, value: null,
-    state: {
-      opened: true,
-      disabled: true,
-      selected: false,
-    },
-    type: ''
-  };
+}
 
-  public static settingTreeLayoutNode =  {
-    id: '', text: '', icon: 'fa fa-clone icon-state-success', li_attr: '', a_attr: '', parent: '', readonly: true, value: null,
-    state: {
-      opened: true,
-      disabled: true,
-      selected: false,
+export class OperationSettingNodeTypes {
+  public static grid_view = {
+    'addButton':{
+      'label': '添加按钮',
+      'icon': 'fa fa-plus',
+      'separator_after': false
     }
   };
-
+  public static button = {
+    'removeButton':{
+      'label': '移除按钮',
+      'icon': 'fa fa-remove',
+      'separator_after': false
+    },
+  };
 }

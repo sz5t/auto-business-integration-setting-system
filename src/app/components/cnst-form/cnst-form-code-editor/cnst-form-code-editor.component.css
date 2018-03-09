@@ -1,0 +1,5 @@
+.codeArea{
+  z-index: 100;
+  position: relative;
+  width:400px;
+}

@@ -50,6 +50,9 @@ export class CnPageTabComponent implements OnInit {
     const tabIndex = this.tabList.findIndex(item => {
       return item === tab;
     });
+    if(tabIndex){
+      tabIndex[0].component.destroy();
+    }
     this.tabList.splice(tabIndex, 1);
     if(tabIndex === this.currentIndex) {
       this.currentIndex = tabIndex - 1;
@@ -59,8 +62,6 @@ export class CnPageTabComponent implements OnInit {
       }
       this.setActiveTab();
     }
-
-
   }
 
   setActiveTab() {

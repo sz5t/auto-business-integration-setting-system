@@ -5,12 +5,14 @@ import {CnstFormInputComponent} from './cnst-form-input/cnst-form-input.componen
 import {CnstFormSelectComponent} from './cnst-form-select/cnst-form-select.component';
 import {CnstFormRadioComponent} from './cnst-form-radio/cnst-form-radio.component';
 import {IField} from '../form/form-models/IField';
+import {CnstFormCodeEditorComponent} from './cnst-form-code-editor/cnst-form-code-editor.component';
 
 const component: { [type: string]: Type<IField> } = {
   //button: CnFormButtonComponent,
   input: CnstFormInputComponent,
   select: CnstFormSelectComponent,
   radio: CnstFormRadioComponent,
+  codeEditor: CnstFormCodeEditorComponent
   /*select2: CnFormSelect2Component,
   checkbox: CnFormCheckboxComponent,
   textarea: CnFormTextareaComponent,

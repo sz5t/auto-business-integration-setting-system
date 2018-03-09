@@ -135,7 +135,6 @@ export class ComponentSettingComponent implements OnInit, AfterViewInit {
   }
   save($event?) {
     const name = $(this.selectFunc.nativeElement).selectpicker('val')
-    console.log(this._config);
     this.clientService.setLocalStorage(name, this._config);
   }
 }

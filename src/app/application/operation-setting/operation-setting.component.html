@@ -1,5 +1,5 @@
 <div class="row">
-  <div #editor class="portlet light col-md-4">
+  <div #editor class="portlet light col-md-3">
     <div class="portlet-title">
       <div class="caption">
         <i class="fa fa-cogs"></i> 操作设置</div>
@@ -9,7 +9,6 @@
         <div class="form-body form">
           <form class="form-horizontal" role="form">
             <div class="form-group">
-              <!-- <label class="col-md-3 control-label">业务功能：</label>-->
               <div class="col-md-12">
                 <select #selectFunc class="form-control bs-select">
                   <option value="0">--请选择功能模块--</option>
@@ -26,15 +25,9 @@
             <div class="form-group">
               <div #settingTree class="col-md-12"></div>
             </div>
-            <div class="form-actions">
-              <label class="col-md-3 control-label"> </label>
-              <div class="col-md-9">
-                <button class="btn btn-success" (click)="save($event)">
-                  <i class="fa fa-save"> 保存</i>
-                </button>
-                <button class="btn btn-success" type="submit">
-                  <i class="fa fa-undo"> 重置</i>
-                </button>
+            <div class="form-group">
+              <div class="col-md-12">
+                <cnst-property-nav [navsData]="_navsData"></cnst-property-nav>
               </div>
             </div>
           </form>
@@ -42,38 +35,93 @@
       </div>
     </div>
   </div>
-  <div class="portlet light col-md-8">
+  <!--<div class="portlet light col-md-8">
     <div class="portlet-title tabbable-line">
       <div class="caption"><i class="fa fa-cog"></i> 属性设置</div>
       <ul class="nav nav-tabs">
         <li class="tabs.active active">
-          <a href="#tabDataSource01" data-toggle="tab">
+          <a href="#tab_operation" data-toggle="tab">
             <span>操作定义</span>
           </a>
         </li>
-        <li>
-          <a href="#tabDataSource02" data-toggle="tab">
+        <li *ngIf="_showTab[0]">
+          <a href="#tab_sql" data-toggle="tab">
+            <span>【SQL】语句</span>
+          </a>
+        </li>
+        <li *ngIf="_showTab[1]" >
+          <a href="#tab_form" data-toggle="tab">
+            <span>操作表单</span>
+          </a>
+        </li>
+        <li *ngIf="_showTab[2]">
+          <a href="#tab_confirm" data-toggle="tab">
+            <span>确认操作</span>
+          </a>
+        </li>
+        <li *ngIf="_showTab[3]">
+          <a href="#tab_window" data-toggle="tab">
+            <span>弹出窗体</span>
+          </a>
+        </li>
+        <li *ngIf="_showTab[4]">
+          <a href="#tab_preview" data-toggle="tab">
             <span>设置预览</span>
           </a>
         </li>
       </ul>
     </div>
     <div class="portlet-body">
-
+      <cnst-property-nav [navsData]="_navsData"></cnst-property-nav>
       <div class="tab-content">
-        <div class="tab-pane fade active in" id="tabDataSource01">
-          <!--操作定义属性编辑器-->
-          <cnst-dynamic-form [configs]="_operationFormConfig.content" [configsTitle]="_operationFormConfig.titleHeader"></cnst-dynamic-form>
+        <div class="tab-pane fade active in" id="tab_operation">
+          &lt;!&ndash;操作定义属性编辑器&ndash;&gt;
+          <cnst-dynamic-form *ngIf="_content" (submit)="save($event)" [configs]="_content" [configsTitle]="_settingHeader"></cnst-dynamic-form>
         </div>
-        <div class="tab-pane fade" id="tabDataSource02">
+        &lt;!&ndash;根据操作定义中的操作类型动态加载下标签内容，并进行编辑&ndash;&gt;
+        &lt;!&ndash;SQL语句&ndash;&gt;
+        &lt;!&ndash;操作表单&ndash;&gt;
+        &lt;!&ndash;确认操作&ndash;&gt;
+        &lt;!&ndash;弹出窗体&ndash;&gt;
+        <div *ngIf="_showTab[0]" class="tab-pane fade" id="tab_sql">
 
         </div>
-        <!--根据操作定义中的操作类型动态加载一下标签内容，并进行编辑-->
-        <!--SQL语句-->
-        <!--操作表单-->
-        <!--确认操作-->
-        <!--弹出窗体-->
+        <div *ngIf="_showTab[1]" class="tab-pane fade" id="tab_form">
+
+        </div>
+        <div *ngIf="_showTab[2]" class="tab-pane fade" id="tab_confirm">
+
+        </div>
+        <div *ngIf="_showTab[3]" class="tab-pane fade" id="tab_window">
+
+        </div>
+        <div *ngIf="_showTab[4]" class="tab-pane fade" id="tab_preview">
+
+        </div>
       </div>
+      <div class="form-actions">
+        <button class="btn btn-success" (click)="submit($event)">
+          <i class="fa fa-save"> 保存</i>
+        </button>
+        <button class="btn btn-success" type="submit">
+          <i class="fa fa-undo"> 重置</i>
+        </button>
+      </div>
+    </div>
+  </div>-->
+  <div class="col-md-9">
+    <!--操作定义属性编辑器-->
+    <cnst-component-resolver [configTabs]="_configTabs"></cnst-component-resolver>
+    <div class="row">
+      <div class="col-md-12">
+        <button class="btn btn-success" (click)="save($event)">
+          <i class="fa fa-save"> 保存</i>
+        </button>
+        <button class="btn btn-success" type="submit">
+          <i class="fa fa-undo"> 重置</i>
+        </button>
+      </div>
+
     </div>
   </div>
 </div>
