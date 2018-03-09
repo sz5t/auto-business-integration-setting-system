@@ -27,7 +27,7 @@ import { OperationSettingComponent } from './operation-setting/operation-setting
 
 
 export const CHILDREN_ROUTES: Routes = [
-  {path: '', redirectTo: 'Login', pathMatch: 'full'},
+  {path: '', redirectTo: 'System', pathMatch: 'full'},
   {
     path: 'app/:id', component: ApplicationsComponent,
     // children: [
