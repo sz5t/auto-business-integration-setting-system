@@ -1,22 +1,23 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {ApiService} from '../../services/api.service';
-import {Configuration} from '../../framework/configuration';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {OnlineUser} from './online-user.model';
-import {ClientStorageService} from '../../services/client-storage.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ApiService} from '../../services/api.service';
 import {Broadcaster} from '../../broadcast/broadcaster';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ClientStorageService} from '../../services/client-storage.service';
+import {OnlineUser} from '../cn-login/online-user.model';
+import {Configuration} from '../../framework/configuration';
 import {environment} from '../../../environments/environment';
 declare let $: any;
 declare let MD5: any;
+
 @Component({
   selector: 'cn-login',
-  encapsulation: ViewEncapsulation.None,
-  templateUrl: './cn-login.component.html',
-  styleUrls: ['./cn-login.component.css']
+  encapsulation:ViewEncapsulation.None,
+  templateUrl: './cn-login-system.component.html',
+  styleUrls: ['./cn-login-system.component.css']
 })
+export class CnLoginSystemComponent implements OnInit {
 
-export class CnLoginComponent implements OnInit {
   user: FormGroup;
   onlineUser: OnlineUser;
   errorMessage;
@@ -28,16 +29,17 @@ export class CnLoginComponent implements OnInit {
               private router: Router,
               private activeRouter: ActivatedRoute,
               private broadcast: Broadcaster) {
-    environment.web_api = "http://syg:8016/eb43/Res/";
+
+    environment.web_api = "http://syg:8016/f277/Res/";
   }
 
   ngOnInit() {
-    this.clearConfig();
-    this.user = this.formBuilder.group({
-      userName: ['', [Validators.required]],
-      userPassword: ['', [Validators.required]]
-    });
-  }
+      this.clearConfig();
+      this.user = this.formBuilder.group({
+        userName: ['', [Validators.required]],
+        userPassword: ['', [Validators.required]]
+      });
+    }
 
   getOnlineUser() {
     this.onlineUser = new OnlineUser();
@@ -93,13 +95,13 @@ export class CnLoginComponent implements OnInit {
     }).then(commonCode => {
       return this.apiService.doGetLoadJson<any>(Configuration.configMenu_response)
         .toPromise();
-     /* // console.log('3', commonCode.Data);
-      return this.apiService.doGet2<any>(Configuration.appModule_response
-        + '?ProjId='
-      + this.onlineUser['ProjId']
-      + '&ParentId=In(\"\",null)'
-      + '&ApplyId=' + commonCode.Data[0]['Id'])
-      .toPromise();*/
+      /* // console.log('3', commonCode.Data);
+       return this.apiService.doGet2<any>(Configuration.appModule_response
+         + '?ProjId='
+       + this.onlineUser['ProjId']
+       + '&ParentId=In(\"\",null)'
+       + '&ApplyId=' + commonCode.Data[0]['Id'])
+       .toPromise();*/
     }).then(parentAppModuleConfig => {
       // console.log('4', parentAppModuleConfig.Data);
       // this.localConfig = JSON.parse(parentAppModuleConfig.Data[0].ConfigData);
@@ -147,14 +149,14 @@ export class CnLoginComponent implements OnInit {
      return this.apiService.doGet2<any>(Configuration.appPermission_response).toPromise();
      })*/
       .then(appPermission => {
-       // console.log('appPermission', appPermission);
+        // console.log('appPermission', appPermission);
         // 加载本地配置文件
         // const modules = {};
         // const funcs = {};
         // const remoteConfig = this.clientStorage.getSessionStorage('appModuleConfig');+this.onlineUser.UserId
         if(appPermission.Data==null)
         {
-          this.router.navigate(['/app/Login']).then(() => {
+          this.router.navigate(['/app/System']).then(() => {
             // 持久化本地配置文件
             // this.clientStorage.setSessionStorage('appModuleConfig', localConfig);
             this.broadcast.broadcast('loadConfig', 'start');
@@ -163,32 +165,32 @@ export class CnLoginComponent implements OnInit {
           });
         }
         else {
-        appPermission.Data
-          .FuncResPermission
-          .SubFuncResPermissions[0]
-          .SubFuncResPermissions[0]
-          .SubFuncResPermissions.forEach(permission => { // 模块权限
-          const p = this.fixModulePermission(permission.OpPermissions[0].Permission);
-          const navItem = this.localConfig.filter(item => item.title === permission.Name)[0];
-          if (navItem) {
-            navItem.type = p;
-          }
-          //console.log(permission.SubFuncResPermissions);
-          permission.SubFuncResPermissions.forEach(subFunc => { // 功能权限
-          //  console.log(subFunc);
-            const d = this.fixFuncPermission(subFunc.OpPermissions[0].Permission);
-            if (navItem && navItem.sub) {
-              const subItem = navItem.sub.filter(sub => sub.title === subFunc.Name)[0];
-              if (subItem) {
-                subItem.display = d;
-              }
+          appPermission.Data
+            .FuncResPermission
+            .SubFuncResPermissions[0]
+            .SubFuncResPermissions[0]
+            .SubFuncResPermissions.forEach(permission => { // 模块权限
+            const p = this.fixModulePermission(permission.OpPermissions[0].Permission);
+            const navItem = this.localConfig.filter(item => item.title === permission.Name)[0];
+            if (navItem) {
+              navItem.type = p;
             }
+            //console.log(permission.SubFuncResPermissions);
+            permission.SubFuncResPermissions.forEach(subFunc => { // 功能权限
+              //  console.log(subFunc);
+              const d = this.fixFuncPermission(subFunc.OpPermissions[0].Permission);
+              if (navItem && navItem.sub) {
+                const subItem = navItem.sub.filter(sub => sub.title === subFunc.Name)[0];
+                if (subItem) {
+                  subItem.display = d;
+                }
+              }
+            });
           });
-        });
-        this.clientStorage.setSessionStorage('opPermissions', appPermission.Data.OpPermissions);
-        this.clientStorage.setSessionStorage('appModuleConfig', this.localConfig);
-        return this.apiService.doGet2<any>(Configuration.dataPermission_response).toPromise();
-      }}).then(dataPermission => {
+          this.clientStorage.setSessionStorage('opPermissions', appPermission.Data.OpPermissions);
+          this.clientStorage.setSessionStorage('appModuleConfig', this.localConfig);
+          return this.apiService.doGet2<any>(Configuration.dataPermission_response).toPromise();
+        }}).then(dataPermission => {
       this.clientStorage.setSessionStorage('dataPermissions', dataPermission.Data);
       return this.apiService.doGet2<any>(
         Configuration.appConfig_resource,
@@ -198,7 +200,7 @@ export class CnLoginComponent implements OnInit {
         })
         .toPromise();
     }).then((appConfigData) => {
-       console.log(appConfigData.Data);
+      console.log(appConfigData.Data);
       // const appConfig =  JSON.parse(appConfigData.Data[0].Metadata);
       // this.clientStorage.setSessionStorage('appConfig', appConfig);
       this.router.navigate(['/app']).then(() => {
@@ -249,5 +251,6 @@ export class CnLoginComponent implements OnInit {
     this.clientStorage.clearCookies();
     this.clientStorage.clearLocalStorage();
     this.clientStorage.clearSessionStorage();
-  }
+    }
 }
+

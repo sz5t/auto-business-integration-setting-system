@@ -3,8 +3,10 @@ import {CommonModule} from '@angular/common';
 import {CnLoginComponent} from './cn-login/cn-login.component';
 import {RouterModule, Routes} from '@angular/router';
 import {ReactiveFormsModule} from '@angular/forms';
+import { CnLoginSystemComponent } from './cn-login-system/cn-login-system.component';
 const routes: Routes = [
-  {path: 'login', component: CnLoginComponent}
+  {path: 'Login', component: CnLoginComponent},
+  {path: 'System', component: CnLoginSystemComponent}
 ];
 @NgModule({
   imports: [
@@ -12,7 +14,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(routes)
   ],
-  declarations: [CnLoginComponent]
+  declarations: [CnLoginComponent, CnLoginSystemComponent]
 })
 export class CnLoginModule {
 }

@@ -1,4 +1,4 @@
-import {Component, HostBinding, OnInit, Type, ViewEncapsulation} from '@angular/core';
+import {Component, HostBinding, Input, OnInit, Type, ViewEncapsulation} from '@angular/core';
 import {TabItem} from './cn-page-tab.model';
 import {ClientStorageService} from '../../../services/client-storage.service';
 import {Router} from '@angular/router';
@@ -16,7 +16,7 @@ export class CnPageTabComponent implements OnInit {
   currentIndex: number = -1;
   tabList: TabItem[] = [];
   @HostBinding('class.component') _component = true;
-
+  @Input() longFlag : string;
   constructor(private clientStorage: ClientStorageService, private router: Router) {
 
   }
@@ -125,13 +125,24 @@ export class CnPageTabComponent implements OnInit {
   }
 
   logout() {
+
     const customerId = this.clientStorage.getCookies('customerId');
     $('#dialog_logout').modal('hide');
-    this.router.navigate([`/login/${customerId}`]).then(() => {
-      this.clientStorage.clearCookies();
-      this.clientStorage.clearSessionStorage();
-      this.clientStorage.clearLocalStorage();
-    });
+    if(this.longFlag =='Login') {
+      this.router.navigate([`Login`]).then(() => {
+        this.clientStorage.clearCookies();
+        this.clientStorage.clearSessionStorage();
+        this.clientStorage.clearLocalStorage();
+      });
+    }
+    else
+    {
+      this.router.navigate([`System`]).then(() => {
+        this.clientStorage.clearCookies();
+        this.clientStorage.clearSessionStorage();
+        this.clientStorage.clearLocalStorage();
+      });
+    }
   }
 
   handleTheme() {

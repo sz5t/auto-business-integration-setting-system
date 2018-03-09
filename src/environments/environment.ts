@@ -3,6 +3,12 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
+
 export const environment = {
-  production: false
+  production: false,
+  web_api: 'http://syg:8016/f277/Res/',
+  // getApi(parm1: string): string{
+  //   return parm1.search('Login')>0 ? 'http://syg:8016/eb43/Res/': 'http://syg:8016/f277/Res/';
+  // }
+
 };
