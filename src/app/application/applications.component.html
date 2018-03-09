@@ -1,11 +1,11 @@
 <div cn-layout></div>
 <div cn-header>
-  <cn-top-menu></cn-top-menu>
+  <cn-top-menu [appUser] = "appUser1" ></cn-top-menu>
 </div>
 <div cn-clear></div>
 <div cn-container>
   <cn-sidebar-tabs #sidebar [menu]="menu" (eventCallback)="addTab($event)"></cn-sidebar-tabs>
-  <cn-page-tab #tabs>
+  <cn-page-tab #tabs [longFlag]="loginFlag">
    <!-- <router-outlet name="breadcrumb"></router-outlet>
     <router-outlet></router-outlet>-->
   </cn-page-tab>

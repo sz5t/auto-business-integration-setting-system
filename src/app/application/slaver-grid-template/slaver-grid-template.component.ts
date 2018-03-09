@@ -3,6 +3,7 @@ import {Broadcaster} from '../../broadcast/broadcaster';
 import {Subscription} from 'rxjs/Subscription';
 import {GridViewTemplateComponent} from '../grid-view-template/grid-view-template.component';
 import {Configuration} from '../../framework/configuration';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'cn-slaver-grid-template',
@@ -39,7 +40,7 @@ export class SlaverGridTemplateComponent implements OnInit, OnDestroy {
             condition += propLink['slaveProp'] + '=' + data[propLink.masterProp] + '&';
           }
         }
-        const url = Configuration.web_api + filter.slaveClass + '?' + condition.substring(0, condition.length - 1);
+        const url = environment.web_api + filter.slaveClass + '?' + condition.substring(0, condition.length - 1);
         this.gridViewTemplateComponent.reload(url);
       }
     });

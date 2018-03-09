@@ -3,12 +3,12 @@ import {HttpClient, HttpHeaders, HttpParams, HttpRequest} from '@angular/common/
 import {Configuration} from '../framework/configuration';
 import {Observable} from 'rxjs/Observable';
 import {ClientStorageService} from './client-storage.service';
+import {environment} from '../../environments/environment';
 @Injectable()
 export class ApiService {
   headers = new HttpHeaders();
   _customerId;
   array$: Observable<any[]>;
-  object$: Observable<any>;
   constructor(
     private httpClient: HttpClient,
     private clientStorage: ClientStorageService) {
@@ -46,7 +46,7 @@ export class ApiService {
   }
 
   getCustomerConfig(url) {
-    return (Configuration.web_api + url).replace('{customerId}', this.customerId);
+    return (environment.web_api + url);//.replace('{customerId}', this.customerId);
   }
 
   doGetConfig(configUrl) {
@@ -222,3 +222,5 @@ export class ApiService {
     }
   }
 }
+
+

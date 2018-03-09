@@ -15,6 +15,7 @@ import {OpPermissionResolver} from '../../../../framework/resolver/op.permission
 import {ClientStorageService} from '../../../../services/client-storage.service';
 import {CnToastComponent, ToastType} from '../../../toast/cn-toast/cn-toast.component';
 import {ApiService} from '../../../../services/api.service';
+import {environment} from '../../../../../environments/environment';
 declare let $: any;
 @Component({
   selector: 'cn-dynamic-gridview',
@@ -252,7 +253,7 @@ export class CnDynamicGridviewComponent implements OnInit, ICnComponent, AfterVi
             condition += propLink['slaveProp'] + '=' + data[propLink.masterProp] + '&';
           }
         }
-        const url = (Configuration.web_api + filter.slaveClass + '?' + condition.substring(0, condition.length - 1)).replace('{customerId}', this._localStorage.getCookies('customerId'));
+        const url = (environment.web_api + filter.slaveClass + '?' + condition.substring(0, condition.length - 1)).replace('{customerId}', this._localStorage.getCookies('customerId'));
         this.reload(url);
       }
     });

@@ -1,5 +1,5 @@
 <ul class="nav navbar-nav pull-right">
-    <li cn-top-dropdown [cnDropdownName]="'通知'"
+  <li cn-top-dropdown [cnDropdownName]="'通知'"
                    [cnDropdownImg]="'icon-bell'"
                    [cnNotificationNum]="4"
                    [cnDropdownType]="'notification'"
@@ -19,11 +19,11 @@
       [cnDropdownType]="'tasks'"
       [cnNotificationState]="'等待处理'">
   </li>
-    <li class="dropdown dropdown-user">
+    <li class="dropdown dropdown-user" >
       <a href="javascript:" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
          data-close-others="true">
         <img alt="" class="img-circle" src="../assets/layouts/layout/img/avatar3_small.jpg" />
-        <span class="username username-hide-on-mobile"> Nike </span>
+        <span class="username username-hide-on-mobile" > {{appUser.Data.RealName}} </span>
         <i class="fa fa-angle-down"></i>
       </a>
       <ul class="dropdown-menu dropdown-menu-default">

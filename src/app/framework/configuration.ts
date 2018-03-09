@@ -2,21 +2,24 @@
  * Created by zhaoxinlei on 2017/10/9.
  */
 export class Configuration {
-  public static web_api_2 = 'http://192.168.8.8:8005/add8f868178b4cd18a10d45de7b8ebc8/Res/';f2771e4c90db29439e3c986d9859dc74
-  // public static web_api = 'http://192.168.8.8:8006/add8f868178b4cd18a10d45de7b8ebc8/Res/'; // 化建c20f9500ec047247ac070ce74e153e35
-  public static web_api = 'http://192.168.1.122:8006/{customerId}/Res/'; // 化建
-  // public static web_api = 'http://wbsm1.chinacloudapp.cn:8009/{customerId}/Res/';
-  public static web_platCustomer = 'add8f868178b4cd18a10d45de7b8ebc8';
-  public static commonCode_code = 'sinoforce_web';
-  public static validCode_resource = 'ValidCode';
+  // 配置平台：f277   运行平台：eb43
+
+
+  //配置平台
+  //  public static web_api = 'http://syg:8016/f277/Res/';
+  // public static commonCode_code = '0802485694b15944804043629bdbe1d2.FormTemplateConfig.1';
+  // public static appPermission_response = 'SinoForce.Data.AppPermission/Func.SinoForce客户端';
+
+  //运行平台
+  // public static web_api = 'http://syg:8016/eb43/Res/';
+
+  public static commonCode_code = '0802485694b15944804043629bdbe1d2.FormTemplateConfig.0';
+  public static appPermission_response = 'SinoForce.Data.AppPermission/Func.SinoForceWeb端';
+
   public static config_resource = '../assets/data/layout.json';
-  public static config2_resource = '../assets/data/layoutAsyn.json';
   public static onlineUser_resource = 'SinoForce.Data.OnlineUser';
   public static appUser_resource = 'SinoForce.Data.AppUser';
-  public static commonCode_resource = 'SinoForce.Data.CommonCode';
-  public static appModule_response = 'SinoForce.AppProject.AppModuleConfig';
-  public static appModuleTree_response = 'SinoForce.AppProject.AppModuleConfig/{parentId}/appModuleConfig';
-  public static appPermission_response = 'SinoForce.Data.AppPermission/Func.SinoForceWeb端';
+  public static commonCode_resource = 'SinoForce.Data.SysCommonCode';
   public static dataPermission_response = 'SinoForce.Data.AppPermission/Data';
   public static appConfig_resource = 'SinoForce.Data.AppConfigPack';
   public static configMenu_response = '../assets/data/menu.json';
@@ -25,6 +28,7 @@ export class Configuration {
   public static mock_api = 'http://category.cn';
 
   public static menuNavItemType = 'nav-item';
+
 
   public static AppPermissionType = {
     PERMITTED: 'Permitted',

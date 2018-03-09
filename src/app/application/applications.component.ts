@@ -10,6 +10,8 @@ import {ComponentEditingComponent} from './component-editing/component-editing.c
 import {ContextMenuComponent} from './context-menu/context-menu.component';
 import {DashBroadTemplateComponent} from './dash-broad-template/dash-broad-template.component';
 import {OperationSettingComponent} from "./operation-setting/operation-setting.component";
+import {Router, ActivatedRoute, ParamMap} from '@angular/router';
+import {environment} from '../../environments/environment';
 const components: { [type: string]: any } = {
   'layoutSetting': LayoutSettingComponent,
   'componentSetting': ComponentSettingComponent,
@@ -17,6 +19,8 @@ const components: { [type: string]: any } = {
   'contextMenu': ComponentEditingComponent,
   'operationSetting': OperationSettingComponent
 };
+
+
 declare let $: any;
 @Component({
   selector: 'cn-applications',
@@ -28,6 +32,7 @@ export class ApplicationsComponent implements OnInit, OnDestroy {
   @ViewChild('sidebar') sidebar: CnSidebarTabsComponent;
   @ViewChild('tabs') tabs: CnPageTabComponent;
   title = 'Sinoforce';
+  appUser1: any;
   name = 'sinoforce.com';
   site = 'http://www.sinoforce.com';
   copyright = 'sinoforce.com';
@@ -42,9 +47,23 @@ export class ApplicationsComponent implements OnInit, OnDestroy {
   broadcastObj: Subscription;
   loadTimer = 0;
   loopTimer;
+  loginFlag: string;
   constructor(private broadcast: Broadcaster,
-              private clientStorage: ClientStorageService) {
+              private clientStorage: ClientStorageService,
+              private route:Router,
+              private router:ActivatedRoute) {
+    this.loginFlag = this.router.snapshot.paramMap.get('id');
+    //console.log(environment.getApi(this.loginFlag));
+
+    this.appUser1=clientStorage.getCookies('appUser');
+
+    if(this.appUser1==null || this.appUser1==undefined)
+    {
+      this.route.navigate(['/Login']);
+    }
+
     this.menu = this.clientStorage.getSessionStorage('appModuleConfig');
+
     this.broadcastObj = broadcast.on<string>('loadConfig').subscribe(
       (result) => {
         if (result === 'start') {

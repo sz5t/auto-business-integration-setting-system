@@ -27,23 +27,23 @@ import { OperationSettingComponent } from './operation-setting/operation-setting
 
 
 export const CHILDREN_ROUTES: Routes = [
-  {path: '', redirectTo: 'login', pathMatch: 'full'},
+  {path: '', redirectTo: 'Login', pathMatch: 'full'},
   {
-    path: 'app', component: ApplicationsComponent,
-    children: [
-      {path: 'application-template/:name', component: ApplicationTemplateComponent},
-      {path: 'dash-broad', component: DashBroadTemplateComponent},
-      {path: 'grid-demo', component: GridDemoComponent},
-      {path: 'tree-demo', component: TreeDemoComponent},
-      {path: 'tabs-demo', component: TabsDemoComponent},
-      {path: 'form-demo', component: FormDemoComponent},
-      {path: 'timeline-demo', component: TimelineDemoComponent},
-      /*   {path: 'grid-view-master/:name', component: MasterTemplateComponent, canActivate: [LoginAuthService]},
-      {path: 'grid-view-master-slaver/:name', component: MasterSlaverTemplateComponent, canActivate: [LoginAuthService]},
-      {path: 'tree-grid/:name', component: TreeGridTemplateComponent, canActivate: [LoginAuthService]},
-       {path: 'form-grid/:name', component: FormGridTemplateComponent},*/
-      {path: 'breadcrumb/:id', component: CnBreadcrumbComponent, outlet: 'breadcrumb'}
-    ]
+    path: 'app/:id', component: ApplicationsComponent,
+    // children: [
+    //   {path: 'application-template/:name', component: ApplicationTemplateComponent},
+    //   {path: 'dash-broad', component: DashBroadTemplateComponent},
+    //   {path: 'grid-demo', component: GridDemoComponent},
+    //   {path: 'tree-demo', component: TreeDemoComponent},
+    //   {path: 'tabs-demo', component: TabsDemoComponent},
+    //   {path: 'form-demo', component: FormDemoComponent},
+    //   {path: 'timeline-demo', component: TimelineDemoComponent},
+    //   /*   {path: 'grid-view-master/:name', component: MasterTemplateComponent, canActivate: [LoginAuthService]},
+    //   {path: 'grid-view-master-slaver/:name', component: MasterSlaverTemplateComponent, canActivate: [LoginAuthService]},
+    //   {path: 'tree-grid/:name', component: TreeGridTemplateComponent, canActivate: [LoginAuthService]},
+    //    {path: 'form-grid/:name', component: FormGridTemplateComponent},*/
+    //   {path: 'breadcrumb/:id', component: CnBreadcrumbComponent, outlet: 'breadcrumb'}
+    // ]
   }
 ];
 

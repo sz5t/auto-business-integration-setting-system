@@ -2,6 +2,7 @@ import {Configuration, RenderColumnType} from '../configuration';
 import ColumnSettings = DataTables.ColumnSettings;
 import {Validators} from '@angular/forms';
 import {CommonUtility} from "../utility/common-utility";
+import {environment} from '../../../environments/environment';
 /**
  * Created by zhaoxinlei on 2017/10/26.
  */
@@ -66,7 +67,7 @@ export class MasterGridViewResolver {
   private _buildAjax() {
     return {
       url: (() => {
-        return (Configuration.web_api + this._viewCfg.columnConfigClass).replace('{customerId}', this._customerId);
+        return (environment.web_api + this._viewCfg.columnConfigClass).replace('{customerId}', this._customerId);
       })(),
       dataSrc: this._viewCfg.columnFilter,
       headers: {
@@ -91,7 +92,7 @@ export class MasterGridViewResolver {
 
     return {
       url: (() => {
-        return (Configuration.web_api + this._viewCfg.columnConfigClass + '?' + condition.substring(0, condition.length - 1)).replace('{customerId}', this._customerId);
+        return (environment.web_api + this._viewCfg.columnConfigClass + '?' + condition.substring(0, condition.length - 1)).replace('{customerId}', this._customerId);
       })(),
       dataSrc: this._viewCfg.columnFilter,
       headers: {
