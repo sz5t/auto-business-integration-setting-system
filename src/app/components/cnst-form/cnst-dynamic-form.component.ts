@@ -375,7 +375,7 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
         return { viewId: this._viewId, data: this.formatSubmitValue() };
       }
     } else {
-      return null;
+      return { viewId: this._viewId, data:null };
     }
 
   }
