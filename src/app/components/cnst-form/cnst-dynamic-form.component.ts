@@ -211,36 +211,36 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
    * 添加新行
    */
   addRow() {
-    if (this._saveType === 'grid_grid_child'){
-      if (this._parentId){
+    if (this._saveType === 'grid_grid_child') {
+      if (this._parentId) {
         //alert('创建记录');
       }
-      else{
+      else {
         alert('先选中主表记录，再新增');
         return;
       }
     }
 
-      const fieldIdentity = CommonUtility.uuID(5);
-      const conent = $.extend(true, [], this.ConfigsContent);
-      conent.forEach(Field => {
-        Field.name = fieldIdentity + '_' + Field.name;
+    const fieldIdentity = CommonUtility.uuID(5);
+    const conent = $.extend(true, [], this.ConfigsContent);
+    conent.forEach(Field => {
+      Field.name = fieldIdentity + '_' + Field.name;
+    });
+    this.configs.push(conent);
+    // this.configs = $.extend(true, [], this.configs);
+    this.ngChangesRow();
+
+    if (this.configsTitle.keyId) {
+      this.setValue(fieldIdentity + '_' + this.configsTitle.keyId, fieldIdentity);
+    }
+
+    if (this._formEvent['addRow']) {
+      this._formEvent['selectRow'].forEach(sendEvent => {
+        if (sendEvent.isRegister === true) {
+          this.subjectMessage.sendMessage({ type: 'relation' }, sendEvent.data);
+        }
       });
-      this.configs.push(conent);
-      // this.configs = $.extend(true, [], this.configs);
-      this.ngChangesRow();
-
-      if (this.configsTitle.keyId) {
-        this.setValue(fieldIdentity + '_' + this.configsTitle.keyId, fieldIdentity);
-      }
-
-      if (this._formEvent['addRow']) {
-        this._formEvent['selectRow'].forEach(sendEvent => {
-          if (sendEvent.isRegister === true) {
-            this.subjectMessage.sendMessage({ type: 'relation' }, sendEvent.data);
-          }
-        });
-      }
+    }
 
   }
 
@@ -307,16 +307,21 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
    * @param name
    */
   selectRowIdByControlName(name) {
-    if (this._formEvent['selectRow']) {
 
-      this._formEvent['selectRow'].forEach(sendEvent => {
-        if (sendEvent.isRegister === true) {
-          const receiver = { name: 'refreshAsChild', receiver: sendEvent.receiver, parentId: this.getControlValue(name) };
-          this.subjectMessage.sendMessage({ type: 'relation' }, receiver);
-        }
-      });
-
-    }
+    if(this._selectRow!=this.getControlValue(name)){
+      if (this._formEvent['selectRow']) {
+        
+              this._formEvent['selectRow'].forEach(sendEvent => {
+                if (sendEvent.isRegister === true) {
+                  const receiver = { name: 'refreshAsChild', receiver: sendEvent.receiver, parentId: this.getControlValue(name) };
+                  this.subjectMessage.sendMessage({ type: 'relation' }, receiver);
+                }
+              });
+        
+            }
+       this._selectRow=this.getControlValue(name);
+    } 
+   
   }
 
   /**
@@ -347,6 +352,7 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
     }
     else {
       this.configs = [];
+      this.ngChangesRow();
     }
   }
 
@@ -358,12 +364,12 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
     if (this._formType === 'form') {
       return { viewId: this._viewId, data: this.value };
     } else if (this._formType === 'formGroup') {
-     if (this._saveType === 'grid_grid_child'){
-      this.temporaryValueSave();
-      return { viewId: this._viewId, data: this._temporaryValue };
-     } else{
-      return { viewId: this._viewId, data: this.formatSubmitValue() };
-     }
+      if (this._saveType === 'grid_grid_child') {
+        this.temporaryValueSave(this._parentId);
+        return { viewId: this._viewId, data: this._temporaryValue };
+      } else {
+        return { viewId: this._viewId, data: this.formatSubmitValue() };
+      }
     } else {
       return null;
     }
@@ -371,7 +377,6 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
   }
 
   formatSubmitValue() {
-    debugger;
     const formJson = [];
     const formValue = this.value;
     const submitValue = [];
@@ -405,6 +410,8 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
     return submitValue;
   }
 
+  //记录选中行id
+  _selectRow='';
   // 作为子表时，主表id
   _parentId;
   // 临时存储值
@@ -441,10 +448,17 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
 
   /** 刷新，作为子表的刷新*/
   refreshAsChild(parentId?) {
-    // 1.将当前页面的值存储在临时变量里，且需要整理临时变量的数据
-    this.temporaryValueSave(parentId);
-    // 2. 读取出临时变量里属于主表当前关系的数据
-    this.temporaryValueLoad();
+
+    if (parentId === this._parentId) {
+      return;
+    }
+    else {
+      // 1.将当前页面的值存储在临时变量里，且需要整理临时变量的数据
+      this.temporaryValueSave(parentId);
+      // 2. 读取出临时变量里属于主表当前关系的数据
+      this.temporaryValueLoad();
+    }
+
   }
 
   /**
@@ -455,16 +469,16 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
     //1.找出临时变量里当前父节点的所有值，清空
     if (parentId) {
       if (this._temporaryValue) {
-        this._temporaryValue.forEach((element, index) => {
-          if (element.parentId === this._parentId) {//上一个操作的值
-            this._temporaryValue.splice(index, 1); //删除节点值
+        for (var i = 0; i < this._temporaryValue.length; i++) {
+          if (this._temporaryValue[i].parentId === this._parentId) {   //如果找到要被删除的数字所在的数组下标  
+            var num = this._temporaryValue.splice(i, 1);   //从i位置开始删除1个数字  
+            i = i - 1;    //解决方案  
           }
-        });
+        }
       }
     }
     //2.将当前页面的值，写进去
     const newValue = this.formatSubmitValue();
-    console.log(newValue);
     if (newValue) {
       newValue.forEach((element, index) => {
         element.parentId = this._parentId;
@@ -473,7 +487,7 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
 
     }
     if (parentId) {
-    this._parentId = parentId; //保存完值后，切换页面所属父对象的id标识值
+      this._parentId = parentId; //保存完值后，切换页面所属父对象的id标识值
     }
   }
 
@@ -493,11 +507,11 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
   }
 
   // 获取关系里的保存方式
-  getGrelation(){
+  getGrelation() {
     if (this.relation) {
       this.relation.forEach(element => {
-        if (element.relationType){
-          if (element.relationType === 'grid_grid_child'){
+        if (element.relationType) {
+          if (element.relationType === 'grid_grid_child') {
             this._saveType = 'grid_grid_child';
           }
         }
