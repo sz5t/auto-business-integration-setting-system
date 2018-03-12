@@ -6726,8 +6726,8 @@ Portlets
 /* Basic portlet */
 .portlet {
   margin-top: 0px;
-  margin-bottom: 25px;
-  padding: 0px;
+  margin-bottom: 25px;/*padding: 0px;*/
+
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
@@ -12268,7 +12268,8 @@ Custom tabs
   border: 0; }
 
 .portlet:not(.light) .tabbable-line {
-  padding-top: 15px; }
+  /*padding-top: 15px; */
+}
 
 .tabbable-line > .nav-tabs {
   border: none;
@@ -12310,7 +12311,8 @@ Custom tabs
   margin-top: 0;
   border: 0;
   border-top: 1px solid #eef1f5;
-  padding: 15px 0; }
+  padding-top: 10px;
+}
   .page-container-bg-solid .tabbable-line > .tab-content {
     border-top: 1px solid #dae2ea; }
   .portlet .tabbable-line > .tab-content {

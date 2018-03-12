@@ -1,6 +1,6 @@
 import {
   Component, OnInit, ViewChild, ElementRef, ViewEncapsulation, ViewContainerRef, ComponentFactory,
-  ComponentRef, ComponentFactoryResolver, OnDestroy, Type, Input, OnChanges, TemplateRef, Output, EventEmitter
+  ComponentRef, ComponentFactoryResolver, OnDestroy, Type, Input, OnChanges, TemplateRef, Output, EventEmitter ,ChangeDetectorRef
 } from '@angular/core';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { CnstPortletGridviewComponent } from '../cnst-portlet-gridview/cnst-portlet-gridview.component';
@@ -13,6 +13,7 @@ import { ICnstPortlet } from '../cnst-portlet';
 import {NodeTypes} from '../../data/TreeNodeTypes';
 import {CommonData} from '../../data/common-data';
 import {CommonUtility} from '../../framework/utility/common-utility';
+import {FixComponetLifehookService} from "../../services/fix-componet-lifehook.service";
 const components: { [type: string]: Type<ICnstPortlet> } = {
   grid_view: CnstPortletGridviewComponent,
   tree_view: CnstPortletTreeComponent,
@@ -24,9 +25,9 @@ const components: { [type: string]: Type<ICnstPortlet> } = {
   templateUrl: './cnst-portlet.component.html',
   styleUrls: ['./cnst-portlet.component.css']
 })
-export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet, OnDestroy, OnChanges{
+export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet, OnDestroy{
 
-  @Input() config;
+  @Input() config:any = {};
   @Input() tabContent;
   @Output() callback: EventEmitter<any> = new EventEmitter<any>();
   componentRef: ComponentRef<ICnstPortlet>;
@@ -226,8 +227,13 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                   ]
                 },
                 {
-                  viewId: 'viewId_form',
-                  data: []
+                  viewId: 'viewId_formLayout',
+                  data: [
+                    {
+                      formLayoutType: 'table',
+                      formLayoutNum: '1',
+                    }
+                  ]
                 },
                 {
                   viewId: 'viewId_confirm',
@@ -576,66 +582,61 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
     }
   };
   // 布局json信息
-
-  constructor(private resolver: ComponentFactoryResolver, private container1: ViewContainerRef) {
-   // if (this.config==undefined ||this.config=='undefined' ||this.config==null )
-   if (!this.config) {
-     this.config = this.portletJson;
-   }
-    if (!this.config.height) {
-      this.config.height = '300px';
-    }
-  }
-
-  ngOnChanges(): void {
-    /*if (this.config.viewCfg){
-      this.createComponent({name: this.config.viewCfg.component, value: ''});
-    }*/
+  private sub: any;
+  private counter = 0;
+  constructor(
+    private resolver: ComponentFactoryResolver,
+    private cdr: ChangeDetectorRef,
+    private fixHook: FixComponetLifehookService
+  ) {
+     this.sub = this.fixHook.emitter.subscribe(counter => this.counter = counter);
+     if (!this.config.height) {
+     this.config.height = '300px';
+     }
   }
 
   ngOnInit() {
-    // console.log('init',this.portlet);
   }
   ngAfterViewInit() {
-    this.menu.createMenu(this.portlet.nativeElement);
     App.initSlimScroll('.scroller');
-
   }
 
   createComponent(data?) {
-    if (data.name) {
-      if (data.name === 'Clear') {
-        if (this.componentRef) {
-          this.componentRef.destroy();
-        }
-      } else {
-        this.container.clear();
-        const factory = this.resolver.resolveComponentFactory<ICnstPortlet>(components[data.name]);
-        this.componentRef = this.container.createComponent(factory);
-        this.componentRef.instance.config = data.value;
-        if (data.name === 'grid_view') {
-          this.config.viewCfg = data.value.viewCfg;
-        }
-        if (data.name === 'tree_view') {
-          this.config.viewCfg = data.value.viewCfg;
-        }
-        if (data.name === 'tabs_view') {
-          this.config.tabs = data.value.tabs;
-          this.componentRef.instance.callback.subscribe(event => {
-            this.config.tabs.push(event);
-          });
-        }
-        if (this.tabContent) {
-          this.tabContent.viewCfg = data.value.viewCfg;
+    setTimeout(() => {
+      if (data.name) {
+        if (data.name === 'Clear') {
+          if (this.componentRef) {
+            this.componentRef.destroy();
+          }
+        } else {
+          this.container.clear();
+          const factory = this.resolver.resolveComponentFactory<ICnstPortlet>(components[data.name]);
+          this.componentRef = this.container.createComponent(factory);
+          this.componentRef.instance.config = data.value;
+          if (data.name === 'grid_view') {
+            this.config.viewCfg = data.value.viewCfg;
+          }
+          if (data.name === 'tree_view') {
+            this.config.viewCfg = data.value.viewCfg;
+          }
+          if (data.name === 'tabs_view') {
+            this.config.tabs = data.value.tabs;
+            this.componentRef.instance.callback.subscribe(event => {
+              this.config.tabs.push(event);
+            });
+          }
+          if (this.tabContent) {
+            this.tabContent.viewCfg = data.value.viewCfg;
+          }
         }
       }
-    }
-
+    });
     // this.componentRef.instance.type = type;
     //  this.componentRef.instance.output.subscribe((msg: string) => console.log(msg));
   }
 
   ngOnDestroy() {
+    this.sub.unsubscribe();
     if (this.componentRef) {
       this.componentRef.destroy();
     }

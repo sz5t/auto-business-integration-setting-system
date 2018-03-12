@@ -28,7 +28,7 @@ export class CnLoginComponent implements OnInit {
               private router: Router,
               private activeRouter: ActivatedRoute,
               private broadcast: Broadcaster) {
-    environment.web_api = "http://syg:8016/eb43/Res/";
+    environment.web_api = 'http://192.168.1.8:8016/eb43/Res/';
   }
 
   ngOnInit() {
@@ -152,7 +152,7 @@ export class CnLoginComponent implements OnInit {
         // const modules = {};
         // const funcs = {};
         // const remoteConfig = this.clientStorage.getSessionStorage('appModuleConfig');+this.onlineUser.UserId
-        if(appPermission.Data==null)
+        if (appPermission.Data == null)
         {
           this.router.navigate(['/app/Login']).then(() => {
             // 持久化本地配置文件

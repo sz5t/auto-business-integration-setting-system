@@ -1,4 +1,7 @@
-import { Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation, ComponentRef, ViewContainerRef, ComponentFactoryResolver, ComponentFactory } from '@angular/core';
+import {
+  Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation, ComponentRef, ViewContainerRef,
+  ComponentFactoryResolver, ComponentFactory, OnDestroy
+} from '@angular/core';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { ClientStorageService } from '../../services/client-storage.service';
 import { NodeTypes, SettingTreeNodeResource } from '../../data/TreeNodeTypes';
@@ -13,7 +16,7 @@ declare let $: any;
   templateUrl: './component-editing.component.html',
   styleUrls: ['./component-editing.component.css']
 })
-export class ComponentEditingComponent implements OnInit, AfterViewInit {
+export class ComponentEditingComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('selectFunc') selectFunc: ElementRef;
   @ViewChild('preview') preview: ElementRef;
   @ViewChild('editor') editor: ElementRef;
@@ -29,66 +32,12 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
 
   //@ViewChildren('blocks') blocks: QueryList<ElementRef>;
   // @ViewChildren('blocks') blocks: QueryList<CnDynamicBlockPortletComponent>;
-  _config;
+  _config = [];
   _json;
   nodeJson;
   cfgJson;
   attribute;//组件属性
   attributeData;//组件属性值
-  @Input() _treeData;
-  constructor(private clientService: ClientStorageService, private resolver: ComponentFactoryResolver) {
-    this._json = [
-      {
-        portletkey: 'portletkey01',
-        cliclass: 'col-md-3',
-        portlet: {
-          portletclass: 'portlet light bordered',
-          portlettitle: {//标题
-            iconclass: 'icon-speech', //小图标
-            captiontitle: '标题一'//,//标题文字
-            //captionhelper: "" //小标题
-          },
-          portletbody: {//布局里的组件内容
-            appendcomponent: ''
-          }
-
-        },
-        menuList: [
-          { id: 'AddTree', icon: 'icon-user', title: '新增树' },
-          { id: 'AddTable', icon: 'icon-user', title: '新表格' },
-          { id: 'AddTabs', icon: 'icon-user', title: '新Tab' },
-          { id: 'Clear', icon: 'icon-user', title: '清空' }
-        ]
-      },
-      {
-        portletkey: 'portletkey02',
-        cliclass: 'col-md-9',
-        portlet: {
-          portletclass: 'portlet light bordered',
-          portlettitle: {//标题
-            iconclass: 'icon-speech', //小图标
-            captiontitle: '标题一'//,//标题文字
-            //captionhelper: "" //小标题
-          },
-          portletbody: {//布局里的组件内容
-            appendcomponent: ''
-          }
-
-        },
-        menuList: [
-          { id: 'AddTree', icon: 'icon-user', title: '新增树' },
-          { id: 'AddTable', icon: 'icon-user', title: '新表格' },
-          { id: 'AddTabs', icon: 'icon-user', title: '新Tab' },
-          { id: 'Clear', icon: 'icon-user', title: '清空' }
-        ]
-      }
-    ];
-  }
-
-  ngOnInit() {
-
-  }
-
   //取名称
   ComponentDic = {
     grid_view: {
@@ -895,8 +844,61 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
 
     }
   };
-
   settingData;
+  @Input() _treeData;
+  constructor(private clientService: ClientStorageService, private resolver: ComponentFactoryResolver) {
+    this._json = [
+      {
+        portletkey: 'portletkey01',
+        cliclass: 'col-md-3',
+        portlet: {
+          portletclass: 'portlet light bordered',
+          portlettitle: {//标题
+            iconclass: 'icon-speech', //小图标
+            captiontitle: '标题一'//,//标题文字
+            //captionhelper: "" //小标题
+          },
+          portletbody: {//布局里的组件内容
+            appendcomponent: ''
+          }
+
+        },
+        menuList: [
+          { id: 'AddTree', icon: 'icon-user', title: '新增树' },
+          { id: 'AddTable', icon: 'icon-user', title: '新表格' },
+          { id: 'AddTabs', icon: 'icon-user', title: '新Tab' },
+          { id: 'Clear', icon: 'icon-user', title: '清空' }
+        ]
+      },
+      {
+        portletkey: 'portletkey02',
+        cliclass: 'col-md-9',
+        portlet: {
+          portletclass: 'portlet light bordered',
+          portlettitle: {//标题
+            iconclass: 'icon-speech', //小图标
+            captiontitle: '标题一'//,//标题文字
+            //captionhelper: "" //小标题
+          },
+          portletbody: {//布局里的组件内容
+            appendcomponent: ''
+          }
+
+        },
+        menuList: [
+          { id: 'AddTree', icon: 'icon-user', title: '新增树' },
+          { id: 'AddTable', icon: 'icon-user', title: '新表格' },
+          { id: 'AddTabs', icon: 'icon-user', title: '新Tab' },
+          { id: 'Clear', icon: 'icon-user', title: '清空' }
+        ]
+      }
+    ];
+  }
+
+  ngOnInit() {
+  }
+
+
   ngAfterViewInit() {
     this.preview.nativeElement.style.height = window.screen.availHeight + 'px';
     this.editor.nativeElement.style.height = window.screen.availHeight + 'px';
@@ -905,7 +907,6 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
       if (newValue) {
         const funcName = $(this.selectFunc.nativeElement).selectpicker('val');
         this.settingData = this.clientService.getLocalStorage(funcName);
-        console.log(this.settingData);
         this._config = this.settingData;
         const treeData = [{
           id: funcName, text: '配置结构树', icon: 'fa fa-folder icon-state-warning', li_attr: '', a_attr: '', parent: '#', readonly: false, data: null,
@@ -1079,10 +1080,9 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
             }
           }
         });
-        //点击选中树节点selected
+        // 点击选中树节点selected
         $tree.on('select_node.jstree', (e, data) => {
           //选中节点的时候，其实是同时去切换数据源和属性。
-          console.log('开始选择节点');
 
           if (data.node.data.type == 'component') {
             this.nodeJson = this.settingData[data.node.data.settings][data.node.data.setting].viewCfg;
@@ -1097,10 +1097,6 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
           this.cfgJson = this.ComponentDic[data.node.type];
           this.attribute = this.ComponentDic[data.node.type];//组件对应的属性
           //this.attributeData={}; 组件属性值
-          console.log('点击节点');
-          console.log(this.nodeJson);
-          console.log(this.cfgJson);
-
           this.createComponent(this.nodeJson, this.cfgJson);
           // console.log(data.node.data);
           //console.log($tree.jstree('get_path', data.node, ['/']));
@@ -1151,10 +1147,10 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
   }
 
   ngOnDestroy() {
-    this.componentRef.destroy()
+    //this.componentRef.destroy();
   }
 
-  //保存字段信息 
+  //保存字段信息
   saveField(data?) {
     //{Configs:fieldJson,ConfigsData:formJson}
     const fieldJson = [];
@@ -1203,5 +1199,6 @@ export class ComponentEditingComponent implements OnInit, AfterViewInit {
     this.nodeJson.parameterCfg = parameterJson;
     this.nodeJson.parameterCfgData = data;
   }
+
 
 }

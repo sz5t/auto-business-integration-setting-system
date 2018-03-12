@@ -57,6 +57,7 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
   }
 
   constructor(private formBuilder: FormBuilder, private subjectMessage: SubjectMessageService) {
+
   }
 
   ngOnInit() {
@@ -210,8 +211,8 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
    * 添加新行
    */
   addRow() {
-    if(this._saveType==='grid_grid_child'){
-      if(this._parentId){
+    if (this._saveType === 'grid_grid_child'){
+      if (this._parentId){
         //alert('创建记录');
       }
       else{
@@ -219,7 +220,7 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
         return;
       }
     }
-  
+
       const fieldIdentity = CommonUtility.uuID(5);
       const conent = $.extend(true, [], this.ConfigsContent);
       conent.forEach(Field => {
@@ -228,19 +229,19 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
       this.configs.push(conent);
       // this.configs = $.extend(true, [], this.configs);
       this.ngChangesRow();
-  
+
       if (this.configsTitle.keyId) {
         this.setValue(fieldIdentity + '_' + this.configsTitle.keyId, fieldIdentity);
       }
-  
-      if (this._formEvent["addRow"]) {
-        this._formEvent["selectRow"].forEach(sendEvent => {
+
+      if (this._formEvent['addRow']) {
+        this._formEvent['selectRow'].forEach(sendEvent => {
           if (sendEvent.isRegister === true) {
             this.subjectMessage.sendMessage({ type: 'relation' }, sendEvent.data);
           }
         });
       }
-    
+
   }
 
   changeRowFormValue(columnConfigsData) {
@@ -306,11 +307,11 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
    * @param name
    */
   selectRowIdByControlName(name) {
-    if (this._formEvent["selectRow"]) {
+    if (this._formEvent['selectRow']) {
 
-      this._formEvent["selectRow"].forEach(sendEvent => {
+      this._formEvent['selectRow'].forEach(sendEvent => {
         if (sendEvent.isRegister === true) {
-          const receiver = { name: 'refreshAsChild', receiver: sendEvent.receiver, parentId: this.getControlValue(name) }
+          const receiver = { name: 'refreshAsChild', receiver: sendEvent.receiver, parentId: this.getControlValue(name) };
           this.subjectMessage.sendMessage({ type: 'relation' }, receiver);
         }
       });
@@ -357,13 +358,12 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
     if (this._formType === 'form') {
       return { viewId: this._viewId, data: this.value };
     } else if (this._formType === 'formGroup') {
-     if(this._saveType==='grid_grid_child'){
+     if (this._saveType === 'grid_grid_child'){
       this.temporaryValueSave();
       return { viewId: this._viewId, data: this._temporaryValue };
      } else{
       return { viewId: this._viewId, data: this.formatSubmitValue() };
      }
-    
     } else {
       return null;
     }
@@ -371,6 +371,7 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
   }
 
   formatSubmitValue() {
+    debugger;
     const formJson = [];
     const formValue = this.value;
     const submitValue = [];
@@ -440,9 +441,9 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
 
   /** 刷新，作为子表的刷新*/
   refreshAsChild(parentId?) {
-    //1.将当前页面的值存储在临时变量里，切需要整理临时变量的数据
+    // 1.将当前页面的值存储在临时变量里，且需要整理临时变量的数据
     this.temporaryValueSave(parentId);
-    //2. 读取出临时变量里属于主表当前关系的数据
+    // 2. 读取出临时变量里属于主表当前关系的数据
     this.temporaryValueLoad();
   }
 
@@ -456,24 +457,25 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
       if (this._temporaryValue) {
         this._temporaryValue.forEach((element, index) => {
           if (element.parentId === this._parentId) {//上一个操作的值
-            this._temporaryValue.splice(index, 1);//删除节点值
+            this._temporaryValue.splice(index, 1); //删除节点值
           }
         });
       }
     }
     //2.将当前页面的值，写进去
     const newValue = this.formatSubmitValue();
+    console.log(newValue);
     if (newValue) {
       newValue.forEach((element, index) => {
-        element.parentId = this._parentId
-        this._temporaryValue.push(element);//删除节点值
+        element.parentId = this._parentId;
+        this._temporaryValue.push(element); //删除节点值
       });
 
     }
     if (parentId) {
-    this._parentId = parentId;//保存完值后，切换页面所属父对象的id标识值
+    this._parentId = parentId; //保存完值后，切换页面所属父对象的id标识值
     }
-  };
+  }
 
   /**
    * 主表切换时，子表动作
@@ -483,7 +485,7 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
     if (this._temporaryValue) {
       this._temporaryValue.forEach((element, index) => {
         if (element.parentId === this._parentId) {//上一个操作的值
-          formValue.push(element);//添加节点值
+          formValue.push(element); //添加节点值
         }
       });
     }
@@ -492,14 +494,16 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
 
   // 获取关系里的保存方式
   getGrelation(){
-
-    this.relation.forEach(element => {
-      if(element.relationType){
-        if(element.relationType==='grid_grid_child'){
-           this._saveType='grid_grid_child';
+    if (this.relation) {
+      this.relation.forEach(element => {
+        if (element.relationType){
+          if (element.relationType === 'grid_grid_child'){
+            this._saveType = 'grid_grid_child';
+          }
         }
-      }
-    });
+      });
+    }
+
   }
 
 

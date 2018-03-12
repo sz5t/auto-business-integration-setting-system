@@ -1,4 +1,4 @@
-import { Component, OnInit ,Input} from '@angular/core';
+import {Component, OnInit, Input, ViewEncapsulation} from '@angular/core';
 const colClsType: { [type: string]: IValueOffset } = {
   md: { value: 'col-md-', offset: 'col-md-offset-' },
   sm: { value: 'col-sm-', offset: 'col-sm-offset-' },
@@ -8,6 +8,7 @@ const colClsType: { [type: string]: IValueOffset } = {
 @Component({
   selector: 'cnst-page-resolver,[cnst-page-resolver]',
   templateUrl: './cnst-page-resolver.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrls: ['./cnst-page-resolver.component.css']
 })
 export class CnstPageResolverComponent implements OnInit {
@@ -54,7 +55,7 @@ export class CnstPageResolverComponent implements OnInit {
                 'relation' : [{
                   'relationViewId': '0002',
                   'relationSendContent': [
-                     { name: 'selectRow',sender:'0001',receiver:'0002', 
+                     { name: 'selectRow',sender:'0001',receiver:'0002',
                      relationData: {name: 'refreshAsChild'},data:[{pid:'id',cid:'parentId'}]}
                   ]
                 }],
@@ -389,7 +390,7 @@ export class CnstPageResolverComponent implements OnInit {
       this._viewPage=this.viewPage;
     }
     this.layoutPass();
-   
+
 
   }
 

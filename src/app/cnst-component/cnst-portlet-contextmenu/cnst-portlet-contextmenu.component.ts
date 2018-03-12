@@ -1,4 +1,7 @@
-import { Component, OnInit , Input, Output, ViewEncapsulation, EventEmitter, ElementRef, ViewChild} from '@angular/core';
+import {
+  Component, OnInit, Input, Output, ViewEncapsulation, EventEmitter, ElementRef, ViewChild,
+  OnChanges, AfterViewInit, ChangeDetectorRef
+} from '@angular/core';
 
 @Component({
   selector: 'cnst-portlet-contextmenu,[cnst-portlet-contextmenu]',
@@ -6,20 +9,30 @@ import { Component, OnInit , Input, Output, ViewEncapsulation, EventEmitter, Ele
   templateUrl: './cnst-portlet-contextmenu.component.html',
   styleUrls: ['./cnst-portlet-contextmenu.component.css']
 })
-export class CnstPortletContextmenuComponent implements OnInit {
-  @Input() menuItem: any[]; //菜单的数据
+export class CnstPortletContextmenuComponent implements OnInit, OnChanges, AfterViewInit {
+  @Input() menuItem:any = []; //菜单的数据
   @Input() parentContext; //位置
   @ViewChild('contextmenu') contextmenu: ElementRef;
   //menuItemValue: any;
   // 输出参数
   @Output() changeComponent = new EventEmitter();
 
-  constructor() { }
+  constructor(private cdr: ChangeDetectorRef) {
+  }
 
   ngOnInit() {
   }
   ngOnChanges(){
-
+    if(this.parentContext) {
+      this.createMenu(this.parentContext.nativeElement);
+    }
+  }
+  ngAfterViewInit() {
+    if(this.parentContext && this.menuItem){
+      setTimeout(() => {
+        this.createMenu(this.parentContext.nativeElement);
+      });
+    }
   }
   createMenu(parentContext) {
     if (parentContext){

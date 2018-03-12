@@ -1,12 +1,13 @@
 import {
   Component, OnInit, Input, ViewChild, ViewContainerRef, AfterViewInit, ComponentFactoryResolver,
-  ComponentFactory, ComponentRef, OnChanges
+  ComponentFactory, ComponentRef, OnChanges, ViewEncapsulation
 } from '@angular/core';
 import { CnstDynamicFormComponent } from '../../cnst-form/cnst-dynamic-form.component';
 import { SubjectMessageService } from "../../../services/subject-message.service";
 
 @Component({
   selector: 'cnst-component-resolver,[cnst-component-resolver]',
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './cnst-component-resolver.component.html',
   styleUrls: ['./cnst-component-resolver.component.css']
 })
@@ -74,7 +75,7 @@ export class CnstComponentResolverComponent implements OnInit, AfterViewInit, On
           if (relation.relationSendContent) {
             relation.relationSendContent.forEach(relationSend => {
              this.componentRef.instance.formSendMessage(relationSend);
-             
+
             });
 
           }
@@ -86,11 +87,11 @@ export class CnstComponentResolverComponent implements OnInit, AfterViewInit, On
                 case 'relation':
                 if(value.data.receiver===this.config.viewId){
                       this.componentRef.instance.formReceiveMessage(value.data);
-                   
+
                 }
                 break;
               }
-           
+
 
           });
           }
@@ -117,6 +118,7 @@ export class CnstComponentResolverComponent implements OnInit, AfterViewInit, On
   //赋值结构{viewId:,data:[]?{}}
 
   checkTab(event?, tab?: any) {
+
     this.configTabs.forEach(tabItem => {
       tabItem.active = '';
     });

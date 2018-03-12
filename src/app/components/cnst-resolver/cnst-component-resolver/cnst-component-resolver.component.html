@@ -1,14 +1,12 @@
-<div class="portlet light" *ngIf="configTabs">
-  <div class="portlet-title tabbable-line">
+<div class="portlet" *ngIf="configTabs">
+  <div class="portlet-body tabbable-line">
     <ul class="nav nav-tabs">
       <li *ngFor="let tab of configTabs" class="tabs.active {{tab.active}}">
-        <a href="#{{tab.id}}" data-toggle="tab">
-          <span (click)="checkTab($event,tab)">{{tab.title}}</span>
+        <a href="#{{tab.id}}" data-toggle="tab" (click)="checkTab($event,tab)">
+          <span>{{tab.title}}</span>
         </a>
       </li>
     </ul>
-  </div>
-  <div class="portlet-body ">
     <div class="tab-content">
       <div *ngFor="let tab of configTabs" class="tab-pane fade {{tab.active}}" id="{{tab.id}}">
         <cnst-component-resolver [config]="tab.viewCfg"></cnst-component-resolver>
@@ -19,7 +17,8 @@
 
 <div *ngIf="_isArray">
   <ng-container *ngFor="let configItem of config">
-    <cnst-component-resolver [config]="configItem"></cnst-component-resolver>
+    <div *ngIf="configItem.tabs"  cnst-component-resolver [configTabs]="configItem.tabs"></div>
+    <div *ngIf="!configItem.tabs" cnst-component-resolver [config]="configItem"></div>
   </ng-container>
 </div>
 <div>

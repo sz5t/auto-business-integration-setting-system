@@ -15,6 +15,7 @@ import {LoginAuthService} from './services/login-auth.service';
 import {MockDataService} from './services/mock-data.service';
 import { SafeHtmlPipe } from './pipe/safe-html.pipe';
 import {SubjectMessageService} from './services/subject-message.service';
+import {FixComponetLifehookService} from './services/fix-componet-lifehook.service';
 @NgModule({
   declarations: [
     AppComponent
@@ -39,7 +40,8 @@ import {SubjectMessageService} from './services/subject-message.service';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }
+    },
+    FixComponetLifehookService
   ],
   bootstrap: [AppComponent]
 })

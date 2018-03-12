@@ -30,7 +30,7 @@ export class CnLoginSystemComponent implements OnInit {
               private activeRouter: ActivatedRoute,
               private broadcast: Broadcaster) {
 
-    environment.web_api = "http://syg:8016/f277/Res/";
+    environment.web_api = "http://192.168.1.8:8016/f277/Res/";
   }
 
   ngOnInit() {
