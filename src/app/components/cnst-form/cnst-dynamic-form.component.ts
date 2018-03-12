@@ -293,7 +293,7 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
   setViewFormValue(viewId?, formValue?) {
     this._viewId = viewId;
     if (Array.isArray(formValue)) { // 列表赋值
-    
+
       this._formType = 'formGroup';
       this._temporaryValue = formValue;
       if(this._saveType != 'grid_grid_child'){
@@ -474,9 +474,9 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
     if (parentId) {
       if (this._temporaryValue) {
         for (var i = 0; i < this._temporaryValue.length; i++) {
-          if (this._temporaryValue[i].parentId === this._parentId) {   //如果找到要被删除的数字所在的数组下标  
-            var num = this._temporaryValue.splice(i, 1);   //从i位置开始删除1个数字  
-            i = i - 1;    //解决方案  
+          if (this._temporaryValue[i].parentId === this._parentId) {   //如果找到要被删除的数字所在的数组下标
+            var num = this._temporaryValue.splice(i, 1);   //从i位置开始删除1个数字
+            i = i - 1;    //解决方案
           }
         }
       }
@@ -525,6 +525,9 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
 
   }
 
+  subscribFormData() {
+    this.subjectMessage.sendMessage({ type: 'returnFormValue' }, this.getValueByViewId());
+  }
 
 
 }

@@ -58,7 +58,13 @@ export class CnstComponentResolverComponent implements OnInit, AfterViewInit, On
               }
               break;
             case 'getValue':
-              this.subjectMessage.sendMessage({ type: 'returnFormValue' }, this.componentRef.instance.getValueByViewId())
+              if (Array.isArray(value.data)) {
+                value.data.forEach(element => {
+                  if (element.viewId === this.config.viewId) {
+                    this.componentRef.instance.subscribFormData();
+                  }
+                });
+              }
               break;
           }
         });

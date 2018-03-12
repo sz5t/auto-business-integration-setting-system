@@ -529,7 +529,7 @@ export class CommonData {
                         }
                       ]
                     }
-                  ]
+                  ],
                 },
               ]
             },
@@ -557,7 +557,7 @@ export class CommonData {
                         'name': 'execSqlStr'
                       }
                     ]
-                  ]
+                  ],
                 }
               ]
             },
@@ -849,7 +849,7 @@ export class CommonData {
               'active': 'active in',
               'viewCfg': [
                 {
-                  'viewId': 'viewId_dialog',
+                  'viewId': 'viewId_confirm',
                   'component': 'form_view',
                   'formHeader': {
                     'header': [
@@ -935,7 +935,7 @@ export class CommonData {
               'active': '',
               'viewCfg': [
                 {
-                  'viewId': 'viewId_dialogSql',
+                  'viewId': 'viewId_confirmSql',
                   'component': 'form_view',
                   'formHeader': {
                     'header': [

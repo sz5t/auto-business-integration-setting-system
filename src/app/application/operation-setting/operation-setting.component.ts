@@ -1,4 +1,7 @@
-import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {
+  AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
 import {NodeTypes, SettingTreeNodeResource, OperationSettingNodeTypes} from '../../data/TreeNodeTypes';
 import {ClientStorageService} from '../../services/client-storage.service';
 import {CommonUtility} from '../../framework/utility/common-utility';
@@ -6,7 +9,7 @@ import {CnstDynamicFormComponent} from '../../components/cnst-form/cnst-dynamic-
 import {CommonData} from '../../data/common-data';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
-import {SubjectMessageService} from "../../services/subject-message.service";
+import {SubjectMessageService} from '../../services/subject-message.service';
 declare let $: any;
 @Component({
   selector: 'cn-operation-setting',
@@ -14,7 +17,7 @@ declare let $: any;
   templateUrl: './operation-setting.component.html',
   styleUrls: ['./operation-setting.component.css']
 })
-export class OperationSettingComponent implements OnInit, AfterViewInit {
+export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('selectFunc') selectFunc: ElementRef;
   @ViewChild('preview') preview: ElementRef;
   @ViewChild('editor') editor: ElementRef;
@@ -247,6 +250,8 @@ export class OperationSettingComponent implements OnInit, AfterViewInit {
   _showTab = [false, false, false, false, false];
   _configTabs = CommonData.OPERATION_TYPE_DATA;
 
+  _subscrib;
+  _viewIdCounter;
   dataStruct = [];
   constructor(private clientService: ClientStorageService, private subject: SubjectMessageService) {
 
@@ -373,6 +378,13 @@ export class OperationSettingComponent implements OnInit, AfterViewInit {
                       },
                     ]
                   },
+                  {
+                    viewId: 'viewId_confirm',
+                    data:
+                      {
+
+                      }
+                  },
                 ];
                 const newNode = this.createNode({
                   parentId: node.id,
@@ -407,9 +419,9 @@ export class OperationSettingComponent implements OnInit, AfterViewInit {
                     .tabs[pNodeData.tabIndex]
                     .viewCfg.toolbarsConfigData.splice(nd.index, 1);
                 }
-                if(parentNode.children.length >1){
+                if (parentNode.children.length > 1){
                   parentNode.children.forEach((child, ind) => {
-                    if(ind > nd.index){
+                    if (ind > nd.index){
                       this.$tree.jstree('get_node', child).data.index--;
                     }
                   });
@@ -477,6 +489,8 @@ export class OperationSettingComponent implements OnInit, AfterViewInit {
         });
       }
     });
+
+
   }
 
   createNode(info) {
@@ -501,22 +515,40 @@ export class OperationSettingComponent implements OnInit, AfterViewInit {
   }
 
   save(event) {
-    this.subject.getMessage().subscribe(formData => {
-      const oldData = this._currentNodeData[this._currentNodeDataIndex].data.btnData;
-      oldData.forEach(d => {
-        if(d.viewId === formData.data.viewId){
-          d.data = formData.data.data;
-          if(d.viewId === 'viewId_property') {
-            if (this._currentNodeId && this.$tree) {
-             const node = this.$tree.jstree('get_node', this._currentNodeId);
-             node.data.data = formData.data.data;
-             this.$tree.jstree('rename_node', node, formData.data.data.operationLabel);
-             }
+    this._viewIdCounter = {};
+    this._currentNodeData[this._currentNodeDataIndex].data.btnData.forEach(data => {
+      this._viewIdCounter[data.viewId] = false;
+    });
+    if(!this._subscrib) {
+      this._subscrib = this.subject.getMessage().subscribe(formData => {
+        if(formData.type.type === 'returnFormValue') {
+          const oldData = this._currentNodeData[this._currentNodeDataIndex].data.btnData;
+          oldData.forEach(d => {
+            if (d.viewId === formData.data.viewId){
+              d.data = formData.data.data;
+              if (d.viewId === 'viewId_property') {
+                if (this._currentNodeId && this.$tree) {
+                  const node = this.$tree.jstree('get_node', this._currentNodeId);
+                  node.data.data = formData.data.data;
+                  this.$tree.jstree('rename_node', node, formData.data.data.operationLabel);
+                }
+              }
+              this._viewIdCounter[d.viewId] = true;
+            }
+          });
+          let isFinished = true;
+          for(let counter in this._viewIdCounter) {
+            if(this._viewIdCounter[counter] === false){
+              isFinished = false;
+            }
+          }
+          if(isFinished === true) {
+            console.log('完成数据保存', this._config);
           }
         }
       });
-    });
-    this.subject.sendMessage({type: 'getValue'},{});
+    }
+    this.subject.sendMessage({type: 'getValue'}, this._currentNodeData[this._currentNodeDataIndex].data.btnData);
   }
 
   submit($event) {
@@ -550,5 +582,9 @@ export class OperationSettingComponent implements OnInit, AfterViewInit {
         this._showTab = [true, true, false, false, false];
         break;
     }
+  }
+
+  ngOnDestroy() {
+    this._subscrib.unsubscribe();
   }
 }

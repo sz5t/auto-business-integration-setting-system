@@ -236,7 +236,23 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                   ]
                 },
                 {
+                  viewId: 'viewId_formSql',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_formSqlParam',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_formConfig',
+                  data: []
+                },
+                {
                   viewId: 'viewId_confirm',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_confirmSql',
                   data: []
                 }
               ]
