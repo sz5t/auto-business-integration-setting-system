@@ -14,7 +14,7 @@ export class ClientStorageService {
   }
 
   private getKey(url: string, key: string): string  {
-    url = (url.startsWith('/app') ? url : '/app' +  url ) + key ;//+ $('#sysFlag').val()
+    url = (url.startsWith('/app') ? url : '/app' +  url ) + key + $('#sysFlag').val()
     console.log('clientStorageService', url.substring(5));
     return url.substring(5);
   }
