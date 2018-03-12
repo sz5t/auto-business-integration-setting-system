@@ -1,4 +1,4 @@
-import {Component, HostBinding, Input, OnInit, Type, ViewEncapsulation} from '@angular/core';
+import {Component, ComponentRef, HostBinding, Input, OnInit, Type, ViewEncapsulation} from '@angular/core';
 import {TabItem} from './cn-page-tab.model';
 import {ClientStorageService} from '../../../services/client-storage.service';
 import {Router} from '@angular/router';
@@ -51,8 +51,8 @@ export class CnPageTabComponent implements OnInit {
     const tabIndex = this.tabList.findIndex(item => {
       return item === tab;
     });
-    if(tabIndex){
-      tabIndex[0].component.destroy();
+    if(this.tabList[tabIndex]){
+      this.tabList[tabIndex].componentObj.destroy();
     }
     this.tabList.splice(tabIndex, 1);
     if(tabIndex === this.currentIndex) {
@@ -98,7 +98,7 @@ export class CnPageTabComponent implements OnInit {
     });
     const active = (index > -1) ? '' : 'active in';
     let tab: TabItem = new TabItem();
-    tab = this.createComponentInTab(newTab.name, active, newTab.title, newTab.component, newTab.unremovable, newTab.icon);
+    tab = this.createComponentInTab(newTab.name, active, newTab.title, newTab.component, newTab.componentObj, newTab.unremovable, newTab.icon);
     if (index === -1) {
       this.tabList.forEach(tabItem => {
         tabItem.active = '';
@@ -112,7 +112,8 @@ export class CnPageTabComponent implements OnInit {
     name: string,
     active?: string,
     title?: string,
-    component?: Type<any>,
+    component?: Type<ComponentRef<any>>,
+    componentObj?: ComponentRef<any>,
     unremovable?: boolean,
     icon?: string
   ): TabItem {
@@ -121,6 +122,7 @@ export class CnPageTabComponent implements OnInit {
       active: active,
       title: title,
       component: component,
+      componentObj: componentObj,
       unremovable: unremovable ? unremovable : true,
       icon: icon ? icon : '' };
   }

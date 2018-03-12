@@ -39,28 +39,30 @@ export class CnLoginComponent implements OnInit {
     });
   }
 
+
   getOnlineUser() {
+    this.errorMessage = '';
     this.onlineUser = new OnlineUser();
     this.onlineUser.Identify = this.user.value.userName;
     this.onlineUser.Password = MD5(this.user.value.userPassword);
-    const identityPromise = this.apiService.doPost2(Configuration.onlineUser_resource, this.onlineUser);
-    identityPromise.toPromise()
+    $('#sysFlag').val(this.user.value.userName);
+    this.apiService.doPost2(Configuration.onlineUser_resource, this.onlineUser)
+      .toPromise()
       .then(response => {
         this.onlineUser = {...response.Data};
-        if (response.Data.UserId && response.Data.UserId.length > 0) {
-
+        if (response.Data.Online) {
           this.entryProject();
-        } else {
+        }else {
           this.errorMessage = this.onlineUser.Message;
         }
       })
       .catch((error) => {
         this.onlineUser = null;
-        console.log(error);
       });
   }
 
   entryProject() {
+
     this.clientStorage.setCookies('customerId', this.customerId);
     this.clientStorage.setCookies('onlineUser', this.onlineUser);
     this.apiService.doGet2<any>(Configuration.appUser_resource + '/' + this.onlineUser.UserId )
@@ -71,7 +73,9 @@ export class CnLoginComponent implements OnInit {
           + '?Name=' + Configuration.commonCode_code + '&ApplyId=ApplyId' )
           .toPromise(); })
       .then(() => {
-        this.router.navigate(['/app/Login']).then(() => {
+        return this.apiService.doGet2<any>(Configuration.appPermission_response).toPromise();
+      }).then( () => {
+        this.router.navigate(['/app', this.router.url.substring(1)]).then(() => {
           this.broadcast.broadcast('loadConfig', 'start');
           this.broadcast.broadcast('loadConfig', 'processing');
           this.broadcast.broadcast('loadConfig', 'end');

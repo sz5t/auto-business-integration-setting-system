@@ -7,7 +7,7 @@ import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, ViewEncaps
   styleUrls: ['./dynamic-layout.component.css']
 })
 export class CnDynamicLayoutComponent implements OnInit {
-  @Input() config;
+  @Input() config = [];
   constructor() {
   }
 

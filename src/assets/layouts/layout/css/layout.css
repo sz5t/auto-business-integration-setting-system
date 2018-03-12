@@ -1869,7 +1869,7 @@ Theme Panel
   .page-content-white .theme-panel,
   .page-container-bg-solid .theme-panel {
     position: absolute;
-    margin-top: 50px;
+    /*margin-top: 50px;*/
     margin-right: 20px;
     right: 0; }
     .page-content-white .theme-panel > .toggler1,

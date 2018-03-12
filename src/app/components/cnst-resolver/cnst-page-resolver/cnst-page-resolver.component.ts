@@ -1,4 +1,4 @@
-import { Component, OnInit ,Input} from '@angular/core';
+import {Component, OnInit, Input, ViewEncapsulation} from '@angular/core';
 const colClsType: { [type: string]: IValueOffset } = {
   md: { value: 'col-md-', offset: 'col-md-offset-' },
   sm: { value: 'col-sm-', offset: 'col-sm-offset-' },
@@ -8,6 +8,7 @@ const colClsType: { [type: string]: IValueOffset } = {
 @Component({
   selector: 'cnst-page-resolver,[cnst-page-resolver]',
   templateUrl: './cnst-page-resolver.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrls: ['./cnst-page-resolver.component.css']
 })
 export class CnstPageResolverComponent implements OnInit {
@@ -50,23 +51,33 @@ export class CnstPageResolverComponent implements OnInit {
             'active': 'active in',
             'viewCfg': [
               {
+                'viewId':'0001',
+                'relation' : [{
+                  'relationViewId': '0002',
+                  'relationSendContent': [
+                     { name: 'selectRow',sender:'0001',receiver:'0002',
+                     relationData: {name: 'refreshAsChild'},data:[{pid:'id',cid:'parentId'}]}
+                  ]
+                }],
                 'component': 'form_view',
                 'formHeader': {
                   'header': [
-                    { title: '编号', width: 'auto' },
+                    { title: '编号', width: '0px' },
                     { title: 'SQL语句', width: 'auto' },
                     { title: '执行方式', width: 'auto' },
                     { title: '执行状态', width: 'auto' },
                   ],
                   'deleteButton': {
                     'show': true
-                  }
+                  },
+                  'addButton':{},
+                  'keyId':'id'
                 },
                 'formContents': [
                   {
                     'type': 'input',
                     'inputType': 'text',
-                    'name': 'execSqlId'
+                    'name': 'id'
                   },
                   {
                     'type': 'input',
@@ -110,6 +121,13 @@ export class CnstPageResolverComponent implements OnInit {
                 ]
               },
               {
+                'viewId':'0002',
+                'relation' : [{
+                  'relationViewId': '0001',
+                  'relationType':'grid_grid_child',
+                  'relationReceiveContent':[]
+                }
+              ],
                 'component': 'form_view',
                 'formHeader': {
                   'header': [
@@ -119,11 +137,12 @@ export class CnstPageResolverComponent implements OnInit {
                     { title: '为空取值', width: 'auto' },
                     { title: '参数类型', width: 'auto' },
                     { title: '系统参数', width: 'auto' },
-                    { title: '取值或赋值字段名', width: 'auto' }
+                    { title: '父节点id', width: 'auto' }
                   ],
                   'deleteButton': {
                     'show': true
-                  }
+                  },
+                  'addButton':{}
                 },
                 'formContents':[
                   {
@@ -224,7 +243,7 @@ export class CnstPageResolverComponent implements OnInit {
                   {
                     'type': 'input',
                     'inputType': 'text',
-                    'name': 'paramValueField'
+                    'name': 'parentId'
                   },
                 ]
               }
@@ -371,7 +390,7 @@ export class CnstPageResolverComponent implements OnInit {
       this._viewPage=this.viewPage;
     }
     this.layoutPass();
-   
+
 
   }
 
@@ -382,9 +401,9 @@ export class CnstPageResolverComponent implements OnInit {
       row.forEach(col => {//布局行内列
         if (Array.isArray(col)) {//布局行内列内行
           col.forEach(colRow => {
-            console.log('列内行');
+            //console.log('列内行');
             colRow.forEach(colRowCol => {
-              console.log('列内行列，二级嵌套列');
+            //  console.log('列内行列，二级嵌套列');
               if (colRowCol.size) {
                 let colCls = '';
                 for (var key in colRowCol.size) {
@@ -406,7 +425,7 @@ export class CnstPageResolverComponent implements OnInit {
           });
         }
         else { //渲染具体列
-          console.log('列');
+         // console.log('列');
           if (col.size) {
             let colCls = '';
             for (var key in col.size) {
@@ -427,7 +446,7 @@ export class CnstPageResolverComponent implements OnInit {
       });
     });
 
-    console.log('页面布局', this._viewPage);
+    //console.log('页面布局', this._viewPage);
   }
 
 

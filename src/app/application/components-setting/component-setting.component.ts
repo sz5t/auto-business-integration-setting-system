@@ -1,5 +1,5 @@
 import {
-  AfterViewInit, Component, ContentChildren, ElementRef, OnInit, QueryList, ViewChild, ViewChildren,
+  AfterViewInit, ChangeDetectorRef, Component, ContentChildren, ElementRef, OnInit, QueryList, ViewChild, ViewChildren,
   ViewEncapsulation
 } from '@angular/core';
 import {ClientStorageService} from '../../services/client-storage.service';
@@ -23,13 +23,15 @@ export class ComponentSettingComponent implements OnInit, AfterViewInit {
   @ViewChild('settingTree') settingTree: ElementRef;
 
   @ViewChildren('blocks') blocks: QueryList<CnDynamicBlockPortletComponent>;
-  _config;
+  _config = [];
 
-  constructor(private clientService: ClientStorageService) {}
+  constructor(private clientService: ClientStorageService, private cdr: ChangeDetectorRef) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   ngAfterViewInit () {
+
    /* const validHeight = document.body.scrollHeight - 300;
     this.preview.nativeElement.style.height = validHeight + 'px';
     this.editor.nativeElement.style.height = validHeight + 'px';*/
@@ -40,6 +42,7 @@ export class ComponentSettingComponent implements OnInit, AfterViewInit {
         const funcName = $(this.selectFunc.nativeElement).selectpicker('val');
         const settingData = this.clientService.getLocalStorage(funcName);
         this._config = settingData;
+        //setTimeout(() => {this._config = settingData; this.cdr.reattach();});
         /* const treeData = [{
           id: funcName, text: '布局结构树', icon: 'fa fa-folder icon-state-warning', li_attr: '', a_attr: '', parent: '#', readonly: false, value: null,
           state: {

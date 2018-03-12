@@ -1,6 +1,6 @@
 import {
   OnChanges, AfterViewInit, Component, ElementRef, EventEmitter, OnInit, QueryList, ViewChild, ViewChildren,
-  ViewEncapsulation
+  ViewEncapsulation, ChangeDetectorRef
 } from '@angular/core';
 import {CnDynamicFieldsDirective} from '../../components/dynamic/dynamic-component/cn-dynamic-form/cn-dynamic-fields.directive';
 import {FormBuilder, FormGroup} from '@angular/forms';
@@ -23,7 +23,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
   index = 0;
   _showMore = false;
   _form: FormGroup;
-  _config;
+  _config = [];
   _formConfigs: any[] = [];
   _configs = {
     'single': [
@@ -987,7 +987,7 @@ export class LayoutSettingComponent implements OnInit , AfterViewInit, OnChanges
     return this._form.value;
   }
 
-  constructor(private formBuilder: FormBuilder,private clientStorage: ClientStorageService) {
+  constructor(private formBuilder: FormBuilder,private clientStorage: ClientStorageService, private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {

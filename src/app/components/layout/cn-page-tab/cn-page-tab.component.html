@@ -134,25 +134,25 @@
 <!-- <div class="note note-info">
    <p> A black page template with a minimal dependency assets to use as a base for any custom page you create </p>
  </div>-->
-<div class="portlet light">
-  <div class="portlet-body">
-    <ul class="nav nav-tabs">
-      <li *ngFor="let tab of tabList" class="{{tab.active}}">
-        <a href="#{{tab.name}}" (click)="setActiveTabByName(tab.name)" data-toggle="tab" class="">
-          <span class="{{tab.icon}} {{tab.color}}"></span>
-          <span class="{{tab.color}}">{{tab.title}} </span>
-          <span *ngIf="tab.unremovable" (click)="closeTab($event,tab)"><i class="fa fa-remove"></i></span>
-        </a>
-      </li>
-    </ul>
-    <div class="tab-content">
-      <div *ngFor="let tabContent of tabList" class="tab-pane fade {{tabContent.active}}" id="{{tabContent.name}}">
-        <ng-container cnPageTabContainer [tabItem]="tabContent"
-        ></ng-container>
+  <div class="row">
+    <div class="col-md-12">
+      <ul class="nav nav-tabs">
+        <li *ngFor="let tab of tabList" class="{{tab.active}}">
+          <a href="#{{tab.name}}" (click)="setActiveTabByName(tab.name)" data-toggle="tab" class="">
+            <span class="{{tab.icon}} {{tab.color}}"></span>
+            <span class="{{tab.color}}">{{tab.title}} </span>
+            <span *ngIf="tab.unremovable" (click)="closeTab($event,tab)"><i class="fa fa-remove"></i></span>
+          </a>
+        </li>
+      </ul>
+      <div class="tab-content">
+        <div *ngFor="let tabContent of tabList" class="tab-pane fade {{tabContent.active}}" id="{{tabContent.name}}">
+          <ng-container cnPageTabContainer [tabItem]="tabContent"
+          ></ng-container>
+        </div>
       </div>
     </div>
   </div>
-</div>
 <div class="modal fade" id="dialog_logout" tabindex="-1" role="basic" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
