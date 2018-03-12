@@ -293,9 +293,13 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
   setViewFormValue(viewId?, formValue?) {
     this._viewId = viewId;
     if (Array.isArray(formValue)) { // 列表赋值
-      this.setRowChanges(formValue);
+    
       this._formType = 'formGroup';
       this._temporaryValue = formValue;
+      if(this._saveType != 'grid_grid_child'){
+        this.setRowChanges(formValue);
+      }
+
     } else { // 表单赋值
       this.setFormValue(formValue);
       this._formType = 'form';
@@ -308,20 +312,20 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
    */
   selectRowIdByControlName(name) {
 
-    if(this._selectRow!=this.getControlValue(name)){
+    if (this._selectRow != this.getControlValue(name)) {
       if (this._formEvent['selectRow']) {
-        
-              this._formEvent['selectRow'].forEach(sendEvent => {
-                if (sendEvent.isRegister === true) {
-                  const receiver = { name: 'refreshAsChild', receiver: sendEvent.receiver, parentId: this.getControlValue(name) };
-                  this.subjectMessage.sendMessage({ type: 'relation' }, receiver);
-                }
-              });
-        
-            }
-       this._selectRow=this.getControlValue(name);
-    } 
-   
+
+        this._formEvent['selectRow'].forEach(sendEvent => {
+          if (sendEvent.isRegister === true) {
+            const receiver = { name: 'refreshAsChild', receiver: sendEvent.receiver, parentId: this.getControlValue(name) };
+            this.subjectMessage.sendMessage({ type: 'relation' }, receiver);
+          }
+        });
+
+      }
+      this._selectRow = this.getControlValue(name);
+    }
+
   }
 
   /**
@@ -411,7 +415,7 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
   }
 
   //记录选中行id
-  _selectRow='';
+  _selectRow = '';
   // 作为子表时，主表id
   _parentId;
   // 临时存储值
@@ -476,15 +480,16 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
           }
         }
       }
-    }
-    //2.将当前页面的值，写进去
-    const newValue = this.formatSubmitValue();
-    if (newValue) {
-      newValue.forEach((element, index) => {
-        element.parentId = this._parentId;
-        this._temporaryValue.push(element); //删除节点值
-      });
 
+      //2.将当前页面的值，写进去
+      const newValue = this.formatSubmitValue();
+      if (newValue) {
+        newValue.forEach((element, index) => {
+          element.parentId = this._parentId;
+          this._temporaryValue.push(element); //删除节点值
+        });
+
+      }
     }
     if (parentId) {
       this._parentId = parentId; //保存完值后，切换页面所属父对象的id标识值
