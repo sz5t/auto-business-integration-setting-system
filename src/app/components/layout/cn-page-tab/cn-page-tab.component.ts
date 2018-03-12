@@ -4,6 +4,7 @@ import {ClientStorageService} from '../../../services/client-storage.service';
 import {Router} from '@angular/router';
 import {App} from '../cn-layout/cn-layout.component';
 import {Layout} from '../cn-sidebar/cn-sidebar.component';
+import {environment} from '../../../../environments/environment';
 declare let $: any;
 @Component({
   selector: 'cn-page-tab',
@@ -125,24 +126,13 @@ export class CnPageTabComponent implements OnInit {
   }
 
   logout() {
-
-    const customerId = this.clientStorage.getCookies('customerId');
+    console.log(this.clientStorage.getCookies('onlineUser'));
     $('#dialog_logout').modal('hide');
-    if(this.longFlag =='Login') {
-      this.router.navigate([`Login`]).then(() => {
+      this.router.navigate([this.longFlag]).then(() => {
         this.clientStorage.clearCookies();
         this.clientStorage.clearSessionStorage();
         this.clientStorage.clearLocalStorage();
       });
-    }
-    else
-    {
-      this.router.navigate([`System`]).then(() => {
-        this.clientStorage.clearCookies();
-        this.clientStorage.clearSessionStorage();
-        this.clientStorage.clearLocalStorage();
-      });
-    }
   }
 
   handleTheme() {

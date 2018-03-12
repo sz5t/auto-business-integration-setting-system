@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {CookiesStorageService, LocalStorageService, SessionStorageService} from 'ngx-store';
 import {Router} from "@angular/router";
 
+
 @Injectable()
 export class ClientStorageService {
 
@@ -13,10 +14,10 @@ export class ClientStorageService {
   }
 
   private getKey(url: string, key: string): string  {
-    url = (url.startsWith('/app') ? url : '/app'+ url)+ key;
-    console.log(url.substring(5));
+    url = (url.startsWith('/app') ? url : '/app' +  url ) + key ;//+ $('#sysFlag').val()
+    console.log('clientStorageService', url.substring(5));
     return url.substring(5);
-  }''
+  }
 
   public setCookies(key, data) {
     this.cookiesStorage.set(this.getKey(this.router.url, key), data, new Date(new Date().getTime() + 24 * 60 * 60 * 1000));

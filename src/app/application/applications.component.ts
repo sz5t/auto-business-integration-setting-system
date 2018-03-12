@@ -9,9 +9,12 @@ import {ComponentSettingComponent} from './components-setting/component-setting.
 import {ComponentEditingComponent} from './component-editing/component-editing.component';
 import {ContextMenuComponent} from './context-menu/context-menu.component';
 import {DashBroadTemplateComponent} from './dash-broad-template/dash-broad-template.component';
-import {OperationSettingComponent} from "./operation-setting/operation-setting.component";
+import {OperationSettingComponent} from './operation-setting/operation-setting.component';
 import {Router, ActivatedRoute, ParamMap} from '@angular/router';
 import {environment} from '../../environments/environment';
+import {ApiService} from '../services/api.service';
+import {Configuration} from '../framework/configuration';
+
 const components: { [type: string]: any } = {
   'layoutSetting': LayoutSettingComponent,
   'componentSetting': ComponentSettingComponent,
@@ -44,26 +47,43 @@ export class ApplicationsComponent implements OnInit, OnDestroy {
     user: 'user'
   };
   menu: any[];
+  menus: any[];
   broadcastObj: Subscription;
   loadTimer = 0;
   loopTimer;
   loginFlag: string;
-  constructor(private broadcast: Broadcaster,
+  constructor(
+              private broadcast: Broadcaster,
+              private apiService: ApiService,
               private clientStorage: ClientStorageService,
-              private route:Router,
-              private router:ActivatedRoute) {
-    this.loginFlag = this.router.snapshot.paramMap.get('id');
-    //console.log(environment.getApi(this.loginFlag));
+              private route: Router,
+              private router: ActivatedRoute,
+              ) {
+     this.router.params.subscribe(param => this.loginFlag = param['id'] );
+     console.log(this.loginFlag);
+    environment.web_api = environment.setHost(this.loginFlag);
+    console.log('app组件' , this.loginFlag , environment.web_api , $('#sysFlag').val());
 
-    this.appUser1=clientStorage.getCookies('appUser');
 
-    if(this.appUser1==null || this.appUser1==undefined)
+    this.appUser1 = clientStorage.getCookies('appUser');
+    if(this.appUser1 == null || this.appUser1 === undefined)
     {
-      this.route.navigate(['/Login']);
+      switch(this.loginFlag)
+      {
+        case 'Login':
+          this.route.navigate(['/Login']);
+          break;
+        case 'System':
+          this.route.navigate(['/System']);
+          break;
+        default:
+          this.route.navigate(['/System']);
+      }
     }
 
-    this.menu = this.clientStorage.getSessionStorage('appModuleConfig');
 
+    this.apiService.doGetLoadJson<any>(environment.resource_menu).toPromise().then(parentAppModuleConfig => {
+      this.menu = parentAppModuleConfig; });
     this.broadcastObj = broadcast.on<string>('loadConfig').subscribe(
       (result) => {
         if (result === 'start') {

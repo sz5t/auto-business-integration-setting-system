@@ -6,9 +6,17 @@
 
 export const environment = {
   production: false,
-  web_api: 'http://syg:8016/f277/Res/',
-  // getApi(parm1: string): string{
-  //   return parm1.search('Login')>0 ? 'http://syg:8016/eb43/Res/': 'http://syg:8016/f277/Res/';
-  // }
-
-};
+  web_api: '',
+  resource_menu:'',
+  setHost(parm1: string): string{
+    this.web_api = (parm1.indexOf( 'Login') > 0 || parm1 === 'Login') ? 'http://syg:8016/eb43/Res/' : 'http://syg:8016/f277/Res/';
+    // console.log(parm1,this.web_api,$('#sysFlag').val(),'环境变量配置页面');
+    if(parm1.indexOf( 'Login') > 0 || parm1 === 'Login') {
+      this.resource_menu = '../assets/data/menuAnalyze.json';
+      return '运行';
+      }else {
+      this.resource_menu = '../assets/data/menu.json';
+      return '配置';
+      }
+    }
+  };

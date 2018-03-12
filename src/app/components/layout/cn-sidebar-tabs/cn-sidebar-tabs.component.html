@@ -19,10 +19,10 @@
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Search...">
           <span class="input-group-btn">
-                                        <a href="javascript:;" class="btn submit">
-                                            <i class="icon-magnifier"></i>
-                                        </a>
-                                    </span>
+              <a href="javascript:;" class="btn submit">
+                  <i class="icon-magnifier"></i>
+              </a>
+          </span>
         </div>
       </form>
       <!-- END RESPONSIVE QUICK SEARCH FORM -->
@@ -31,17 +31,17 @@
     <li *ngFor="let m of menu" class="{{m.type}}" routerLinkActive="active">
     <a *ngIf="m.type==='nav-item'" href="javascript:;" class="nav-link nav-toggle">
       <i class="{{m.icon}}"></i>
-      <span class="title">{{m.title}}</span>
+      <span class="title">{{m.title}}+'1'</span>
       <span class="selected"></span>
       <span class="arrow"></span>
     </a>
-    <span *ngIf="m.type==='heading'">{{m.title}}</span>
+    <span *ngIf="m.type==='heading'">{{m.title}}+'1'</span>
     <ul *ngIf="m.sub && m.sub.length > 0" class="sub-menu">
       <li *ngFor="let s of m.sub" class="nav-item" routerLinkActive="active">
         <a *ngIf="s.display == true && s.sub.length == 0  " (click)="addTab(s)"
            class="nav-link ">
           <i class="{{s.icon}}"></i>
-          <span class="title">{{s.title}}</span>
+          <span class="title">{{s.title}}+'2'</span>
         </a>
         <a *ngIf="s.display == true && s.sub.length > 0 " (click)="addTab(s)"
            class="nav-link nav-toggle ">
@@ -52,7 +52,7 @@
             <a *ngIf="t.display == true" (click)="addTab(t)"
                class="nav-link ">
               <i class="{{t.icon}}"></i>
-              <span class="title">{{t.title}}</span>
+              <span class="title">{{t.title}}+'3'</span>
 
             </a>
 

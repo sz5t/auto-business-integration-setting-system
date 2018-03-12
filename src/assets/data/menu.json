@@ -1,6 +1,59 @@
 [
   {
     "icon": "icon-puzzle",
+    "title": "系统管理",
+    "type": "nav-item",
+    "active": false,
+    "sub": [
+      {
+        "name": "appUserSetting",
+        "icon": "fa fa-plus",
+        "title": "用户管理",
+        "description": "用户管理",
+        "display": true,
+        "router": "appuser-setting",
+        "sub": []
+      },
+      {
+        "name": "orgSetting",
+        "icon": "fa fa-plus",
+        "title": "组织机构管理",
+        "description": "组织机构管理",
+        "display": true,
+        "router": "org-Setting",
+        "sub": []
+      },
+      {
+        "name": "roleSetting",
+        "icon": "fa fa-cogs",
+        "title": "角色管理",
+        "description": "角色管理",
+        "display": true,
+        "router": "role-setting",
+        "sub": []
+      },
+      {
+        "name": "moduleSetting",
+        "icon": "fa fa-plus",
+        "title": "模块管理",
+        "description": "模块管理",
+        "display": true,
+        "router": "module-Editing",
+        "sub": []
+      },
+      {
+        "name": "baseSetting",
+        "icon": "fa fa-cogs",
+        "title": "基础信息",
+        "description": "基础信息",
+        "display": true,
+        "router": "base-Setting",
+        "sub": []
+      }
+    ]
+  },
+  {
+    "icon": "icon-puzzle",
     "title": "配置效果",
     "type": "nav-item",
     "active": false,

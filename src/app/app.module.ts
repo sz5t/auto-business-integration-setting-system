@@ -6,7 +6,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ApiService} from './services/api.service';
 import {Broadcaster} from './broadcast/broadcaster';
 import {ConfigService} from './services/config.service';
-import {CnLoginModule} from './login/cn-login.module';
+// import {CnLoginModule} from './login/cn-login.module';
 import {ApplicationsModule} from './application/applications.module';
 import {WebStorageModule} from 'ngx-store';
 import {ClientStorageService} from './services/client-storage.service';
@@ -15,17 +15,22 @@ import {LoginAuthService} from './services/login-auth.service';
 import {MockDataService} from './services/mock-data.service';
 import { SafeHtmlPipe } from './pipe/safe-html.pipe';
 import {SubjectMessageService} from './services/subject-message.service';
+import { NotPageComponent } from './not-page/not-page.component';
+import { HttpModule} from '@angular/http';
+
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NotPageComponent
   ],
   imports: [
     BrowserModule,
     CnRouter,
     HttpClientModule,
-    CnLoginModule,
     ApplicationsModule,
-    WebStorageModule
+    WebStorageModule,
+    HttpModule
   ],
   providers: [
     ApiService,

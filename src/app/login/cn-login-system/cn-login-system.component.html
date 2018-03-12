@@ -2,7 +2,7 @@
   <!-- BEGIN LOGO -->
   <div class="logo">
     <a href="System">
-      <h3><strong>《配置》平台登录</strong></h3>
+      <h3><strong>《{{ platformtitle }}》平台登录</strong></h3>
       <!-- <img src="/assets/pages/img/logo-big-white.png" style="height: 17px;" alt="" /> -->
     </a>
   </div>
@@ -42,7 +42,7 @@
         <!--</div>-->
       <!--</div>-->
       <div class="form-actions">
-        <button  type="submit" class="btn red btn-block uppercase">登录</button>
+        <button  type="submit" [disabled]="user.invalid" class="btn red btn-block uppercase">登录</button>
       </div>
       <div class="alert-danger" style="margin-bottom:10px ;">
         <div

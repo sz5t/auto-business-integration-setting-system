@@ -24,27 +24,17 @@ import {ComponentSettingComponent} from './components-setting/component-setting.
 import {ComponentEditingComponent} from './component-editing/component-editing.component';
 import {ContextMenuComponent} from './context-menu/context-menu.component';
 import { OperationSettingComponent } from './operation-setting/operation-setting.component';
+import {CnLoginSystemComponent} from '../login/cn-login-system/cn-login-system.component';
+import {CnLoginComponent} from '../login/cn-login/cn-login.component';
+import {NotPageComponent} from '../not-page/not-page.component';
 
 
 export const CHILDREN_ROUTES: Routes = [
   {path: '', redirectTo: 'System', pathMatch: 'full'},
-  {
-    path: 'app/:id', component: ApplicationsComponent,
-    // children: [
-    //   {path: 'application-template/:name', component: ApplicationTemplateComponent},
-    //   {path: 'dash-broad', component: DashBroadTemplateComponent},
-    //   {path: 'grid-demo', component: GridDemoComponent},
-    //   {path: 'tree-demo', component: TreeDemoComponent},
-    //   {path: 'tabs-demo', component: TabsDemoComponent},
-    //   {path: 'form-demo', component: FormDemoComponent},
-    //   {path: 'timeline-demo', component: TimelineDemoComponent},
-    //   /*   {path: 'grid-view-master/:name', component: MasterTemplateComponent, canActivate: [LoginAuthService]},
-    //   {path: 'grid-view-master-slaver/:name', component: MasterSlaverTemplateComponent, canActivate: [LoginAuthService]},
-    //   {path: 'tree-grid/:name', component: TreeGridTemplateComponent, canActivate: [LoginAuthService]},
-    //    {path: 'form-grid/:name', component: FormGridTemplateComponent},*/
-    //   {path: 'breadcrumb/:id', component: CnBreadcrumbComponent, outlet: 'breadcrumb'}
-    // ]
-  }
+  {path: 'Login', component: CnLoginSystemComponent},
+  {path: 'System', component: CnLoginSystemComponent},
+  {path: 'app/:id', component: ApplicationsComponent },
+  {path: '**', component: NotPageComponent}
 ];
 
 @NgModule({
@@ -54,10 +44,12 @@ export const CHILDREN_ROUTES: Routes = [
     DataTablesModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forChild(CHILDREN_ROUTES)
+    RouterModule.forRoot(CHILDREN_ROUTES)
   ],
   declarations: [
     GridViewTemplateComponent,
+    CnLoginComponent,
+    CnLoginSystemComponent,
     MasterSlaverTemplateComponent,
     MasterGridTemplateComponent,
     SlaverGridTemplateComponent,
@@ -75,7 +67,7 @@ export const CHILDREN_ROUTES: Routes = [
     ComponentSettingComponent,
     ComponentEditingComponent,
     ContextMenuComponent,
-    OperationSettingComponent
+    OperationSettingComponent,
   ],
   entryComponents: [
     LayoutSettingComponent,
