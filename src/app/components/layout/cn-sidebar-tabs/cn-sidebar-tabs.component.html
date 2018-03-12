@@ -35,7 +35,7 @@
       <span class="selected"></span>
       <span class="arrow"></span>
     </a>
-    <span *ngIf="m.type==='heading'">{{m.title}}+'1'</span>
+    <span *ngIf="m.type==='heading'">{{m.title}}</span>
     <ul *ngIf="m.sub && m.sub.length > 0" class="sub-menu">
       <li *ngFor="let s of m.sub" class="nav-item" routerLinkActive="active">
         <a *ngIf="s.display == true && s.sub.length == 0  " (click)="addTab(s)"
