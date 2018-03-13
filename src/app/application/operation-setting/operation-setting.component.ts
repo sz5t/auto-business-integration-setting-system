@@ -312,7 +312,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
               }
             }
             else if (setting.viewCfg) {
-              node.type = NodeTypes.NODE_TYPE.LAYOUT; //setting.viewCfg.component;
+              node.type = setting.viewCfg.component;
               node.state.disabled = true;
               node.data = {
                 type: 'component',
@@ -324,7 +324,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
               node1.id = setting.id + 'operation';
               node1.text = '操作';
               node1.parent = node.id;
-              node1.type = setting.viewCfg.component;
+              node1.type = NodeTypes.NODE_TYPE.BUTTON_GROUP;
               node1.state.disabled = false;
               node1.data = {
                 type: 'component',
@@ -332,14 +332,14 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
                 settingIndex: settingIndex,
               };
               treeData.push(node1);
-              if (node1.type === 'grid_view') {
-                treeData.push(...this.initOperations(node1.id, setting.viewCfg.toolbarsConfigData));
+              if (node1.type === 'button_group') {
+                treeData.push(...this.initOperations(node1.id, setting.viewCfg.toolbarsConfigData,NodeTypes.NODE_TYPE.BUTTON));
               }
               const node2 = { ...SettingTreeNodeResource.settingTreeNode };
               node2.id = setting.id + 'action';
               node2.text = '动作';
               node2.parent = node.id;
-              node2.type = setting.viewCfg.component;
+              node2.type = NodeTypes.NODE_TYPE.ACTION_GROUP;
               node2.state.disabled = false;
               node2.data = {
                 type: 'component',
@@ -347,6 +347,9 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
                 settingIndex: settingIndex,
               };
               treeData.push(node2);
+              if (node2.type === 'action_group') {
+                treeData.push(...this.initOperations(node2.id, setting.viewCfg.toolbarsConfigData,NodeTypes.NODE_TYPE.ACTION));
+              }
 
             }
             treeData.push(node);
@@ -358,8 +361,14 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
         const createAction = (t, n) => {
           const instance = this.$tree.jstree(true);
           switch (n) {
-            case NodeTypes.NODE_TYPE.LAYOUT_GRIDVIEW:
+            case NodeTypes.NODE_TYPE.BUTTON_GROUP:
+            case NodeTypes.NODE_TYPE.ACTION_GROUP:
               t['addButton'].action = (data) => {
+
+                let type=NodeTypes.NODE_TYPE.BUTTON;
+                if(n===NodeTypes.NODE_TYPE.ACTION_GROUP){
+                  type=NodeTypes.NODE_TYPE.ACTION
+                }
                 const node = this.$tree.jstree('get_node', data.reference[0]);
                 const idIndex = this._currentNewData.length > 0 ? this._currentNewData.length : 0;
                 const newOperationData = [
@@ -415,7 +424,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
                 const newNode = this.createNode({
                   parentId: node.id,
                   title: '操作',
-                  type: NodeTypes.NODE_TYPE.BUTTON,
+                  type: type,
                   disabled: false,
                   data: {
                     index: idIndex,
@@ -426,7 +435,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
                 this._currentNewData.push({
                   parentId: node.id,
                   title: '操作',
-                  type: NodeTypes.NODE_TYPE.BUTTON,
+                  type: type,
                   disabled: false,
                   data: { index: idIndex, btnData: newOperationData }
                 });
@@ -437,6 +446,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
               };
               break;
             case NodeTypes.NODE_TYPE.BUTTON:
+            case NodeTypes.NODE_TYPE.ACTION:
               t['removeButton'].action = (data) => {
                 const node = this.$tree.jstree('get_node', data.reference[0]);
                 const parentNode = this.$tree.jstree('get_node', node.parent);
@@ -537,17 +547,25 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
     return node;
   }
 
-  initOperations(parentId, btnsData) {
+  initOperations(parentId, btnsData,type?) {
     const initButtons = [];
     btnsData.forEach(btn => {
-      btn.parentId = parentId;
-      initButtons.push(this.createNode(btn));
+      if(type){
+        if(btn.type===type){
+          btn.parentId = parentId;
+          initButtons.push(this.createNode(btn));
+        }
+      }
+      else{
+        btn.parentId = parentId;
+        initButtons.push(this.createNode(btn));
+      }
     });
     return initButtons;
   }
 
   submit($event) {
-    this.propertyForm.handleSubmit($event);
+   // this.propertyForm.handleSubmit($event);
   }
 
   save(event) {
@@ -567,6 +585,8 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
                   const node = this.$tree.jstree('get_node', this._currentNodeId);
                   node.data.data = formData.data.data;
                   this.$tree.jstree('rename_node', node, formData.data.data.operationLabel);
+                  this._currentNodeData[this._currentNodeDataIndex].title=formData.data.data.operationLabel;
+                  this._currentNodeData[this._currentNodeDataIndex].icon=formData.data.data.operationIcon;
                 }
               }
               this._viewIdCounter[d.viewId] = true;
@@ -579,7 +599,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
             }
           }
           if (isFinished === true) {
-            console.log('完成数据保存');
+            console.log('完成数据保存',this._config);
             this._config.forEach(cfgs =>{
               cfgs.forEach(cfg => {
                 cfg.viewCfg.toolbarsConfigData.forEach(btnCfg => {

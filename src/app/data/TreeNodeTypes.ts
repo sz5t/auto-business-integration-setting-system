@@ -17,7 +17,10 @@ export class NodeTypes {
     TOOLBAR_CONFIG_REFRESH: 'refresh',
     TOOLBAR_CONFIG_NEW: 'new',
     TOOLBAR_CONFIG_DELETE: 'delete',
+    ACTION: 'action',
+    ACTION_GROUP: 'action_group',
     BUTTON: 'button',
+    BUTTON_GROUP:'button_group',
     BUTTON_EDIT: 'btn_edit',
     BUTTON_DELETE: 'btn_delete',
     BUTTON_ADD: 'btn_add',
@@ -49,6 +52,9 @@ export class NodeTypes {
     'tabs': {'icon': 'fa fa-laptop font-green'},
     'tab': {'icon': 'fa fa-tag font-green-jungle'},
     'button': {'icon': 'fa fa-square-o font-green-jungle'},
+    'button_group':{'icon': 'fa fa-square-o font-green-jungle'},
+    'action': {'icon': 'fa fa-square-o font-green-jungle'},
+    'action_group': {'icon': 'fa fa-square-o font-green-jungle'},
     'btn_refresh': {'icon': 'fa fa-refresh font-green-jungle'},
     'btn_add': {'icon': 'fa fa-plus font-green-jungle'},
     'btn_delete': {'icon': 'fa fa-trash font-red'},
@@ -596,9 +602,16 @@ export class SettingTreeNodeResource {
 }
 
 export class OperationSettingNodeTypes {
-  public static grid_view = {
+  public static button_group= {
     'addButton':{
       'label': '添加按钮',
+      'icon': 'fa fa-plus',
+      'separator_after': false
+    }
+  };
+  public static action_group= {
+    'addButton':{
+      'label': '添加动作',
       'icon': 'fa fa-plus',
       'separator_after': false
     }
@@ -606,6 +619,13 @@ export class OperationSettingNodeTypes {
   public static button = {
     'removeButton':{
       'label': '移除按钮',
+      'icon': 'fa fa-remove',
+      'separator_after': false
+    },
+  };
+  public static action = {
+    'removeButton':{
+      'label': '移除动作',
       'icon': 'fa fa-remove',
       'separator_after': false
     },
