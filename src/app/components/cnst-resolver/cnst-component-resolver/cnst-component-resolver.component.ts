@@ -1,6 +1,6 @@
 import {
   Component, OnInit, Input, ViewChild, ViewContainerRef, AfterViewInit, ComponentFactoryResolver,
-  ComponentFactory, ComponentRef, OnChanges, ViewEncapsulation
+  ComponentFactory, ComponentRef, OnChanges, ViewEncapsulation, OnDestroy
 } from '@angular/core';
 import { CnstDynamicFormComponent } from '../../cnst-form/cnst-dynamic-form.component';
 import { SubjectMessageService } from "../../../services/subject-message.service";
@@ -11,13 +11,14 @@ import { SubjectMessageService } from "../../../services/subject-message.service
   templateUrl: './cnst-component-resolver.component.html',
   styleUrls: ['./cnst-component-resolver.component.css']
 })
-export class CnstComponentResolverComponent implements OnInit, AfterViewInit, OnChanges {
+export class CnstComponentResolverComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   componentRef: ComponentRef<CnstDynamicFormComponent>;
   @ViewChild('dynamicComponent', { read: ViewContainerRef }) container: ViewContainerRef;
 
   @Input() configTabs; //标签页
   @Input() config; //组件
   _isArray;
+  _subscribArr: any[] = [];
   constructor(
     private resolver: ComponentFactoryResolver,
     private subjectMessage: SubjectMessageService
@@ -46,7 +47,7 @@ export class CnstComponentResolverComponent implements OnInit, AfterViewInit, On
       this.componentRef.instance.configs = this.config.formContent ? this.config.formContent : [];
       this.componentRef.instance.relation=this.config.relation?this.config.relation:[];
       if (this.subjectMessage) {
-        this.subjectMessage.getMessage().subscribe(value => {
+        const subMessage = this.subjectMessage.getMessage().subscribe(value => {
           switch (value.type.type) {
             case 'setValue':
               if (Array.isArray(value.data)) {
@@ -68,6 +69,9 @@ export class CnstComponentResolverComponent implements OnInit, AfterViewInit, On
               break;
           }
         });
+        if(subMessage) {
+          this._subscribArr.push(subMessage);
+        }
       }
 
       // 判断组件的关系是否存在
@@ -88,7 +92,7 @@ export class CnstComponentResolverComponent implements OnInit, AfterViewInit, On
           // 接收消息 (接收到消息后，触发自己的操作)
           if (relation.relationReceiveContent) {
 
-            this.subjectMessage.getMessage().subscribe(value => {
+            const subMessage = this.subjectMessage.getMessage().subscribe(value => {
               switch (value.type.type) {
                 case 'relation':
                 if(value.data.receiver===this.config.viewId){
@@ -100,6 +104,9 @@ export class CnstComponentResolverComponent implements OnInit, AfterViewInit, On
 
 
           });
+            if(subMessage) {
+              this._subscribArr.push(subMessage);
+            }
           }
 
         });
@@ -134,4 +141,11 @@ export class CnstComponentResolverComponent implements OnInit, AfterViewInit, On
     this.configTabs[tabIndex].active = 'active in';
   }
 
+  ngOnDestroy() {
+    if(this._subscribArr.length >0) {
+      this._subscribArr.forEach(sub => {
+        sub.unsubscribe();
+      });
+    }
+  }
 }

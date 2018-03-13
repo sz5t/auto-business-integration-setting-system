@@ -811,6 +811,5 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
     if (this._subscrib) {
       this._subscrib.unsubscribe();
     }
-
   }
 }
