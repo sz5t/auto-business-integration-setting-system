@@ -128,7 +128,7 @@ export class CnPageTabComponent implements OnInit {
   }
 
   logout() {
-    console.log(this.clientStorage.getCookies('onlineUser'));
+    // console.log(this.clientStorage.getCookies('onlineUser'));
     $('#dialog_logout').modal('hide');
       this.router.navigate([this.longFlag]).then(() => {
         this.clientStorage.clearCookies();

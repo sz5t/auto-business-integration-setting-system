@@ -60,9 +60,9 @@ export class ApplicationsComponent implements OnInit, OnDestroy {
               private router: ActivatedRoute,
               ) {
      this.router.params.subscribe(param => this.loginFlag = param['id'] );
-     console.log(this.loginFlag);
+     // console.log(this.loginFlag);
     environment.web_api = environment.setHost(this.loginFlag);
-    console.log('app组件' , this.loginFlag , environment.web_api , $('#sysFlag').val());
+    // console.log('app组件' , this.loginFlag , environment.web_api , $('#sysFlag').val());
 
 
     this.appUser1 = clientStorage.getCookies('appUser');
