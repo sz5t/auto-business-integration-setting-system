@@ -168,6 +168,7 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
             return item === row;
           });
           this.configs.splice(tableIndex, 1);
+          this.ngChangesRow();
 
         } else {
           return;

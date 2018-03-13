@@ -2,14 +2,14 @@ import {
   AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import {NodeTypes, SettingTreeNodeResource, OperationSettingNodeTypes} from '../../data/TreeNodeTypes';
-import {ClientStorageService} from '../../services/client-storage.service';
-import {CommonUtility} from '../../framework/utility/common-utility';
-import {CnstDynamicFormComponent} from '../../components/cnst-form/cnst-dynamic-form.component';
-import {CommonData} from '../../data/common-data';
-import {Observable} from 'rxjs/Observable';
-import {Subject} from 'rxjs/Subject';
-import {SubjectMessageService} from '../../services/subject-message.service';
+import { NodeTypes, SettingTreeNodeResource, OperationSettingNodeTypes } from '../../data/TreeNodeTypes';
+import { ClientStorageService } from '../../services/client-storage.service';
+import { CommonUtility } from '../../framework/utility/common-utility';
+import { CnstDynamicFormComponent } from '../../components/cnst-form/cnst-dynamic-form.component';
+import { CommonData } from '../../data/common-data';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { SubjectMessageService } from '../../services/subject-message.service';
 declare let $: any;
 @Component({
   selector: 'cn-operation-setting',
@@ -27,8 +27,8 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
   _navsData;
   _settingHeader = {
     header: [
-      {title: '属性名', width: '100px'},
-      {title: '属性值', width: 'auto'}
+      { title: '属性名', width: '100px' },
+      { title: '属性值', width: 'auto' }
     ],
     deletebutton: {
       show: false
@@ -283,7 +283,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
         //生成数据跟节点对象结构
         settingData.forEach((settings, settingsIndex) => {
           settings.forEach((setting, settingIndex) => {
-            const node = {...SettingTreeNodeResource.settingTreeNode};
+            const node = { ...SettingTreeNodeResource.settingTreeNode };
             node.id = setting.id;
             node.text = setting.title;
             node.parent = funcName;
@@ -312,16 +312,42 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
               }
             }
             else if (setting.viewCfg) {
-              node.type = setting.viewCfg.component;
-              node.state.disabled = false;
+              node.type = NodeTypes.NODE_TYPE.LAYOUT; //setting.viewCfg.component;
+              node.state.disabled = true;
               node.data = {
                 type: 'component',
                 settingsIndex: settingsIndex,
                 settingIndex: settingIndex,
               };
-              if (node.type === 'grid_view') {
-                treeData.push(...this.initOperations(node.id, setting.viewCfg.toolbarsConfigData));
+
+              const node1 = { ...SettingTreeNodeResource.settingTreeNode };
+              node1.id = setting.id + 'operation';
+              node1.text = '操作';
+              node1.parent = node.id;
+              node1.type = setting.viewCfg.component;
+              node1.state.disabled = false;
+              node1.data = {
+                type: 'component',
+                settingsIndex: settingsIndex,
+                settingIndex: settingIndex,
+              };
+              treeData.push(node1);
+              if (node1.type === 'grid_view') {
+                treeData.push(...this.initOperations(node1.id, setting.viewCfg.toolbarsConfigData));
               }
+              const node2 = { ...SettingTreeNodeResource.settingTreeNode };
+              node2.id = setting.id + 'action';
+              node2.text = '动作';
+              node2.parent = node.id;
+              node2.type = setting.viewCfg.component;
+              node2.state.disabled = false;
+              node2.data = {
+                type: 'component',
+                settingsIndex: settingsIndex,
+                settingIndex: settingIndex,
+              };
+              treeData.push(node2);
+
             }
             treeData.push(node);
           });
@@ -335,7 +361,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
             case NodeTypes.NODE_TYPE.LAYOUT_GRIDVIEW:
               t['addButton'].action = (data) => {
                 const node = this.$tree.jstree('get_node', data.reference[0]);
-                const idIndex = this._currentNewData.length  > 0 ? this._currentNewData.length : 0;
+                const idIndex = this._currentNewData.length > 0 ? this._currentNewData.length : 0;
                 const newOperationData = [
                   {
                     viewId: 'viewId_property',
@@ -397,7 +423,13 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
                   }
                 });
                 treeData.push(newNode);
-                this._currentNewData.push({data: {index: idIndex, btnData: newOperationData}});
+                this._currentNewData.push({
+                  parentId: node.id,
+                  title: '操作',
+                  type: NodeTypes.NODE_TYPE.BUTTON,
+                  disabled: false,
+                  data: { index: idIndex, btnData: newOperationData }
+                });
                 const newId = instance.create_node(node.id, newNode, 'last', () => {
                   instance.deselect_node(node.id);
                 }, true);
@@ -419,9 +451,9 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
                     .tabs[pNodeData.tabIndex]
                     .viewCfg.toolbarsConfigData.splice(nd.index, 1);
                 }
-                if (parentNode.children.length > 1){
+                if (parentNode.children.length > 1) {
                   parentNode.children.forEach((child, ind) => {
-                    if (ind > nd.index){
+                    if (ind > nd.index) {
                       this.$tree.jstree('get_node', child).data.index--;
                     }
                   });
@@ -458,7 +490,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
         this.$tree.on('select_node.jstree', (e, data) => {
           this._currentNodeId = data.node.id;
           const nd = data.node.data;
-          if (nd.btnData){
+          if (nd.btnData) {
             const parentNode = this.$tree.jstree('get_node', data.node.parent);
             const pNodeData = parentNode.data;
             if (pNodeData.type === 'component') {
@@ -473,10 +505,10 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
               this._currentNodeDataIndex = nd.index;
             }
             // 设置赋值调用
-            this.subject.sendMessage({type: 'setValue'}, this._currentNodeData[this._currentNodeDataIndex].data.btnData);
+            this.subject.sendMessage({ type: 'setValue' }, this._currentNodeData[this._currentNodeDataIndex].data.btnData);
             /*this.propertyForm.setFormValue(this._currentNodeData[this._currentNodeDataIndex].data.btnData);*/
           }
-          if (data.node.data.type === 'component'){
+          if (data.node.data.type === 'component') {
             this._currentNewData = this._config[data.node.data.settingsIndex][data.node.data.settingIndex]
               .viewCfg.toolbarsConfigData;
           }
@@ -494,7 +526,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   createNode(info) {
-    const node = {...SettingTreeNodeResource.settingTreeNode};
+    const node = { ...SettingTreeNodeResource.settingTreeNode };
     node.id = 'node_' + CommonUtility.uuID(6);
     node.text = info.title;
     node.type = info.type;
@@ -519,12 +551,12 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
     this._currentNodeData[this._currentNodeDataIndex].data.btnData.forEach(data => {
       this._viewIdCounter[data.viewId] = false;
     });
-    if(!this._subscrib) {
+    if (!this._subscrib) {
       this._subscrib = this.subject.getMessage().subscribe(formData => {
-        if(formData.type.type === 'returnFormValue') {
+        if (formData.type.type === 'returnFormValue') {
           const oldData = this._currentNodeData[this._currentNodeDataIndex].data.btnData;
           oldData.forEach(d => {
-            if (d.viewId === formData.data.viewId){
+            if (d.viewId === formData.data.viewId) {
               d.data = formData.data.data;
               if (d.viewId === 'viewId_property') {
                 if (this._currentNodeId && this.$tree) {
@@ -537,22 +569,22 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
             }
           });
           let isFinished = true;
-          for(let counter in this._viewIdCounter) {
-            if(this._viewIdCounter[counter] === false){
+          for (let counter in this._viewIdCounter) {
+            if (this._viewIdCounter[counter] === false) {
               isFinished = false;
             }
           }
-          if(isFinished === true) {
+          if (isFinished === true) {
             console.log('完成数据保存');
-            this._config.forEach(cfg =>{
+            this._config.forEach(cfg => {
               console.log(cfg);
-              
+
             });
           }
         }
       });
     }
-    this.subject.sendMessage({type: 'getValue'}, this._currentNodeData[this._currentNodeDataIndex].data.btnData);
+    this.subject.sendMessage({ type: 'getValue' }, this._currentNodeData[this._currentNodeDataIndex].data.btnData);
   }
 
   submit($event) {
@@ -589,7 +621,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   ngOnDestroy() {
-    if(this._subscrib){
+    if (this._subscrib) {
       this._subscrib.unsubscribe();
     }
 
