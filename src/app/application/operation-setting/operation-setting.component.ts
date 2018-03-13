@@ -778,8 +778,11 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
     return sqlObjs;
   }
   ngOnDestroy() {
+    console.log('destroy', this._subscrib);
     if (this._subscrib) {
       this._subscrib.unsubscribe();
+      this._subscrib = null;
+      console.log(this._subscrib);
     }
 
   }
