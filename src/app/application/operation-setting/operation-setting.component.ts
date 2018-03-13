@@ -514,6 +514,10 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
     return initButtons;
   }
 
+  submit($event) {
+    this.propertyForm.handleSubmit($event);
+  }
+
   save(event) {
     this._viewIdCounter = {};
     this._currentNodeData[this._currentNodeDataIndex].data.btnData.forEach(data => {
@@ -544,9 +548,17 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
           }
           if(isFinished === true) {
             console.log('完成数据保存');
-            this._config.forEach(cfg =>{
-              console.log(cfg);
-              
+            this._config.forEach(cfgs =>{
+              cfgs.forEach(cfg => {
+                cfg.viewCfg.toolbarsConfigData.forEach(btnCfg => {
+                  const allViewData = {};
+                  btnCfg.data.btnData.forEach(viewData =>{
+                    allViewData[viewData.viewId] = viewData.data;
+                  });
+                  console.log(allViewData);
+                  this.generateToolbarsConfig(allViewData);
+                });
+              });
             });
           }
         }
@@ -555,39 +567,113 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
     this.subject.sendMessage({type: 'getValue'}, this._currentNodeData[this._currentNodeDataIndex].data.btnData);
   }
 
-  submit($event) {
-    this.propertyForm.handleSubmit($event);
-  }
-
-  setOperationFunction(value) {
-    switch (value.operationType) {
-      case CommonData.OPERATION_TYPE.none:
-        this._showTab = [false, false, false, false, true];
-        break;
-      case CommonData.OPERATION_TYPE.exec_sql:
-        this._showTab = [true, false, false, false, true];
-        break;
-      case CommonData.OPERATION_TYPE.after_SQL:
-        this._showTab = [true, false, false, false, true];
-        break;
-      case CommonData.OPERATION_TYPE.refresh:
-        this._showTab = [true, false, false, false, true];
-        break;
-      case CommonData.OPERATION_TYPE.confirm:
-        this._showTab = [true, false, true, false, true];
-        break;
-      case CommonData.OPERATION_TYPE.form:
-        this._showTab = [true, true, false, false, true];
-        break;
-      case CommonData.OPERATION_TYPE.window:
-        this._showTab = [true, false, false, true, true];
-        break;
-      case CommonData.OPERATION_TYPE.refresh_parent:
-        this._showTab = [true, true, false, false, false];
-        break;
+  /**
+   * 生成配置
+   * @param allViewData 按钮配置的所有数据
+   */
+  generateToolbarsConfig(allViewData) {
+    const propertyData = allViewData['viewId_property'];
+    switch (propertyData.operationName) {
+      case CommonData.OPERATION_TYPE.none: // 改变行状态
+        return this.generateDataStatusConfig(allViewData, propertyData);
+      case CommonData.OPERATION_TYPE.refresh: // 刷新数据
+        return this.generateRefreshConfig(allViewData, propertyData);
+      case CommonData.OPERATION_TYPE.refresh_parent: // 刷新父页面数据
+        return this.generateRefreshParentConfig(allViewData, propertyData);
+      case CommonData.OPERATION_TYPE.exec_sql: // 执行SQL
+        return this.generateSQLConfig(allViewData, propertyData);
+      case CommonData.OPERATION_TYPE.after_SQL: // 执行SQL后
+        return this.generateAfterSQLConfig(allViewData, propertyData);
+      case CommonData.OPERATION_TYPE.form: // 弹出表单
+        return this.generateFormConfig(allViewData, propertyData);
+      case CommonData.OPERATION_TYPE.dialog: // 弹出对话框
+        return this.generateDialogConfig(allViewData, propertyData);
+      case CommonData.OPERATION_TYPE.window: // 弹出窗体
+        return this.generateWindowConfig(allViewData, propertyData);
+      case CommonData.OPERATION_TYPE.confirm: // 弹出确认框
+        return this.generateConfirmConfig(allViewData, propertyData);
     }
   }
 
+  /**
+   *
+   * @param propertyData
+   * @param generateData
+   */
+  generatePropertyData (generateData, propertyData) {
+    generateData.id = propertyData.id;
+    generateData.text = propertyData.operationLabel;
+    generateData.img = propertyData.operationIcon;
+    generateData.enabled = propertyData.operationDefaultState;
+    generateData.noneDataEnabled = propertyData.operationNoneState;
+    generateData.color = '';
+    generateData.events.execution.dataStatus = propertyData.operationState;
+    generateData.order = propertyData.order;
+    return generateData;
+  }
+
+  // 生成行状态改变配置
+  generateDataStatusConfig(allViewData, propertyData) {
+    const generateData = {...CommonData.OPERATION_TYPE_CONFIG.none};
+    return this.generatePropertyData(propertyData, generateData);
+  }
+  // 生成执行SQL配置
+  generateSQLConfig(allViewData, propertyData) {
+    const generateData = {...CommonData.OPERATION_TYPE_CONFIG.exec_sql};
+    const result = this.generatePropertyData(propertyData, generateData);
+    const sqlData = allViewData['viewId_sql'];
+    return result;
+  }
+
+  // 执行SQL后刷新
+  generateAfterSQLConfig(allViewData, propertyData) {
+    const generateData = {...CommonData.OPERATION_TYPE_CONFIG.after_sql};
+    const result = this.generatePropertyData(propertyData, generateData);
+    const sqlData = allViewData['viewId_sql'];
+    return result;
+  }
+  // 执行SQL后刷新
+  generateRefreshConfig(allViewData, propertyData) {
+    const generateData = {...CommonData.OPERATION_TYPE_CONFIG.refresh};
+    const result =  this.generatePropertyData(propertyData, generateData);
+    const sqlData = allViewData['viewId_sql'];
+    return result;
+  }
+  // 执行SQL后刷新主页面
+  generateRefreshParentConfig(allViewData, propertyData) {
+    const generateData = {...CommonData.OPERATION_TYPE_CONFIG.refresh_parent};
+    const result =  this.generatePropertyData(propertyData, generateData);
+    const sqlData = allViewData['viewId_sql'];
+    return result;
+  }
+  // 对话框
+  generateDialogConfig(allViewData, propertyData) {
+    const generateData = {...CommonData.OPERATION_TYPE_CONFIG.dialog};
+    const result = this.generatePropertyData(propertyData, generateData);
+    const dialogData = allViewData['viewId_dialog'];
+    return result;
+  }
+  // 生成弹出表单
+  generateFormConfig(allViewData, propertyData) {
+    const generateData = {...CommonData.OPERATION_TYPE_CONFIG.form};
+    const result =  this.generatePropertyData(propertyData, generateData);
+    const formData = allViewData['viewId_sql'];
+    return result;
+  }
+  // 生成弹出确认框
+  generateConfirmConfig(allViewData, propertyData) {
+    const generateData = {...CommonData.OPERATION_TYPE_CONFIG.confirm};
+    const result =  this.generatePropertyData(propertyData, generateData);
+    const confirmData = allViewData['viewId_sql'];
+    return result;
+  }
+  // 生成弹出窗体
+  generateWindowConfig(allViewData, propertyData) {
+    const generateData = {...CommonData.OPERATION_TYPE_CONFIG.window};
+    const result =  this.generatePropertyData(propertyData, generateData);
+    const windowData = allViewData['viewId_sql'];
+    return result;
+  }
   ngOnDestroy() {
     if(this._subscrib){
       this._subscrib.unsubscribe();
