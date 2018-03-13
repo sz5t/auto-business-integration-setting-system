@@ -11,7 +11,193 @@ export class CommonData {
     window: 'window',
     refresh_parent: 'refresh_parent'
   };
-
+  public static OPERATION_TYPE_CONFIG = {
+    none: {
+      'id': '',
+      'text': '',
+      'color': '',
+      'img': 'btn btn-success',
+      'type': 'button',
+      'enabled': true,
+      'noneDataEnabled': true,
+      'order': '1',
+      'events': {
+        'title': '',
+        'eventType': 'none',
+        'execution': {
+          'api': '',
+          'method': '',
+          'keyID': '',
+          'callback': '',
+          'dataStatus': '' // normal,new,update
+        }
+      },
+    },
+    refresh: {
+      'id': '',
+      'text': '',
+      'color': '',
+      'img': 'btn btn-success',
+      'type': 'button',
+      'enabled': true,
+      'nonDataEnabled': true,
+      'events': {
+        'title': '',
+        'eventType': 'refresh',
+        'execution': {
+          'api': '',    // SQL 语句标识
+          'method': '', // 调用方式
+          'keyID': '',
+          'callback': '',
+          'dataStatus': ''
+        }
+      },
+    },
+    refresh_parent: {
+      'id': '',
+      'text': '',
+      'color': '',
+      'img': 'btn btn-success',
+      'type': 'button',
+      'enabled': true,
+      'nonDataEnabled': true,
+      'events': {
+        'title': '',
+        'eventType': 'refresh_parent',
+        'execution': {
+          'api': '',    // SQL 语句标识
+          'method': '', // 调用方式
+          'keyID': '',
+          'callback': '',
+          'dataStatus': ''
+        }
+      },
+    },
+    exec_sql: {
+      'id': '',
+      'text': '',
+      'color': '',
+      'img': 'btn btn-success',
+      'type': 'button',
+      'enabled': true,
+      'nonDataEnabled': true,
+      'events': {
+        'title': '',
+        'eventType': 'exec_sql',
+        'execution': {
+          'api': '',
+          'method': '',
+          'keyID': '',
+          'callback': '',
+          'dataStatus': ''
+        }
+      },
+    },
+    after_sql: {
+      'id': '',
+      'text': '',
+      'color': '',
+      'img': 'btn btn-success',
+      'type': 'button',
+      'enabled': true,
+      'nonDataEnabled': true,
+      'events': {
+        'title': '',
+        'eventType': 'after_sql',
+        'execution': {
+          'api': '',
+          'method': '',
+          'keyID': '',
+          'callback': '',
+          'dataStatus': ''
+        }
+      },
+    },
+    form: {
+      'id': '',
+      'text': '',
+      'color': '',
+      'img': 'btn btn-success',
+      'type': 'button',
+      'enabled': true,
+      'nonDataEnabled': true,
+      'events': {
+        'title': '',
+        'eventType': 'form',
+        'execution': {
+          'api': '',
+          'method': '',
+          'keyID': '',
+          'callback': '',
+          'dataStatus': ''
+        }
+      },
+      'form':{}
+    },
+    dialog: {
+      'id': '',
+      'text': '',
+      'color': '',
+      'img': 'btn btn-success',
+      'type': 'button',
+      'enabled': true,
+      'nonDataEnabled': true,
+      'events': {
+        'title': '',
+        'eventType': 'dialog',
+        'execution': {
+          'api': '',
+          'method': '',
+          'keyID': '',
+          'callback': '',
+          'dataStatus': ''
+        }
+      },
+      'dialog': {}
+    },
+    window: {
+      'id': '',
+      'text': '',
+      'color': '',
+      'img': 'btn btn-success',
+      'type': 'button',
+      'enabled': true,
+      'nonDataEnabled': true,
+      'events': {
+        'title': '',
+        'eventType': 'window',
+        'execution': {
+          'api': '',
+          'method': '',
+          'keyID': '',
+          'callback': '',
+          'dataStatus': ''
+        }
+      },
+      'window': {}
+    },
+    confirm: {
+      'id': '',
+      'text': '',
+      'color': '',
+      'img': 'btn btn-success',
+      'type': 'button',
+      'enabled': true,
+      'nonDataEnabled': true,
+      'events': {
+        'title': '',
+        'eventType': 'confirm',
+        'execution': {
+          'api': '',
+          'method': '',
+          'keyID': '',
+          'callback': '',
+          'dataStatus': ''
+        }
+      },
+      'confirm': {}
+    }
+  };
 
 
   /**
