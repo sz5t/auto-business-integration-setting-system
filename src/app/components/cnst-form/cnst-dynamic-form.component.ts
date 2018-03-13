@@ -304,6 +304,7 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
     } else { // 表单赋值
       this.setFormValue(formValue);
       this._formType = 'form';
+      //this.ngChangesRow();
     }
   }
 
