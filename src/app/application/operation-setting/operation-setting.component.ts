@@ -376,7 +376,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
                     viewId: 'viewId_property',
                     data: {
                       id: 'row_' + CommonUtility.uuID(5),
-                      operationLabel: '刷新',
+                      operationLabel: '',
                       operationName: 'refresh',
                       operationIcon: 'fa fa-refresh',
                       operationType: 'refresh',
@@ -391,7 +391,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
                     data: [
                       {
                         id: 'row_' + CommonUtility.uuID(5),
-                        execSqlStr: '001',
+                        execSqlStr: '',
                         execSqlMethod: '1',
                         execSqlStatus: 'normal'
                       }
@@ -402,19 +402,68 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
                     data: [
                       {
                         id: 'row_' + CommonUtility.uuID(5),
-                        paramName: '@Name_',
+                        paramName: '',
                         paramReplaceStr: '',
-                        paramValueFrom: 'UI',
+                        paramValueFrom: '',
                         paramNullValue: '',
                         paramDataType: 'string',
                         paramFromSystem: '',
-                        paramValueField: 'Name',
+                        paramValueField: '',
                         parentId: ''
                       },
                     ]
                   },
                   {
+                    viewId: 'viewId_formLayout',
+                    data:
+                      {
+
+                      }
+                  },
+                  {
+                    viewId: 'viewId_formSql',
+                    data:
+                      {
+
+                      }
+                  },
+                  {
+                    viewId: 'viewId_formSqlParam',
+                    data:
+                      {
+
+                      }
+                  },
+                  {
+                    viewId: 'viewId_formConfig',
+                    data:
+                      {
+
+                      }
+                  },
+                  {
                     viewId: 'viewId_confirm',
+                    data:
+                      {
+
+                      }
+                  },
+                  {
+                    viewId: 'viewId_confirmSql',
+                    data:
+                      {
+
+                      }
+                  },
+                  {
+                    viewId: 'viewId_action',
+                    data:
+                      {
+
+                      }
+                  },
+                  {
+                    viewId: 'viewId_actionParam',
                     data:
                       {
 

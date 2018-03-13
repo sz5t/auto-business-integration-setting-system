@@ -1196,10 +1196,10 @@ export class CommonData {
           {
             'viewId': 'viewId_action',
             'relation': [{
-              'relationViewId': 'viewId_actionparameter',
+              'relationViewId': 'viewId_actionParam',
               'relationSendContent': [
                 {
-                  name: 'selectRow', sender: 'viewId_action', receiver: 'viewId_actionparameter',
+                  name: 'selectRow', sender: 'viewId_action', receiver: 'viewId_actionParam',
                   relationData: { name: 'refreshAsChild' }, data: [{ pid: 'id', cid: 'parentId' }]
                 }
               ]
@@ -1252,7 +1252,7 @@ export class CommonData {
             ]
           },
           {
-            'viewId': 'viewId_actionparameter',
+            'viewId': 'viewId_actionParam',
             'relation': [{
               'relationViewId': 'viewId_action',
               'relationType': 'grid_grid_child',

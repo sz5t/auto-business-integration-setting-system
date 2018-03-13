@@ -1,6 +1,6 @@
 import {
   Component, OnInit, ViewChild, ElementRef, ViewEncapsulation, ViewContainerRef, ComponentFactory,
-  ComponentRef, ComponentFactoryResolver, OnDestroy, Type, Input, OnChanges, TemplateRef, Output, EventEmitter ,ChangeDetectorRef
+  ComponentRef, ComponentFactoryResolver, OnDestroy, Type, Input, OnChanges, TemplateRef, Output, EventEmitter , ChangeDetectorRef
 } from '@angular/core';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { CnstPortletGridviewComponent } from '../cnst-portlet-gridview/cnst-portlet-gridview.component';
@@ -11,9 +11,7 @@ import {App} from '../../components/layout/cn-layout/cn-layout.component';
 
 import { ICnstPortlet } from '../cnst-portlet';
 import {NodeTypes} from '../../data/TreeNodeTypes';
-import {CommonData} from '../../data/common-data';
-import {CommonUtility} from '../../framework/utility/common-utility';
-import {FixComponetLifehookService} from "../../services/fix-componet-lifehook.service";
+import {FixComponetLifehookService} from '../../services/fix-componet-lifehook.service';
 const components: { [type: string]: Type<ICnstPortlet> } = {
   grid_view: CnstPortletGridviewComponent,
   tree_view: CnstPortletTreeComponent,
@@ -27,7 +25,7 @@ const components: { [type: string]: Type<ICnstPortlet> } = {
 })
 export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet, OnDestroy{
 
-  @Input() config:any = {};
+  @Input() config: any = {};
   @Input() tabContent;
   @Output() callback: EventEmitter<any> = new EventEmitter<any>();
   componentRef: ComponentRef<ICnstPortlet>;
@@ -254,6 +252,14 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                 {
                   viewId: 'viewId_confirmSql',
                   data: []
+                },
+                {
+                  viewId: 'viewId_action',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_actionParam',
+                  data: []
                 }
               ]
             }
@@ -308,6 +314,43 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                     },
                   ]
                 },
+                {
+                  viewId: 'viewId_formLayout',
+                  data: [
+                    {
+                      formLayoutType: 'table',
+                      formLayoutNum: '1',
+                    }
+                  ]
+                },
+                {
+                  viewId: 'viewId_formSql',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_formSqlParam',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_formConfig',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_confirm',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_confirmSql',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_action',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_actionParam',
+                  data: []
+                }
               ]
             }
           },
@@ -360,6 +403,43 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                     },
                   ]
                 },
+                {
+                  viewId: 'viewId_formLayout',
+                  data: [
+                    {
+                      formLayoutType: 'table',
+                      formLayoutNum: '1',
+                    }
+                  ]
+                },
+                {
+                  viewId: 'viewId_formSql',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_formSqlParam',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_formConfig',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_confirm',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_confirmSql',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_action',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_actionParam',
+                  data: []
+                }
               ]
             }
           },
@@ -411,6 +491,43 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                     },
                   ]
                 },
+                {
+                  viewId: 'viewId_formLayout',
+                  data: [
+                    {
+                      formLayoutType: 'table',
+                      formLayoutNum: '1',
+                    }
+                  ]
+                },
+                {
+                  viewId: 'viewId_formSql',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_formSqlParam',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_formConfig',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_confirm',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_confirmSql',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_action',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_actionParam',
+                  data: []
+                }
               ]
             }
           },
@@ -470,6 +587,43 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                     },
                   ]
                 },
+                {
+                  viewId: 'viewId_formLayout',
+                  data: [
+                    {
+                      formLayoutType: 'table',
+                      formLayoutNum: '1',
+                    }
+                  ]
+                },
+                {
+                  viewId: 'viewId_formSql',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_formSqlParam',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_formConfig',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_confirm',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_confirmSql',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_action',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_actionParam',
+                  data: []
+                }
               ]
             }
           },
@@ -522,6 +676,43 @@ export class CnstPortletComponent implements OnInit, AfterViewInit, ICnstPortlet
                     },
                   ]
                 },
+                {
+                  viewId: 'viewId_formLayout',
+                  data: [
+                    {
+                      formLayoutType: 'table',
+                      formLayoutNum: '1',
+                    }
+                  ]
+                },
+                {
+                  viewId: 'viewId_formSql',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_formSqlParam',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_formConfig',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_confirm',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_confirmSql',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_action',
+                  data: []
+                },
+                {
+                  viewId: 'viewId_actionParam',
+                  data: []
+                }
               ]
             }
           }
