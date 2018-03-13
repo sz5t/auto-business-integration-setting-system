@@ -305,8 +305,40 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
                     }
                   });
                   treeData.push(tabNode);
+                  const node1 = { ...SettingTreeNodeResource.settingTreeNode };
+                  node1.id = tabNode.id + 'operation';
+                  node1.text = '操作';
+                  node1.parent = tabNode.id;
+                  node1.type = NodeTypes.NODE_TYPE.BUTTON_GROUP;
+                  node1.state.disabled = false;
+                  node1.data = {
+                    type: 'tab',
+                    settingsIndex: settingsIndex,
+                    settingIndex: settingIndex,
+                    tabIndex: tabIndex
+                  };
+                  treeData.push(node1);
+                  const node2 = { ...SettingTreeNodeResource.settingTreeNode };
+                  node2.id = tabNode.id + 'action';
+                  node2.text = '动作';
+                  node2.parent = tabNode.id;
+                  node2.type = NodeTypes.NODE_TYPE.ACTION_GROUP;
+                  node2.state.disabled = false;
+                  node2.data = {
+                    type: 'tab',
+                    settingsIndex: settingsIndex,
+                    settingIndex: settingIndex,
+                    tabIndex: tabIndex
+                  };
+                  treeData.push(node2);
+                 
                   if (tab.viewCfg) {
-                    treeData.push(...this.initOperations(tabNode.id, tab.viewCfg.toolbarsConfigData));
+                    if (node1.type === 'button_group') {
+                      treeData.push(...this.initOperations(node1.id, tab.viewCfg.toolbarsConfigData,NodeTypes.NODE_TYPE.BUTTON));
+                    }
+                    if (node2.type === 'action_group') {
+                      treeData.push(...this.initOperations(node2.id, tab.viewCfg.toolbarsConfigData,NodeTypes.NODE_TYPE.ACTION));
+                    }
                   }
                 });
               }
@@ -580,8 +612,6 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
         });
       }
     });
-
-
   }
 
   createNode(info) {
