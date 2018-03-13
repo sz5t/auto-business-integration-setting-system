@@ -587,7 +587,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
                   btnCfg.data.btnData.forEach(viewData =>{
                     allViewData[viewData.viewId] = viewData.data;
                   });
-                  console.log(allViewData);
+                  // console.log(allViewData);
                   this.generateToolbarsConfig(allViewData);
                 });
               });
@@ -603,9 +603,9 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
    * 生成配置
    * @param allViewData 按钮配置的所有数据
    */
-  generateToolbarsConfig(allViewData) {
+  private generateToolbarsConfig(allViewData) {
     const propertyData = allViewData['viewId_property'];
-    switch (propertyData.operationName) {
+    switch (propertyData.operationType) {
       case CommonData.OPERATION_TYPE.none: // 改变行状态
         return this.generateDataStatusConfig(allViewData, propertyData);
       case CommonData.OPERATION_TYPE.refresh: // 刷新数据
@@ -632,7 +632,8 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
    * @param propertyData
    * @param generateData
    */
-  generatePropertyData (generateData, propertyData) {
+  private generatePropertyData (propertyData, generateData) {
+
     generateData.id = propertyData.id;
     generateData.text = propertyData.operationLabel;
     generateData.img = propertyData.operationIcon;
@@ -645,66 +646,116 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   // 生成行状态改变配置
-  generateDataStatusConfig(allViewData, propertyData) {
+  private generateDataStatusConfig(allViewData, propertyData) {
     const generateData = {...CommonData.OPERATION_TYPE_CONFIG.none};
     return this.generatePropertyData(propertyData, generateData);
   }
   // 生成执行SQL配置
-  generateSQLConfig(allViewData, propertyData) {
+  private generateSQLConfig(allViewData, propertyData) {
     const generateData = {...CommonData.OPERATION_TYPE_CONFIG.exec_sql};
     const result = this.generatePropertyData(propertyData, generateData);
+    // 获取所有SQL语句数据
     const sqlData = allViewData['viewId_sql'];
+    // 获取所有SQL参数数据
+    const sqlParam = allViewData['viewId_sqlParam'];
+    // 处理SQL和参数的映射关联
+    const sqlObjs = this.generateSQLObject(sqlData, sqlParam);
+    // Todo 回写处理结构
     return result;
   }
 
   // 执行SQL后刷新
-  generateAfterSQLConfig(allViewData, propertyData) {
+  private generateAfterSQLConfig(allViewData, propertyData) {
     const generateData = {...CommonData.OPERATION_TYPE_CONFIG.after_sql};
     const result = this.generatePropertyData(propertyData, generateData);
+    // 获取所有SQL语句数据
     const sqlData = allViewData['viewId_sql'];
+    // 获取所有SQL参数数据
+    const sqlParam = allViewData['viewId_sqlParam'];
+    // 处理SQL和参数的映射关联
+    const sqlObjs = this.generateSQLObject(sqlData, sqlParam);
+    // Todo 处理执行SQL后的逻辑结构
     return result;
   }
   // 执行SQL后刷新
-  generateRefreshConfig(allViewData, propertyData) {
+  private generateRefreshConfig(allViewData, propertyData) {
     const generateData = {...CommonData.OPERATION_TYPE_CONFIG.refresh};
     const result =  this.generatePropertyData(propertyData, generateData);
+    // 获取所有SQL语句数据
     const sqlData = allViewData['viewId_sql'];
+    // 获取所有SQL参数数据
+    const sqlParam = allViewData['viewId_sqlParam'];
+    // 处理SQL和参数的映射关联
+    const sqlObjs = this.generateSQLObject(sqlData, sqlParam);
+    // Todo 设置刷新当前页面
     return result;
   }
   // 执行SQL后刷新主页面
-  generateRefreshParentConfig(allViewData, propertyData) {
+  private generateRefreshParentConfig(allViewData, propertyData) {
     const generateData = {...CommonData.OPERATION_TYPE_CONFIG.refresh_parent};
     const result =  this.generatePropertyData(propertyData, generateData);
+    // 获取所有SQL语句数据
     const sqlData = allViewData['viewId_sql'];
+    // 获取所有SQL参数数据
+    const sqlParam = allViewData['viewId_sqlParam'];
+    // 处理SQL和参数的映射关联
+    const sqlObjs = this.generateSQLObject(sqlData, sqlParam);
+    // Todo 设置刷新主页面，应用于弹出内容
     return result;
   }
   // 对话框
-  generateDialogConfig(allViewData, propertyData) {
+  private generateDialogConfig(allViewData, propertyData) {
     const generateData = {...CommonData.OPERATION_TYPE_CONFIG.dialog};
     const result = this.generatePropertyData(propertyData, generateData);
     const dialogData = allViewData['viewId_dialog'];
+    // Todo 设置对话框及其操作
     return result;
   }
   // 生成弹出表单
-  generateFormConfig(allViewData, propertyData) {
+  private generateFormConfig(allViewData, propertyData) {
     const generateData = {...CommonData.OPERATION_TYPE_CONFIG.form};
     const result =  this.generatePropertyData(propertyData, generateData);
-    const formData = allViewData['viewId_sql'];
+    const formLayout = allViewData['viewId_formLayout'];
+    const formSql = allViewData['viewId_formLayout'];
+    const formSqlParam = allViewData['viewId_formLayout'];
+    // 处理SQL和参数的映射关联
+    const sqlObjs = this.generateSQLObject(formSql, formSqlParam);
+    // Todo 设置生成表单及其操作结构
     return result;
   }
   // 生成弹出确认框
-  generateConfirmConfig(allViewData, propertyData) {
+  private generateConfirmConfig(allViewData, propertyData) {
     const generateData = {...CommonData.OPERATION_TYPE_CONFIG.confirm};
     const result =  this.generatePropertyData(propertyData, generateData);
-    const confirmData = allViewData['viewId_sql'];
+    const confirmLayout = allViewData['viewId_formLayout'];
+    const confirmSql = allViewData['viewId_formLayout'];
+    const confirmSqlParam = allViewData['viewId_formLayout'];
+    // 处理SQL和参数的映射关联
+    const sqlObjs = this.generateSQLObject(confirmSql, confirmSqlParam);
+    // Todo 设置生成确认操作及其操作结构
     return result;
   }
   // 生成弹出窗体
-  generateWindowConfig(allViewData, propertyData) {
+  private generateWindowConfig(allViewData, propertyData) {
     const generateData = {...CommonData.OPERATION_TYPE_CONFIG.window};
     const result =  this.generatePropertyData(propertyData, generateData);
     const windowData = allViewData['viewId_sql'];
+    // Todo 设置生成窗体及其操作结构
     return result;
+  }
+  // 生成SQL操作语句结构
+  private generateSQLObject(sqlData, sqlParam) {
+    const sqlObjs = [];
+    if(sqlData && Array.isArray(sqlData)){
+      sqlData.forEach(sql => {
+        if(sqlParam && Array.isArray(sqlParam)){
+          sqlParam.forEach(param => {
+            // Todo 生成SQL语句及参数对应结构；
+          });
+        }
+      });
+    }
+    return sqlObjs;
   }
   ngOnDestroy() {
     if (this._subscrib) {
