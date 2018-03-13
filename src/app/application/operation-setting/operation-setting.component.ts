@@ -543,7 +543,11 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
             }
           }
           if(isFinished === true) {
-            console.log('完成数据保存', this._config);
+            console.log('完成数据保存');
+            this._config.forEach(cfg =>{
+              console.log(cfg);
+              
+            });
           }
         }
       });
@@ -585,6 +589,9 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   ngOnDestroy() {
-    this._subscrib.unsubscribe();
+    if(this._subscrib){
+      this._subscrib.unsubscribe();
+    }
+
   }
 }
