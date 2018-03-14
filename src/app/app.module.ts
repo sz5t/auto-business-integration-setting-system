@@ -17,12 +17,11 @@ import { SafeHtmlPipe } from './pipe/safe-html.pipe';
 import {SubjectMessageService} from './services/subject-message.service';
 import { NotPageComponent } from './not-page/not-page.component';
 import { HttpModule} from '@angular/http';
-
 import {FixComponetLifehookService} from './services/fix-componet-lifehook.service';
 @NgModule({
   declarations: [
     AppComponent,
-    NotPageComponent
+    NotPageComponent,
   ],
   imports: [
     BrowserModule,

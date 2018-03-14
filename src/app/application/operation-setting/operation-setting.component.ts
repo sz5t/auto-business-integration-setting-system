@@ -331,7 +331,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
                     tabIndex: tabIndex
                   };
                   treeData.push(node2);
-                 
+
                   if (tab.viewCfg) {
                     if (node1.type === 'button_group') {
                       treeData.push(...this.initOperations(node1.id, tab.viewCfg.toolbarsConfigData,NodeTypes.NODE_TYPE.BUTTON));
@@ -747,6 +747,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
   // 生成行状态改变配置
   private generateDataStatusConfig(allViewData, propertyData) {
     const generateData = {...CommonData.OPERATION_TYPE_CONFIG.none};
+    // Todo 处理后续动作
     return this.generatePropertyData(propertyData, generateData);
   }
   // 生成执行SQL配置
@@ -760,6 +761,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
     // 处理SQL和参数的映射关联
     const sqlObjs = this.generateSQLObject(sqlData, sqlParam);
     // Todo 回写处理结构
+    // Todo 处理后续动作
     return result;
   }
 
@@ -774,6 +776,7 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
     // 处理SQL和参数的映射关联
     const sqlObjs = this.generateSQLObject(sqlData, sqlParam);
     // Todo 处理执行SQL后的逻辑结构
+    // Todo 处理后续动作
     return result;
   }
   // 执行SQL后刷新
@@ -784,9 +787,14 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
     const sqlData = allViewData['viewId_sql'];
     // 获取所有SQL参数数据
     const sqlParam = allViewData['viewId_sqlParam'];
+    // 获取后置动作
+    const action = allViewData['viewId_action'];
+    // 获取后置动作参数
+    const actionParam = allViewData['viewId_actionParam'];
     // 处理SQL和参数的映射关联
     const sqlObjs = this.generateSQLObject(sqlData, sqlParam);
     // Todo 设置刷新当前页面
+    // Todo 处理后续动作
     return result;
   }
   // 执行SQL后刷新主页面
@@ -797,17 +805,27 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
     const sqlData = allViewData['viewId_sql'];
     // 获取所有SQL参数数据
     const sqlParam = allViewData['viewId_sqlParam'];
+    // 获取后置动作
+    const action = allViewData['viewId_action'];
+    // 获取后置动作参数
+    const actionParam = allViewData['viewId_actionParam'];
     // 处理SQL和参数的映射关联
     const sqlObjs = this.generateSQLObject(sqlData, sqlParam);
     // Todo 设置刷新主页面，应用于弹出内容
+    // Todo 处理后续动作
     return result;
   }
   // 对话框
   private generateDialogConfig(allViewData, propertyData) {
     const generateData = {...CommonData.OPERATION_TYPE_CONFIG.dialog};
     const result = this.generatePropertyData(propertyData, generateData);
+    // 获取后置动作
+    const action = allViewData['viewId_action'];
+    // 获取后置动作参数
+    const actionParam = allViewData['viewId_actionParam'];
     const dialogData = allViewData['viewId_dialog'];
     // Todo 设置对话框及其操作
+    // Todo 处理后续动作
     return result;
   }
   // 生成弹出表单
@@ -815,11 +833,18 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
     const generateData = {...CommonData.OPERATION_TYPE_CONFIG.form};
     const result =  this.generatePropertyData(propertyData, generateData);
     const formLayout = allViewData['viewId_formLayout'];
+    // 获取后置动作
+    const action = allViewData['viewId_action'];
+    // 获取后置动作参数
+    const actionParam = allViewData['viewId_actionParam'];
+
     const formSql = allViewData['viewId_formLayout'];
+
     const formSqlParam = allViewData['viewId_formLayout'];
     // 处理SQL和参数的映射关联
     const sqlObjs = this.generateSQLObject(formSql, formSqlParam);
     // Todo 设置生成表单及其操作结构
+    // Todo 处理后续动作
     return result;
   }
   // 生成弹出确认框
@@ -827,19 +852,29 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
     const generateData = {...CommonData.OPERATION_TYPE_CONFIG.confirm};
     const result =  this.generatePropertyData(propertyData, generateData);
     const confirmLayout = allViewData['viewId_formLayout'];
+    // 获取后置动作
+    const action = allViewData['viewId_action'];
+    // 获取后置动作参数
+    const actionParam = allViewData['viewId_actionParam'];
     const confirmSql = allViewData['viewId_formLayout'];
     const confirmSqlParam = allViewData['viewId_formLayout'];
     // 处理SQL和参数的映射关联
     const sqlObjs = this.generateSQLObject(confirmSql, confirmSqlParam);
     // Todo 设置生成确认操作及其操作结构
+    // Todo 处理后续动作
     return result;
   }
   // 生成弹出窗体
   private generateWindowConfig(allViewData, propertyData) {
     const generateData = {...CommonData.OPERATION_TYPE_CONFIG.window};
     const result =  this.generatePropertyData(propertyData, generateData);
+    // 获取后置动作
+    const action = allViewData['viewId_action'];
+    // 获取后置动作参数
+    const actionParam = allViewData['viewId_actionParam'];
     const windowData = allViewData['viewId_sql'];
     // Todo 设置生成窗体及其操作结构
+    // Todo 处理后续动作
     return result;
   }
   // 生成SQL操作语句结构
@@ -860,5 +895,9 @@ export class OperationSettingComponent implements OnInit, AfterViewInit, OnDestr
     if (this._subscrib) {
       this._subscrib.unsubscribe();
     }
+  }
+  // 处理后续动作
+  private handleAction() {
+
   }
 }
