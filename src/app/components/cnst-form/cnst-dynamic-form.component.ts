@@ -8,6 +8,7 @@ import { IFieldConfig } from '../form/form-models/IFieldConfig';
 import { CommonUtility } from '../../framework/utility/common-utility';
 import { retry } from 'rxjs/operator/retry';
 import { SubjectMessageService } from '../../services/subject-message.service';
+import {Subject} from "rxjs/Subject";
 declare let bootbox: any;
 declare let $: any;
 @Component({
@@ -32,6 +33,8 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
 
   _viewId;
   _formType;
+  dtOptions;
+  dtTrigger: Subject<any> = new Subject();
   get controls() {
     const allControls = [];
     this.configs.forEach(config => {
@@ -62,6 +65,10 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
 
   ngOnInit() {
     this.form = this.createGroup();
+    this.dtOptions = {
+      pagingType: 'full',
+      select: true
+    };
   }
 
   ngOnChanges() {
@@ -283,6 +290,7 @@ export class CnstDynamicFormComponent implements OnInit, OnChanges, AfterViewIni
           const item = this.controls.find(control => control.name === name);
           this.form.addControl(name, this.createControl(item));
         });
+      this.dtTrigger.next();
     }
   }
 

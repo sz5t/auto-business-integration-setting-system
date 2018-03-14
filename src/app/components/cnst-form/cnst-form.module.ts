@@ -8,12 +8,14 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CnstDynamicFormComponent} from './cnst-dynamic-form.component';
 import { CnstFormCodeEditorComponent } from './cnst-form-code-editor/cnst-form-code-editor.component';
 import { CnstFormCodeMirrorComponent } from './cnst-form-code-editor/cnst-form-code-mirror/cnst-form-code-mirror.component';
+import {DataTablesModule} from "angular-datatables";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DataTablesModule
   ],
   declarations: [
     CnstFormInputComponent,

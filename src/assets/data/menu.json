@@ -56,13 +56,18 @@
         "sub": []
       },
       {
-        "name": "formdemo",
+        "name": "subPageSetting",
         "icon": "fa fa-cogs",
+<<<<<<< HEAD
+        "title": "子页面设置",
+        "description": "子页面设置",
+=======
         "title": "表单",
         "type":"module-item",
         "description": "表单",
+>>>>>>> b0e4593247cc94a1f490382e9c98f3a0806cf960
         "display": true,
-        "router": "formdemo",
+        "router": "subPageSetting",
         "sub": []
       }
     ]

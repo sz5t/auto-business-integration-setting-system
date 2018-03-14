@@ -1,4 +1,3 @@
-import { CommonUtility } from '../framework/utility/common-utility';
 export class CommonData {
   public static OPERATION_TYPE = {
     none: 'none',
@@ -1383,4 +1382,32 @@ export class CommonData {
   operation_window_data = {};
   operation_dialog_data = {};
 
+  public static funcList = [
+    {
+      text: '模块 1',
+      funcs:[
+        {
+          text: '功能 1',
+          value: 'func_1'
+        },
+        {
+          text: '功能 2',
+          value: 'func_2'
+        }
+      ]
+    },
+    {
+      text: '模块 2',
+      funcs:[
+        {
+          text: '功能 2_1',
+          value: 'func_2_1'
+        },
+        {
+          text: '功能 2_2',
+          value: 'func_2_2'
+        }
+      ]
+    }
+  ];
 }
