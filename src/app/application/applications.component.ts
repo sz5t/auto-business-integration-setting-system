@@ -7,20 +7,20 @@ import {CnPageTabComponent} from '../components/layout/cn-page-tab/cn-page-tab.c
 import {LayoutSettingComponent} from './layout-setting/layout-setting.component';
 import {ComponentSettingComponent} from './components-setting/component-setting.component';
 import {ComponentEditingComponent} from './component-editing/component-editing.component';
-import {ContextMenuComponent} from './context-menu/context-menu.component';
-import {DashBroadTemplateComponent} from './dash-broad-template/dash-broad-template.component';
 import {OperationSettingComponent} from './operation-setting/operation-setting.component';
 import {Router, ActivatedRoute, ParamMap} from '@angular/router';
 import {environment} from '../../environments/environment';
 import {ApiService} from '../services/api.service';
 import {Configuration} from '../framework/configuration';
+import {SubPageSettingComponent} from './sub-page-setting/sub-page-setting.component';
 
 const components: { [type: string]: any } = {
   'layoutSetting': LayoutSettingComponent,
   'componentSetting': ComponentSettingComponent,
   'componentEditing': ComponentEditingComponent,
   'contextMenu': ComponentEditingComponent,
-  'operationSetting': OperationSettingComponent
+  'operationSetting': OperationSettingComponent,
+  'subPageSetting': SubPageSettingComponent
 };
 
 
@@ -66,9 +66,9 @@ export class ApplicationsComponent implements OnInit, OnDestroy {
 
 
     this.appUser1 = clientStorage.getCookies('appUser');
-    if(this.appUser1 == null || this.appUser1 === undefined)
+    if (this.appUser1 == null || this.appUser1 === undefined)
     {
-      switch(this.loginFlag)
+      switch (this.loginFlag)
       {
         case 'Login':
           this.route.navigate(['/Login']);

@@ -27,6 +27,7 @@ import { OperationSettingComponent } from './operation-setting/operation-setting
 import {CnLoginSystemComponent} from '../login/cn-login-system/cn-login-system.component';
 import {CnLoginComponent} from '../login/cn-login/cn-login.component';
 import {NotPageComponent} from '../not-page/not-page.component';
+import { SubPageSettingComponent } from './sub-page-setting/sub-page-setting.component';
 
 
 export const CHILDREN_ROUTES: Routes = [
@@ -68,13 +69,15 @@ export const CHILDREN_ROUTES: Routes = [
     ComponentEditingComponent,
     ContextMenuComponent,
     OperationSettingComponent,
+    SubPageSettingComponent,
   ],
   entryComponents: [
     LayoutSettingComponent,
     ComponentSettingComponent,
     ComponentEditingComponent,
     OperationSettingComponent,
-    ContextMenuComponent
+    ContextMenuComponent,
+    SubPageSettingComponent
   ]
 })
 export class ApplicationsModule {
