@@ -10,6 +10,7 @@ export let Layout = function () {
 
   const resBreakpointMd = App.getResponsiveBreakpoint('md');
 
+
   // * BEGIN:CORE HANDLERS *//
   // this function handles responsive layout on screen size resize or mobile device rotate.
 
@@ -639,13 +640,13 @@ export class CnSidebarTabsComponent implements OnInit, OnChanges {
   @Output() eventCallback: EventEmitter<any> = new EventEmitter<any>();
   ngOnChanges() {
   }
-
   constructor(private configService: ConfigService) {
 
     // this.menu = this.configService.getProjectConfig();
    /* this.configService.getConfig().then(response =>{
       this.menu = new SideBarResolver(response).config;
     });*/
+
   }
   ngOnInit() {
     Layout.init();

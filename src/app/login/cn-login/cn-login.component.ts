@@ -46,7 +46,7 @@ export class CnLoginComponent implements OnInit {
     this.onlineUser.Identify = this.user.value.userName;
     this.onlineUser.Password = MD5(this.user.value.userPassword);
     $('#sysFlag').val(this.user.value.userName);
-    this.apiService.doPost2(Configuration.onlineUser_resource, this.onlineUser)
+    this.apiService.doPost2(environment.onlineUser_resource, this.onlineUser)
       .toPromise()
       .then(response => {
         this.onlineUser = {...response.Data};
@@ -65,12 +65,12 @@ export class CnLoginComponent implements OnInit {
 
     this.clientStorage.setCookies('customerId', this.customerId);
     this.clientStorage.setCookies('onlineUser', this.onlineUser);
-    this.apiService.doGet2<any>(Configuration.appUser_resource + '/' + this.onlineUser.UserId )
+    this.apiService.doGet2<any>(environment.appUser_resource + '/' + this.onlineUser.UserId )
       .toPromise()
       .then(appUser => {
         this.clientStorage.setCookies('appUser', appUser);
-        return this.apiService.doGet2<any>(Configuration.commonCode_resource
-          + '?Name=' + Configuration.commonCode_code + '&ApplyId=ApplyId' )
+        return this.apiService.doGet2<any>(environment.commonCode_resource
+          + '?Name=' + environment.commonCode_code + '&ApplyId=ApplyId' )
           .toPromise(); })
       .then(() => {
         return this.apiService.doGet2<any>(Configuration.appPermission_response).toPromise();

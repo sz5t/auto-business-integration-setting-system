@@ -7,6 +7,7 @@ import {ClientStorageService} from '../../services/client-storage.service';
 import {OnlineUser} from '../cn-login/online-user.model';
 import {Configuration} from '../../framework/configuration';
 import {environment} from '../../../environments/environment';
+import {JSONP_HOME} from '@angular/http/src/backends/browser_jsonp';
 declare let $: any;
 declare let MD5: any;
 
@@ -32,10 +33,7 @@ export class CnLoginSystemComponent implements OnInit {
               private broadcast: Broadcaster) {
     if(this.router.url)
       this.platformtitle = environment.setHost(this.router.url);
-
-
     $('title').html(this.platformtitle + '平台');
-
   }
 
   ngOnInit() {
@@ -52,7 +50,7 @@ export class CnLoginSystemComponent implements OnInit {
     this.onlineUser.Identify = this.user.value.userName;
     this.onlineUser.Password = MD5(this.user.value.userPassword);
     $('#sysFlag').val(this.user.value.userName);
-    this.apiService.doPost2(Configuration.onlineUser_resource, this.onlineUser)
+    this.apiService.doPost2(environment.onlineUser_resource, this.onlineUser)
       .toPromise()
       .then(response => {
         this.onlineUser = {...response.Data};
@@ -68,16 +66,35 @@ export class CnLoginSystemComponent implements OnInit {
   }
 
   entryProject() {
-
       this.clientStorage.setCookies('customerId', this.customerId);
       this.clientStorage.setCookies('onlineUser', this.onlineUser);
-      this.apiService.doGet2<any>(Configuration.appUser_resource + '/' + this.onlineUser.UserId )
+      this.apiService.doGet2<any>(environment.appUser_resource + '/' + this.onlineUser.UserId )
         .toPromise()
         .then(appUser => {
             this.clientStorage.setCookies('appUser', appUser);
-            return this.apiService.doGet2<any>(Configuration.commonCode_resource
-              + '?Name=' + Configuration.commonCode_code + '&ApplyId=ApplyId' )
+            return this.apiService.doGet2<any>(environment.commonCode_resource
+              + '?Name=' + environment.commonCode_code + '&ApplyId=ApplyId' )
               .toPromise(); })
+        .then( CommonCode => {
+          if(this.platformtitle === environment.anlyze_system){
+           return  this.apiService.doGet2<any>(environment.appModule_resource + '?ProjId=' + this.onlineUser.ProjId +
+              '&ApplyId=' + CommonCode.Data[0].Id + '&PlatCustomerId=' + CommonCode.Data[0].PlatCustomerId).toPromise();
+          }else{
+           return this.apiService.doGetLoadJson(environment.resource_menu).toPromise();
+          }
+        })
+        .then(netMenu => {
+            this.apiService.doGetLoadJson(environment.configMenu_response).toPromise().then(locMenu => {
+              if(this.platformtitle === environment.anlyze_system){
+                netMenu = JSON.parse(netMenu.Data[0].ConfigData);
+                console.log(netMenu);
+              }
+              let menusAry = new Array();
+              for(let i in locMenu){ menusAry.push(locMenu[i]); }
+              for(let j in netMenu){ menusAry.push(netMenu[j]); }
+              this.clientStorage.setSessionStorage('appmenu', menusAry);
+            });
+          })
         .then(() => {
         return this.apiService.doGet2<any>(Configuration.appPermission_response).toPromise();
       }).then( () => {
@@ -86,7 +103,7 @@ export class CnLoginSystemComponent implements OnInit {
           this.broadcast.broadcast('loadConfig', 'processing');
           this.broadcast.broadcast('loadConfig', 'end');
         }).catch(error => {
-          console.log(error);
+          // console.log(error);
         });
       }
   ); }

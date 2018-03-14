@@ -27,37 +27,58 @@
       </form>
       <!-- END RESPONSIVE QUICK SEARCH FORM -->
     </li>
-
     <li *ngFor="let m of menu" class="{{m.type}}" routerLinkActive="active">
-    <a *ngIf="m.type==='nav-item'" href="javascript:;" class="nav-link nav-toggle">
-      <i class="{{m.icon}}"></i>
-      <span class="title">{{m.title}}</span>
-      <span class="selected"></span>
-      <span class="arrow"></span>
-    </a>
-    <span *ngIf="m.type==='heading'">{{m.title}}</span>
-    <ul *ngIf="m.sub && m.sub.length > 0" class="sub-menu">
-      <li *ngFor="let s of m.sub" class="nav-item" routerLinkActive="active">
-        <a *ngIf="s.display == true && s.sub.length == 0  " (click)="addTab(s)"
-           class="nav-link ">
-          <i class="{{s.icon}}"></i>
-          <span class="title">{{s.title}}</span>
-        </a>
-        <a *ngIf="s.display == true && s.sub.length > 0 " (click)="addTab(s)"
-           class="nav-link nav-toggle ">
-          <i class="{{s.icon}}"></i>
-        </a>
-        <ul *ngIf="s.sub && s.sub.length > 0" class="sub-menu" >
-          <li *ngFor="let t of s.sub" class="nav-item" routerLinkActive="active">
-            <a *ngIf="t.display == true" (click)="addTab(t)"
-               class="nav-link ">
-              <i class="{{t.icon}}"></i>
-              <span class="title">{{t.title}}</span>
-            </a>
-          </li>
-        </ul>
+      <a *ngIf="m.type==='nav-item'" href="javascript:;" class="nav-link nav-toggle">
+        <i class="{{m.icon}}"></i>
+        <span class="title">{{m.title}}</span>
+        <span class="selected"></span>
+        <span class="arrow"></span>
+      </a>
 
-      </li>
-    </ul>
-  </li>
-  </ul>
+      <a *ngIf="m.type ==='module-item' && m.display == true && m.sub.length == 0  " (click)="addTab(m)"
+         class="nav-link ">
+        <i class="{{m.icon}}"></i>
+        <span class="title">{{m.title}}</span>
+      </a>
+
+      <span *ngIf="m.type==='heading'">{{m.title}}</span>
+
+      <ul *ngIf="m.sub && m.sub.length > 0" class="sub-menu">
+        <li *ngFor="let s of m.sub" class="{{s.type}}" routerLinkActive="active">
+
+          <a *ngIf="s.type==='nav-item'" href="javascript:;" class="nav-link nav-toggle">
+            <i class="{{s.icon}}"></i>
+            <span class="title">{{s.title}}</span>
+            <span class="selected"></span>
+            <span class="arrow"></span>
+          </a>
+
+          <a *ngIf="s.type ==='module-item' && s.display == true && s.sub.length == 0  " (click)="addTab(s)"
+             class="nav-link ">
+            <i class="{{s.icon}}"></i>
+            <span class="title">{{s.title}}</span>
+          </a>
+
+          <ul *ngIf="s.sub && s.sub.length > 0" class="sub-menu" >
+            <li *ngFor="let n of s.sub" class="{{s.type}}" routerLinkActive="active">
+
+              <a *ngIf="n.type==='nav-item'" href="javascript:;" class="nav-link nav-toggle">
+                <i class="{{n.icon}}"></i>
+                <span class="title">{{n.title}}</span>
+                <span class="selected"></span>
+                <span class="arrow"></span>
+              </a>
+
+              <a *ngIf=" n.type ==='module-item' && n.display == true && n.sub.length == 0  " (click)="addTab(s)"
+                 class="nav-link ">
+                <i class="{{n.icon}}"></i>
+                <span class="title">{{n.title}}</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+
+
+</ul>
