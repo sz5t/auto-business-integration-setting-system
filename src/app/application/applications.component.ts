@@ -82,8 +82,9 @@ export class ApplicationsComponent implements OnInit, OnDestroy {
     }
 
 
-    this.apiService.doGetLoadJson<any>(environment.resource_menu).toPromise().then(parentAppModuleConfig => {
-      this.menu = parentAppModuleConfig; });
+    // this.apiService.doGetLoadJson<any>(environment.resource_menu).toPromise().then(parentAppModuleConfig => {
+    //   this.menu = parentAppModuleConfig; });
+    this.menu = this.clientStorage.getSessionStorage('appmenu');
     this.broadcastObj = broadcast.on<string>('loadConfig').subscribe(
       (result) => {
         if (result === 'start') {
