@@ -43,3 +43,5 @@ yarn-error.log
 Thumbs.db
 
 # assets
+src/app/application/applications.module.ts
+src/app/application/applications.module.ts
