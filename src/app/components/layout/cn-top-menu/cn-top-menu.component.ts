@@ -12,12 +12,14 @@ export class CnTopMenuComponent implements OnInit {
   @HostBinding('class.top-menu') hasTopMenu = true;
   _el: HTMLElement;
   @Input() appUser: any;
+  userName: string = '匿名用户';
+
   constructor(private _elementRef: ElementRef) {
-
     this._el = _elementRef.nativeElement;
-
   }
   ngOnInit() {
+    if(this.appUser != 'NIMING')
+      this.userName = this.appUser.Data.RealName;
 
   }
 

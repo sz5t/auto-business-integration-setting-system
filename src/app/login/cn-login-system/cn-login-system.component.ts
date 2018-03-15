@@ -45,11 +45,13 @@ export class CnLoginSystemComponent implements OnInit {
     }
 
   getOnlineUser() {
+
     this.errorMessage = '';
     this.onlineUser = new OnlineUser();
     this.onlineUser.Identify = this.user.value.userName;
     this.onlineUser.Password = MD5(this.user.value.userPassword);
     $('#sysFlag').val(this.user.value.userName);
+    // this.entryProject1();
     this.apiService.doPost2(environment.onlineUser_resource, this.onlineUser)
       .toPromise()
       .then(response => {
@@ -62,6 +64,28 @@ export class CnLoginSystemComponent implements OnInit {
       })
       .catch((error) => {
         this.onlineUser = null;
+      });
+  }
+
+  entryProject1() {
+    this.apiService.doGetLoadJson(environment.resource_menu)
+      .toPromise()
+      .then(menussss => {
+         this.apiService.doGetLoadJson(environment.configMenu_response)
+        .toPromise()
+        .then(aa => {
+          let menusAry = new Array();
+          for(let i in aa){ menusAry.push(aa[i]); }
+          for(let j in menussss){ menusAry.push(menussss[j]); }
+          this.clientStorage.setCookies('appUser', 'NIMING');
+          this.clientStorage.setSessionStorage('appmenu', menusAry);
+        }).then( arg => {
+           this.router.navigate(['/app', this.router.url.substring(1)]).then(() => {
+             this.broadcast.broadcast('loadConfig', 'start');
+             this.broadcast.broadcast('loadConfig', 'processing');
+             this.broadcast.broadcast('loadConfig', 'end');
+           })
+         })
       });
   }
 
@@ -85,7 +109,7 @@ export class CnLoginSystemComponent implements OnInit {
         })
         .then(netMenu => {
             this.apiService.doGetLoadJson(environment.configMenu_response).toPromise().then(locMenu => {
-              console.log(locMenu);
+              // console.log(locMenu);
               if(this.platformtitle === environment.anlyze_system){
                 netMenu = JSON.parse(netMenu.Data[0].ConfigData);
                 // console.log(netMenu);

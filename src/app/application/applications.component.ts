@@ -63,7 +63,7 @@ export class ApplicationsComponent implements OnInit, OnDestroy {
 
     this.menu = this.clientStorage.getSessionStorage('appmenu');
     this.appUser1 = clientStorage.getCookies('appUser');
-    if (this.appUser1 == null || this.appUser1 === undefined)
+    if ((this.appUser1 == null || this.appUser1 === undefined ) && this.appUser1 != 'NIMING')
     {
       switch (this.loginFlag)
       {
@@ -78,9 +78,6 @@ export class ApplicationsComponent implements OnInit, OnDestroy {
       }
     }
 
-
-    // this.apiService.doGetLoadJson<any>(environment.resource_menu).toPromise().then(parentAppModuleConfig => {
-    //   this.menu = parentAppModuleConfig; });
 
     this.broadcastObj = broadcast.on<string>('loadConfig').subscribe(
       (result) => {
