@@ -23,7 +23,6 @@ const components: { [type: string]: any } = {
   'subPageSetting': SubPageSettingComponent
 };
 
-
 declare let $: any;
 @Component({
   selector: 'cn-applications',
@@ -47,7 +46,6 @@ export class ApplicationsComponent implements OnInit, OnDestroy {
     user: 'user'
   };
   menu: any[];
-  menus: any[];
   broadcastObj: Subscription;
   loadTimer = 0;
   loopTimer;
@@ -60,11 +58,10 @@ export class ApplicationsComponent implements OnInit, OnDestroy {
               private router: ActivatedRoute,
               ) {
      this.router.params.subscribe(param => this.loginFlag = param['id'] );
-     // console.log(this.loginFlag);
     environment.web_api = environment.setHost(this.loginFlag);
     // console.log('app组件' , this.loginFlag , environment.web_api , $('#sysFlag').val());
 
-
+    this.menu = this.clientStorage.getSessionStorage('appmenu');
     this.appUser1 = clientStorage.getCookies('appUser');
     if (this.appUser1 == null || this.appUser1 === undefined)
     {
@@ -84,7 +81,7 @@ export class ApplicationsComponent implements OnInit, OnDestroy {
 
     // this.apiService.doGetLoadJson<any>(environment.resource_menu).toPromise().then(parentAppModuleConfig => {
     //   this.menu = parentAppModuleConfig; });
-    this.menu = this.clientStorage.getSessionStorage('appmenu');
+
     this.broadcastObj = broadcast.on<string>('loadConfig').subscribe(
       (result) => {
         if (result === 'start') {
@@ -93,7 +90,7 @@ export class ApplicationsComponent implements OnInit, OnDestroy {
         } else if (result === 'processing') {
           this.setProgress(0.75, ['li_proc1', 'li_proc2'], 2000);
         } else if (result === 'end') {
-          this.menu = this.clientStorage.getSessionStorage('appModuleConfig');
+          // this.menu = this.clientStorage.getSessionStorage('appModuleConfig');
           this.setProgress(1, ['li_proc1', 'li_proc2', 'li_proc3'], 2500);
         }
       }

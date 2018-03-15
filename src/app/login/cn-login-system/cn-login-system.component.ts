@@ -85,13 +85,15 @@ export class CnLoginSystemComponent implements OnInit {
         })
         .then(netMenu => {
             this.apiService.doGetLoadJson(environment.configMenu_response).toPromise().then(locMenu => {
+              console.log(locMenu);
               if(this.platformtitle === environment.anlyze_system){
                 netMenu = JSON.parse(netMenu.Data[0].ConfigData);
-                console.log(netMenu);
+                // console.log(netMenu);
               }
               let menusAry = new Array();
               for(let i in locMenu){ menusAry.push(locMenu[i]); }
               for(let j in netMenu){ menusAry.push(netMenu[j]); }
+              // console.log(menusAry);
               this.clientStorage.setSessionStorage('appmenu', menusAry);
             });
           })
