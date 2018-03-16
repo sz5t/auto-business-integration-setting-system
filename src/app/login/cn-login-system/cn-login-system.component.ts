@@ -7,7 +7,9 @@ import {ClientStorageService} from '../../services/client-storage.service';
 import {OnlineUser} from '../cn-login/online-user.model';
 import {Configuration} from '../../framework/configuration';
 import {environment} from '../../../environments/environment';
-import {JSONP_HOME} from '@angular/http/src/backends/browser_jsonp';
+import {MemoryService} from '../../services/memory.service';
+
+
 declare let $: any;
 declare let MD5: any;
 
@@ -30,7 +32,8 @@ export class CnLoginSystemComponent implements OnInit {
               private clientStorage: ClientStorageService,
               private router: Router,
               private activeRouter: ActivatedRoute,
-              private broadcast: Broadcaster) {
+              private broadcast: Broadcaster,
+              private memoryService: MemoryService) {
     if(this.router.url)
       this.platformtitle = environment.setHost(this.router.url);
     $('title').html(this.platformtitle + '平台');
@@ -45,7 +48,6 @@ export class CnLoginSystemComponent implements OnInit {
     }
 
   getOnlineUser() {
-
     this.errorMessage = '';
     this.onlineUser = new OnlineUser();
     this.onlineUser.Identify = this.user.value.userName;
@@ -57,6 +59,7 @@ export class CnLoginSystemComponent implements OnInit {
       .then(response => {
         this.onlineUser = {...response.Data};
         if (response.Data.Online) {
+          // console.log(this.memoryService.getHeroes('menuShared').then(heroes => console.log(heroes)));
           this.entryProject();
         }else {
           this.errorMessage = this.onlineUser.Message;
@@ -68,25 +71,38 @@ export class CnLoginSystemComponent implements OnInit {
   }
 
   entryProject1() {
-    this.apiService.doGetLoadJson(environment.resource_menu)
-      .toPromise()
-      .then(menussss => {
-         this.apiService.doGetLoadJson(environment.configMenu_response)
-        .toPromise()
-        .then(aa => {
-          let menusAry = new Array();
-          for(let i in aa){ menusAry.push(aa[i]); }
-          for(let j in menussss){ menusAry.push(menussss[j]); }
-          this.clientStorage.setCookies('appUser', 'NIMING');
-          this.clientStorage.setSessionStorage('appmenu', menusAry);
-        }).then( arg => {
-           this.router.navigate(['/app', this.router.url.substring(1)]).then(() => {
-             this.broadcast.broadcast('loadConfig', 'start');
-             this.broadcast.broadcast('loadConfig', 'processing');
-             this.broadcast.broadcast('loadConfig', 'end');
-           })
-         })
-      });
+    // this.apiService.doGetLoadJson(environment.resource_menu)
+    //   .toPromise()
+    //   .then(menussss => {
+    //      this.apiService.doGetLoadJson(environment.configMenu_response)
+    //     .toPromise()
+    //     .then(aa => {
+    //       let menusAry = new Array();
+    //       for(let i in aa){ menusAry.push(aa[i]); }
+    //       for(let j in menussss){ menusAry.push(menussss[j]); }
+    //       this.clientStorage.setCookies('appUser', 'NIMING');
+    //       this.clientStorage.setSessionStorage('appmenu', menusAry);
+    //     }).then( arg => {
+    //        this.router.navigate(['/app', this.router.url.substring(1)]).then(() => {
+    //          this.broadcast.broadcast('loadConfig', 'start');
+    //          this.broadcast.broadcast('loadConfig', 'processing');
+    //          this.broadcast.broadcast('loadConfig', 'end');
+    //        })
+    //      })
+    //   });
+    this.memoryService.getData('menuShared').then( netMenu => {
+      this.memoryService.getData('menus').then(meShared => {
+        this.clientStorage.setCookies('appUser', 'NIMING');
+        this.clientStorage.setSessionStorage('appmenu', meShared.concat(netMenu));
+      }).then( arg => {
+        this.router.navigate(['/app', this.router.url.substring(1)]).then(() => {
+                   this.broadcast.broadcast('loadConfig', 'start');
+                   this.broadcast.broadcast('loadConfig', 'processing');
+                   this.broadcast.broadcast('loadConfig', 'end');
+                 })
+        }
+      );
+    });
   }
 
   entryProject() {
@@ -102,26 +118,17 @@ export class CnLoginSystemComponent implements OnInit {
         .then( CommonCode => {
           if(this.platformtitle === environment.anlyze_system){
            return  this.apiService.doGet2<any>(environment.appModule_resource + '?ProjId=' + this.onlineUser.ProjId +
-              '&ApplyId=' + CommonCode.Data[0].Id + '&PlatCustomerId=' + CommonCode.Data[0].PlatCustomerId).toPromise();
+              '&ApplyId=' + CommonCode.Data[0].Id + '&PlatCustomerId=' + CommonCode.Data[0].PlatCustomerId).toPromise()
+             .then(request => {return JSON.parse(request.Data[0].ConfigData);});
           }else{
-           return this.apiService.doGetLoadJson(environment.resource_menu).toPromise();
+            return this.memoryService.getData('menus');
           }
         })
         .then(netMenu => {
-            this.apiService.doGetLoadJson(environment.configMenu_response).toPromise().then(locMenu => {
-              // console.log(locMenu);
-              if(this.platformtitle === environment.anlyze_system){
-                netMenu = JSON.parse(netMenu.Data[0].ConfigData);
-                // console.log(netMenu);
-              }
-              let menusAry = new Array();
-              for(let i in locMenu){ menusAry.push(locMenu[i]); }
-              for(let j in netMenu){ menusAry.push(netMenu[j]); }
-              // console.log(menusAry);
-              this.clientStorage.setSessionStorage('appmenu', menusAry);
-            });
-          })
-        .then(() => {
+          return this.memoryService.getData('menuShared').then(meShared => {return meShared.concat(netMenu);});
+        })
+        .then((menuList) => {
+          this.clientStorage.setSessionStorage('appmenu', menuList);
         return this.apiService.doGet2<any>(Configuration.appPermission_response).toPromise();
       }).then( () => {
         this.router.navigate(['/app', this.router.url.substring(1)]).then(() => {

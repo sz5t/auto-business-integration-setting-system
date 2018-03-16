@@ -6,18 +6,20 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ApiService} from './services/api.service';
 import {Broadcaster} from './broadcast/broadcaster';
 import {ConfigService} from './services/config.service';
-// import {CnLoginModule} from './login/cn-login.module';
+import { HttpModule} from '@angular/http';
+import { InMemoryWebApiModule } from './services/in-mem';
+import { InMemoryDataService } from './services/in-memory-data.service';
 import {ApplicationsModule} from './application/applications.module';
 import {WebStorageModule} from 'ngx-store';
 import {ClientStorageService} from './services/client-storage.service';
 import {TokenInterceptor} from './services/interceptor/token.interceptor';
 import {LoginAuthService} from './services/login-auth.service';
 import {MockDataService} from './services/mock-data.service';
-import { SafeHtmlPipe } from './pipe/safe-html.pipe';
 import {SubjectMessageService} from './services/subject-message.service';
 import { NotPageComponent } from './not-page/not-page.component';
-import { HttpModule} from '@angular/http';
 import {FixComponetLifehookService} from './services/fix-componet-lifehook.service';
+import {MemoryService} from './services/memory.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +31,8 @@ import {FixComponetLifehookService} from './services/fix-componet-lifehook.servi
     HttpClientModule,
     ApplicationsModule,
     WebStorageModule,
-    HttpModule
+    HttpModule,
+    InMemoryWebApiModule.forRoot(InMemoryDataService)
   ],
   providers: [
     ApiService,
@@ -44,7 +47,8 @@ import {FixComponetLifehookService} from './services/fix-componet-lifehook.servi
       useClass: TokenInterceptor,
       multi: true
     },
-    FixComponetLifehookService
+    FixComponetLifehookService,
+    MemoryService
   ],
   bootstrap: [AppComponent]
 })
