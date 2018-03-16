@@ -7,7 +7,6 @@ import {ApiService} from './services/api.service';
 import {Broadcaster} from './broadcast/broadcaster';
 import {ConfigService} from './services/config.service';
 import { HttpModule} from '@angular/http';
-import { InMemoryWebApiModule } from './services/in-mem';
 import { InMemoryDataService } from './services/in-memory-data.service';
 import {ApplicationsModule} from './application/applications.module';
 import {WebStorageModule} from 'ngx-store';
@@ -19,6 +18,7 @@ import {SubjectMessageService} from './services/subject-message.service';
 import { NotPageComponent } from './not-page/not-page.component';
 import {FixComponetLifehookService} from './services/fix-componet-lifehook.service';
 import {MemoryService} from './services/memory.service';
+import {InMemoryWebApiModule} from 'angular-in-memory-web-api';
 
 @NgModule({
   declarations: [
